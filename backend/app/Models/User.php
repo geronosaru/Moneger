@@ -4,13 +4,19 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\Transaction;
+use App\Models\FixedCost;
+use App\Models\Genre;
+use App\Models\SavingGoal;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -42,4 +48,27 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    /**
+     * Relations
+     */
+    public function transactions(): HasMany
+    {
+        return $this->hasMany(Transaction::class);
+    }
+
+    public function fixed_costs(): HasMany
+    {
+        return $this->hasMany(FixedCost::class);
+    }
+
+    public function genres(): HasMany
+    {
+        return $this->hasMany(Genre::class);
+    }
+
+    public function saving_goals(): HasMany
+    {
+        return $this->hasMany(SavingGoal::class);
+    }
 }
