@@ -11,7 +11,9 @@ class UpdateGenreRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        $genre = $this->route('genre');
+
+        return $genre && $genre->user_id === 1; // ← 仮ユーザーID。OAuth実装後に変更する。
     }
 
     /**
@@ -22,7 +24,7 @@ class UpdateGenreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => 'required|string|max:20'
         ];
     }
 }
