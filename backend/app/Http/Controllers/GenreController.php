@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreGenreRequest;
 use App\Http\Requests\UpdateGenreRequest;
+use App\Http\Resources\GenreResource;
 use App\Models\Genre;
+use App\Models\User;
+use Illuminate\Support\Facades\Log;
 
 class GenreController extends Controller
 {
@@ -13,7 +16,25 @@ class GenreController extends Controller
      */
     public function index()
     {
-        //
+        try{
+            $user_id = env('FAKE_USER_ID');
+
+            $default_genres = Genre::where('is_default', true)->get();
+            $custome_genres = Genre::where('user_id', $user_id)->get();
+
+            $all_genres = $default_genres->merge($custome_genres);
+
+            return response()->json([
+                'message' => 'Success to get genres.',
+                'genres' => GenreResource::collection($all_genres)
+            ],200);
+
+        }catch(\Exception $e){
+            Log::error("Failed to fetch genres".$e->getMessage());
+            return response()->json([
+                'message' => 'Failed to fetch genres...'
+            ],500);
+        }
     }
 
     /**
@@ -53,7 +74,22 @@ class GenreController extends Controller
      */
     public function update(UpdateGenreRequest $request, Genre $genre)
     {
-        //
+        try{
+            $genre->update([
+                'name' => $request->name
+            ]);
+
+            return response()->json([
+                'message' => 'Success to update the genre.',
+                'genre' => new GenreResource($genre)
+            ]);
+
+        }catch(\Exception $e){
+            Log::error("Failed to update the genre.". $e->getMessage());
+            return response()->json([
+                'message' => 'Failed to update the genre.'
+            ],500);
+        }
     }
 
     /**
@@ -61,6 +97,17 @@ class GenreController extends Controller
      */
     public function destroy(Genre $genre)
     {
-        //
+        try{
+            $genre->delete();
+            return response()->json([
+                "Success to delete the genre. id =",
+                'deleted_id' => $genre->id
+            ]);
+        }catch(\Exception $e){
+            Log::error("Failed to delete the genre.".$e->getMessage());
+            return response()->json([
+                'message' => "Failed to delete the genre. id =". $genre->id
+            ],500);
+        }
     }
 }

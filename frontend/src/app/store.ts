@@ -1,10 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { authReducer } from "../features/auth/slice";
+import { genreReducer } from "../features/Genres/slice";
 
 
 const store = configureStore({
   reducer: {
-    auth: authReducer
+    auth: authReducer,
+    genre: genreReducer
   }
 })
 
