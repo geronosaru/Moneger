@@ -1,7 +1,8 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom"
-import authRoutes from "./authRoutes"
+import authRoutes from "./AuthRoutes"
 import Dashboard from "../components/Dashboard"
 import GenreRoutes from "./GenreRoutes"
+import TransactionRoutes from "./TransactionRoutes"
 
 
 const AppRoutes = () => {
@@ -11,6 +12,7 @@ const AppRoutes = () => {
         <Route path="/dashboard" element={<Dashboard />} />
         {authRoutes}
         {GenreRoutes}
+        {TransactionRoutes}
       </Routes>
     </BrowserRouter>
   )

@@ -1,9 +1,9 @@
 import type React from "react";
 import { useForm } from "react-hook-form";
-import { genreFormSchema, type GenreFormType } from "../../features/Genres/schema/genreFormSchema";
+import { genreFormSchema, type GenreFormType } from "../schema/genreFormSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useAppDispatch } from "../hooks";
-import { editGenre } from "../../features/Genres/api/genreApi";
+import { useAppDispatch } from "../../../app/hooks";
+import { editGenre } from "../api/genreApi";
 import { useEffect } from "react";
 
 

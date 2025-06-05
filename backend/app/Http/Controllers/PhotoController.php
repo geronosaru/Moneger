@@ -29,7 +29,7 @@ class PhotoController extends Controller
      */
     public function store(StorePhotoRequest $request)
     {
-        //
+        
     }
 
     /**
