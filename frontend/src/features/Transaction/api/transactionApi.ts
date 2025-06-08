@@ -17,11 +17,26 @@ const fetchTransactionDetail = createAsyncThunk('transaction/fetchTransactionDet
 
 /**収支記録 */
 const storeTransaction = createAsyncThunk('transaction/storeTransaction', async(data: TransactionForm) => {
-  const response = await axios.post(BASE_URL, data, {
-    withCredentials: false
-  })
+  const response = await axios.post(BASE_URL, data)
   return response.data.transaction
 })
+
+/**支出記録時の画像保存 */
+const storeExpensePhoto = async(transactionId: number, file: File) => {
+  const formData = new FormData();
+  formData.append('image', file);
+  
+  try{
+    await axios.post(`${BASE_URL}/${transactionId}/photo`, formData, {
+      headers:{
+        'Content-Type': 'multipart/form-data'
+      }
+    })
+    console.log('Success to store the image');
+  }catch(e){
+    console.log('Fialed to store the image');
+  }
+}
 
 /**収支変更 */
 const updateTransaction = createAsyncThunk('transaction/updateTransaction', async(data:any) => {
@@ -34,4 +49,12 @@ const deleteTransaction = createAsyncThunk('transaction/updateTransaction', asyn
 })
 
 
-export { fetchTransactions, fetchTransactionDetail, storeTransaction, updateTransaction, deleteTransaction }
+export { 
+  fetchTransactions, 
+  fetchTransactionDetail, 
+  storeTransaction, 
+  storeExpensePhoto,
+  updateTransaction, 
+  deleteTransaction 
+}
+// 画像保存のところから

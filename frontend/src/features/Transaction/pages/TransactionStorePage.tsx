@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import * as Tabs from "@radix-ui/react-tabs";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { fetchGenres } from "../../Genre/api/genreApi";
-import { storeTransaction } from "../api/transactionApi";
+import { storeExpensePhoto, storeTransaction } from "../api/transactionApi";
 import { setFormData } from "../slices/tempSlice";
 import dayjs from 'dayjs';
 
@@ -17,6 +17,7 @@ const TransactionStorePage: React.FC = () => {
   const genres = useAppSelector((state) => state.genre.genres);
   const formData = useAppSelector((state) => state.tempTransactionForm.data); // Partial<TransactionForm>
   const [tabValue, setTabValue] = useState<"income" | "expense">("expense");
+  const [imageFile, setImageFile] = useState<File | null>(null);
 
   const safeFormData: Partial<TransactionForm> = {
     genre_id: formData?.genre_id,
@@ -51,9 +52,20 @@ const TransactionStorePage: React.FC = () => {
     defaultValues
   });
 
-  const onSubmit = (data: TransactionForm) => {
-    dispatch(storeTransaction(data));
-    reset();
+  const onSubmit = async(data: TransactionForm) => {
+    try{
+      const response = await dispatch(storeTransaction(data)).unwrap();
+      const transactionId = response.id;
+
+      if(imageFile){
+        storeExpensePhoto(transactionId, imageFile)
+      }
+
+      reset();
+      setImageFile(null);
+    }catch(e){
+      console.error('画像を保存できませんでした', e);
+    }
   }
 
   useEffect(() => {
@@ -212,6 +224,12 @@ const TransactionStorePage: React.FC = () => {
                           <input
                             type="file"
                             className="w-full p-2 rounded-md text-white bg-slate-600"
+                            onChange={(e) => {
+                              const file = e.target.files?.[0];
+                              if(file) {
+                                setImageFile(file)
+                              }
+                            }}
                           />
                         </div>
                       </div>
