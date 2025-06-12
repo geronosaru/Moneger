@@ -1,7 +1,8 @@
-import type React from 'react'
-// import './App.css'
-import AppRoutes from './Routes/AppRoutes'
+import type React from 'react';
+import AppRoutes from './Routes/AppRoutes';
 
-const App: React.FC = () => <AppRoutes />
 
-export default App
+const App: React.FC = () => <AppRoutes />;
+
+
+export default App;

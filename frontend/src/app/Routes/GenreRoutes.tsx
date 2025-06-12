@@ -1,7 +1,7 @@
-import { Route } from "react-router-dom";
 import GenreListPage from "../../features/Genre/pages/GenreListPage"
+import { Route } from "react-router-dom";
 
 
 export default [
-    <Route path="/genres" element={<GenreListPage />} />
-  ]
+  <Route path="/genres" element={<GenreListPage />} />
+];
