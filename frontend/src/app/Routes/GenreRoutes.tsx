@@ -1,5 +1,5 @@
 import { Route } from "react-router-dom";
-import GenreListPage from "../../features/Genres/pages/GenreListPage"
+import GenreListPage from "../../features/Genre/pages/GenreListPage"
 
 
 export default [

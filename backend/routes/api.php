@@ -4,6 +4,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\GenreController;
+use App\Http\Controllers\PhotoController;
+use App\Http\Controllers\TransactionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,3 +29,13 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
  * ジャンルCRUD
  */
 Route::apiResource('/genres', GenreController::class);
+
+/**
+ * トランザクションCRUD
+ */
+Route::apiResource('/transactions', TransactionController::class);
+
+/**
+ * 支出登録時の画像保存API 
+ */
+Route::post('/transactions/{transaction}/photo', [PhotoController::class, 'store'])->name('photo.store');

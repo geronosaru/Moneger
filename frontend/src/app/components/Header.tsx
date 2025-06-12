@@ -8,7 +8,10 @@ type HeaderProps = {
 }
 
 const Header: React.FC<HeaderProps> = ({isMenu=true, selectDomain}) => {
-  const domains = ["Dashboard", "支出管理", "固定費" , "貯金目標"]
+  const domains = [
+    "Dashboard", "支出管理", "固定費" , "貯金目標"
+  ]
+  // ここ後ほどリンクを踏んで行けるようにしておくこと
   const user = useAppSelector((state) => state.auth.user);
   const handleLogout = () => {
     // 未実装

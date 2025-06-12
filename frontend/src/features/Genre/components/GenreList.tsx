@@ -2,7 +2,7 @@ import type React from "react";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { useEffect, useState } from "react";
 import { deleteGenre, fetchGenres } from "../api/genreApi";
-import GenreForm from "../../../app/components/GenreForm";
+import GenreForm from "./GenreForm";
 import DeleteConfirmDialog from "../../../app/components/DeleteConfirmDialog";
 
 
