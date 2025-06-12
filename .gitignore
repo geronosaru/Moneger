@@ -1,10 +1,12 @@
 # Laravel
-/vendor/
-.env
-/storage/*.key
+/backend/vendor/
+/backend/storage/*.key
+/backend/storage
 *.log
+/backend/.env
 
 # React
 /frontend/node_modules/
-frontend/dist/
+/frontend/dist/
 /frontend/.vite/
+/frontend/.env
