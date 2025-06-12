@@ -5,7 +5,7 @@ type Transaction = {
   type: "income" | "expense";
   amount: number;
   date: string;
-  memo: string;
+  memo?: string;
 }
 
 

@@ -1,16 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { Transaction } from "../types";
-import { storeTransaction } from "../api/transactionApi";
+import { fetchTransactions, storeTransaction } from "../api/transactionApi";
 
 
 type TransactionState = {
-  transaction: Transaction[];
+  transactions: Transaction[];
   status: 'idle' | 'pending' | 'successful' | 'failed';
   errors: undefined | string;
 }
 
 const initialState: TransactionState = {
-  transaction: [],
+  transactions: [],
   status: 'idle',
   errors: undefined
 }
@@ -22,16 +22,26 @@ const transactionSlice = createSlice({
   extraReducers: (builder) => {
     builder
     //収支一覧取得
-    //収支詳細取得
+    .addCase(fetchTransactions.pending, (state) => {
+      state.status = 'pending'
+    })
+    .addCase(fetchTransactions.fulfilled, (state, action) => {
+      state.transactions = action.payload
+      state.status = 'successful'
+    })
+    .addCase(fetchTransactions.rejected, (state, action) => {
+      state.errors = action.error.message
+      state.status = 'failed'
+    })
     //収支記録
     .addCase(storeTransaction.pending, (state) => {
       state.status = 'pending'
     })
     .addCase(storeTransaction.fulfilled, (state, action) => {
-      if(!state.transaction){
-        state.transaction = action.payload
+      if(!state.transactions){
+        state.transactions = action.payload
       }else{
-        state.transaction = [...state.transaction, action.payload]
+        state.transactions = [...state.transactions, action.payload]
       }
       state.status = 'successful'
     })

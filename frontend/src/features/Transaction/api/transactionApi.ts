@@ -5,15 +5,16 @@ import type { TransactionForm } from "../schema/transactionFormSchema";
 
 const BASE_URL = 'http://localhost/api/transactions'
 
-/**収支一覧取得（選択した月の収支一覧を取得する。初期値は今月） */
+/**収支一覧取得（収支一覧を取得する） */
 const fetchTransactions = createAsyncThunk('transaction/fetchTransactions', async() => {
-  
+  const response = await axios.get(BASE_URL);
+  return response.data.transactions
 })
 
-/**収支詳細取得（選択した日付の収支詳細を取得する。初期値は今日） */
-const fetchTransactionDetail = createAsyncThunk('transaction/fetchTransactionDetail', async() => {
+// /**収支詳細取得（選択した日付の収支詳細を取得する。初期値は今日） */
+// const fetchTransactionDetail = createAsyncThunk('transaction/fetchTransactionDetail', async() => {
 
-})
+// })
 
 /**収支記録 */
 const storeTransaction = createAsyncThunk('transaction/storeTransaction', async(data: TransactionForm) => {
@@ -51,7 +52,6 @@ const deleteTransaction = createAsyncThunk('transaction/updateTransaction', asyn
 
 export { 
   fetchTransactions, 
-  fetchTransactionDetail, 
   storeTransaction, 
   storeExpensePhoto,
   updateTransaction, 

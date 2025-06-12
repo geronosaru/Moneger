@@ -15,7 +15,22 @@ class TransactionController extends Controller
      */
     public function index()
     {
-        //
+        try{
+            // $user_id = auth()->id(); 実装後変更
+            $user_id = 1;
+            $transactions = Transaction::find($user_id)->with('genre')->get();
+
+            return response()->json([
+                'message' => 'Success to fetch transactions.',
+                'transactions' => TransactionResource::collection($transactions)
+            ]);
+
+        }catch(\Exception $e){
+            Log::error("Failed to fetch transactions...". $e->getMessage());
+            return response()->json([
+                'message' => 'Failed to fetch transactions.'
+            ],500);
+        }
     }
 
     /**
