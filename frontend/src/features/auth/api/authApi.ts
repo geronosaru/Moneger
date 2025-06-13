@@ -1,16 +1,7 @@
+import type { LoginForm } from '../schema/loginSchema';
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import type { LoginForm } from '../schema/loginSchema';
 
-
-// axios.defaults.withCredentials = true;
-// axios.defaults.baseURL = 'http://localhost';
-// axios.defaults.headers.common['X-XSRF-TOKEN'] = getXsrfTokenFromCookie();
-
-// function getXsrfTokenFromCookie() {
-//   const match = document.cookie.match('(^|;)\\s*XSRF-TOKEN\\s*=\\s*([^;]+)');
-//   return match ? decodeURIComponent(match[2]) : '';
-// }
 
 /**
  * ログイン /api/login
@@ -24,7 +15,7 @@ const loginUser = createAsyncThunk('auth/loginUser', async(data: LoginForm) => {
 
 const logoutUser = createAsyncThunk('auth/logoutUser', async() => {
   await axios.post('/api/logout');
-})
+});
 
 
 export { loginUser, logoutUser }

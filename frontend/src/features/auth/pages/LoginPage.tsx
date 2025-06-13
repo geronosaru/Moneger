@@ -1,7 +1,8 @@
 import type React from "react";
-import Template from "../../../app/components/Template";
-import { useForm } from "react-hook-form";
 import { loginForm, type LoginForm } from "../schema/loginSchema";
+import Template from "../../../app/components/Template";
+import { EyeIcon, EyeSlash } from "../../../components/ui/Icons";
+import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { loginUser } from "../api/authApi";
@@ -17,11 +18,10 @@ const LoginPage: React.FC = () => {
     reset,
   } = useForm<LoginForm>({
     resolver: zodResolver(loginForm)
-  })
+  });
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
-
   const handleLogin = async(data: LoginForm) => {
     try{
       const result = await dispatch(loginUser(data));
@@ -31,15 +31,14 @@ const LoginPage: React.FC = () => {
         reset();
         navigate('/dashboard');
       }else{
-        console.log('ログイン失敗', result)
+        console.log('ログイン失敗', result);
       }
     }catch(e){
-      console.log('例外発生', e)
+      console.log('例外発生', e);
     }
-  }
+  };
 
   return(
-    <>
     <div className="h-full w-full flex justify-center items-center">
       <Template isMenu={false}>
         <form
@@ -56,7 +55,7 @@ const LoginPage: React.FC = () => {
                 className="w-full border-2 p-1 rounded-sm border-slate-500"
                 {...register('email')}
               />
-              {errors.email && errors.email.message}
+              {errors.email && <p>{errors.email.message}</p>}
             </div>
             <div className="h-2/5 w-full flex flex-col space-y-0.5 justify-center items-center">
               <div className="w-full flex justify-start items-center">
@@ -73,20 +72,10 @@ const LoginPage: React.FC = () => {
                   onClick={() => setShowPassword((prev) => !prev)}
                   className="absolute right-0 top-1/2 transform -translate-y-1/2 text-slate-500"
                 >
-                  {showPassword
-                  ?
-                  <svg className="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                    <path stroke="currentColor" strokeWidth="2" d="M21 12c0 1.2-4.03 6-9 6s-9-4.8-9-6c0-1.2 4.03-6 9-6s9 4.8 9 6Z"/>
-                    <path stroke="currentColor" strokeWidth="2" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
-                  </svg>
-                  : 
-                  <svg className="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                    <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3.933 13.909A4.357 4.357 0 0 1 3 12c0-1 4-6 9-6m7.6 3.8A5.068 5.068 0 0 1 21 12c0 1-3 6-9 6-.314 0-.62-.014-.918-.04M5 19 19 5m-4 7a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
-                  </svg>
-                  }
+                  {showPassword ? <EyeIcon /> : <EyeSlash />}
                 </button>
               </div>
-              {errors.password && errors.password.message}
+              {errors.password && <p>{errors.password.message}</p>}
             </div>
           </div>
           <div className="h-1/3 w-full flex justify-center items-end">
@@ -100,9 +89,8 @@ const LoginPage: React.FC = () => {
         </form>
       </Template>
     </div>
-    </>
   )
 }
 
 
-export default LoginPage
+export default LoginPage;
