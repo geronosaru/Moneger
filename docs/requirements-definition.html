@@ -1,0 +1,694 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>要件定義書</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(50, 48, 44, 1);
+}
+.highlight-gray {
+	color: rgba(115, 114, 110, 1);
+	fill: rgba(115, 114, 110, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(205, 60, 58, 1);
+	fill: rgba(205, 60, 58, 1);
+}
+.highlight-default_background {
+	color: rgba(50, 48, 44, 1);
+}
+.highlight-gray_background {
+	background: rgba(248, 248, 247, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(248, 243, 252, 1);
+}
+.highlight-pink_background {
+	background: rgba(252, 241, 246, 1);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(115, 114, 110, 1);
+	fill: rgba(115, 114, 110, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(205, 60, 58, 1);
+	fill: rgba(205, 60, 58, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(248, 248, 247, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(248, 243, 252, 1);
+}
+.block-color-pink_background {
+	background: rgba(252, 241, 246, 1);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: undefined; }
+.select-value-color-pink { background-color: rgba(225, 136, 179, 0.27); }
+.select-value-color-purple { background-color: rgba(168, 129, 197, 0.27); }
+.select-value-color-green { background-color: rgba(123, 183, 129, 0.27); }
+.select-value-color-gray { background-color: rgba(84, 72, 49, 0.15); }
+.select-value-color-translucentGray { background-color: undefined; }
+.select-value-color-orange { background-color: rgba(224, 124, 57, 0.27); }
+.select-value-color-brown { background-color: rgba(210, 162, 141, 0.35); }
+.select-value-color-red { background-color: rgba(244, 171, 159, 0.4); }
+.select-value-color-yellow { background-color: rgba(236, 191, 66, 0.39); }
+.select-value-color-blue { background-color: rgba(93, 165, 206, 0.27); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="1f614d9d-93a3-8016-9582-ead40c8de756" class="page sans"><header><h1 class="page-title">要件定義書</h1><p class="page-description"></p><table class="properties"><tbody><tr class="property-row property-row-status"><th><span class="icon property-icon"><svg aria-hidden="true" role="graphics-symbol" viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(71, 70, 68, 0.6);flex-shrink:0" class="typesStatus"><path d="M8.75488 1.02344C8.75488 0.613281 8.41309 0.264648 8.00293 0.264648C7.59277 0.264648 7.25098 0.613281 7.25098 1.02344V3.11523C7.25098 3.51855 7.59277 3.86719 8.00293 3.86719C8.41309 3.86719 8.75488 3.51855 8.75488 3.11523V1.02344ZM3.91504 5.0293C4.20215 5.31641 4.69434 5.32324 4.97461 5.03613C5.26855 4.74902 5.26855 4.25684 4.98145 3.96973L3.53906 2.52051C3.25195 2.2334 2.7666 2.21973 2.47949 2.50684C2.19238 2.79395 2.18555 3.28613 2.47266 3.57324L3.91504 5.0293ZM10.9629 4.01758C10.6826 4.30469 10.6826 4.79688 10.9697 5.08398C11.2568 5.37109 11.749 5.36426 12.0361 5.07715L13.4854 3.62793C13.7725 3.34082 13.7725 2.84863 13.4785 2.55469C13.1982 2.27441 12.7061 2.27441 12.4189 2.56152L10.9629 4.01758ZM15.0234 8.78906C15.4336 8.78906 15.7822 8.44727 15.7822 8.03711C15.7822 7.62695 15.4336 7.28516 15.0234 7.28516H12.9385C12.5283 7.28516 12.1797 7.62695 12.1797 8.03711C12.1797 8.44727 12.5283 8.78906 12.9385 8.78906H15.0234ZM0.975586 7.28516C0.56543 7.28516 0.223633 7.62695 0.223633 8.03711C0.223633 8.44727 0.56543 8.78906 0.975586 8.78906H3.07422C3.48438 8.78906 3.83301 8.44727 3.83301 8.03711C3.83301 7.62695 3.48438 7.28516 3.07422 7.28516H0.975586ZM12.0361 10.9902C11.749 10.71 11.2568 10.71 10.9629 10.9971C10.6826 11.2842 10.6826 11.7764 10.9697 12.0635L12.4258 13.5127C12.7129 13.7998 13.2051 13.793 13.4922 13.5059C13.7793 13.2256 13.7725 12.7266 13.4854 12.4395L12.0361 10.9902ZM2.52051 12.4395C2.22656 12.7266 2.22656 13.2188 2.50684 13.5059C2.79395 13.793 3.28613 13.7998 3.57324 13.5127L5.02246 12.0703C5.31641 11.7832 5.31641 11.291 5.03613 11.0039C4.74902 10.7168 4.25684 10.71 3.96973 10.9971L2.52051 12.4395ZM8.75488 12.9658C8.75488 12.5557 8.41309 12.207 8.00293 12.207C7.59277 12.207 7.25098 12.5557 7.25098 12.9658V15.0576C7.25098 15.4609 7.59277 15.8096 8.00293 15.8096C8.41309 15.8096 8.75488 15.4609 8.75488 15.0576V12.9658Z"></path></svg></span>Qiita用ブラッシュアップ</th><td><span class="status-value"><div class="status-dot"></div>未着手</span></td></tr><tr class="property-row property-row-status"><th><span class="icon property-icon"><svg aria-hidden="true" role="graphics-symbol" viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(71, 70, 68, 0.6);flex-shrink:0" class="typesStatus"><path d="M8.75488 1.02344C8.75488 0.613281 8.41309 0.264648 8.00293 0.264648C7.59277 0.264648 7.25098 0.613281 7.25098 1.02344V3.11523C7.25098 3.51855 7.59277 3.86719 8.00293 3.86719C8.41309 3.86719 8.75488 3.51855 8.75488 3.11523V1.02344ZM3.91504 5.0293C4.20215 5.31641 4.69434 5.32324 4.97461 5.03613C5.26855 4.74902 5.26855 4.25684 4.98145 3.96973L3.53906 2.52051C3.25195 2.2334 2.7666 2.21973 2.47949 2.50684C2.19238 2.79395 2.18555 3.28613 2.47266 3.57324L3.91504 5.0293ZM10.9629 4.01758C10.6826 4.30469 10.6826 4.79688 10.9697 5.08398C11.2568 5.37109 11.749 5.36426 12.0361 5.07715L13.4854 3.62793C13.7725 3.34082 13.7725 2.84863 13.4785 2.55469C13.1982 2.27441 12.7061 2.27441 12.4189 2.56152L10.9629 4.01758ZM15.0234 8.78906C15.4336 8.78906 15.7822 8.44727 15.7822 8.03711C15.7822 7.62695 15.4336 7.28516 15.0234 7.28516H12.9385C12.5283 7.28516 12.1797 7.62695 12.1797 8.03711C12.1797 8.44727 12.5283 8.78906 12.9385 8.78906H15.0234ZM0.975586 7.28516C0.56543 7.28516 0.223633 7.62695 0.223633 8.03711C0.223633 8.44727 0.56543 8.78906 0.975586 8.78906H3.07422C3.48438 8.78906 3.83301 8.44727 3.83301 8.03711C3.83301 7.62695 3.48438 7.28516 3.07422 7.28516H0.975586ZM12.0361 10.9902C11.749 10.71 11.2568 10.71 10.9629 10.9971C10.6826 11.2842 10.6826 11.7764 10.9697 12.0635L12.4258 13.5127C12.7129 13.7998 13.2051 13.793 13.4922 13.5059C13.7793 13.2256 13.7725 12.7266 13.4854 12.4395L12.0361 10.9902ZM2.52051 12.4395C2.22656 12.7266 2.22656 13.2188 2.50684 13.5059C2.79395 13.793 3.28613 13.7998 3.57324 13.5127L5.02246 12.0703C5.31641 11.7832 5.31641 11.291 5.03613 11.0039C4.74902 10.7168 4.25684 10.71 3.96973 10.9971L2.52051 12.4395ZM8.75488 12.9658C8.75488 12.5557 8.41309 12.207 8.00293 12.207C7.59277 12.207 7.25098 12.5557 7.25098 12.9658V15.0576C7.25098 15.4609 7.59277 15.8096 8.00293 15.8096C8.41309 15.8096 8.75488 15.4609 8.75488 15.0576V12.9658Z"></path></svg></span>ステータス</th><td><span class="status-value select-value-color-green"><div class="status-dot status-dot-color-green"></div>完了</span></td></tr><tr class="property-row property-row-created_time"><th><span class="icon property-icon"><svg aria-hidden="true" role="graphics-symbol" viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(71, 70, 68, 0.6);flex-shrink:0" class="typesCreatedAt"><path d="M8 15.126C11.8623 15.126 15.0615 11.9336 15.0615 8.06445C15.0615 4.20215 11.8623 1.00293 7.99316 1.00293C4.13086 1.00293 0.938477 4.20215 0.938477 8.06445C0.938477 11.9336 4.1377 15.126 8 15.126ZM8 13.7383C4.85547 13.7383 2.33301 11.209 2.33301 8.06445C2.33301 4.91992 4.84863 2.39746 7.99316 2.39746C11.1377 2.39746 13.6738 4.91992 13.6738 8.06445C13.6738 11.209 11.1445 13.7383 8 13.7383ZM4.54102 8.91211H7.99316C8.30078 8.91211 8.54004 8.67285 8.54004 8.37207V3.8877C8.54004 3.58691 8.30078 3.34766 7.99316 3.34766C7.69238 3.34766 7.45312 3.58691 7.45312 3.8877V7.83203H4.54102C4.2334 7.83203 4.00098 8.06445 4.00098 8.37207C4.00098 8.67285 4.2334 8.91211 4.54102 8.91211Z"></path></svg></span>作成日時</th><td><time>@2025年5月17日 18:54</time></td></tr><tr class="property-row property-row-last_edited_time"><th><span class="icon property-icon"><svg aria-hidden="true" role="graphics-symbol" viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(71, 70, 68, 0.6);flex-shrink:0" class="typesCreatedAt"><path d="M8 15.126C11.8623 15.126 15.0615 11.9336 15.0615 8.06445C15.0615 4.20215 11.8623 1.00293 7.99316 1.00293C4.13086 1.00293 0.938477 4.20215 0.938477 8.06445C0.938477 11.9336 4.1377 15.126 8 15.126ZM8 13.7383C4.85547 13.7383 2.33301 11.209 2.33301 8.06445C2.33301 4.91992 4.84863 2.39746 7.99316 2.39746C11.1377 2.39746 13.6738 4.91992 13.6738 8.06445C13.6738 11.209 11.1445 13.7383 8 13.7383ZM4.54102 8.91211H7.99316C8.30078 8.91211 8.54004 8.67285 8.54004 8.37207V3.8877C8.54004 3.58691 8.30078 3.34766 7.99316 3.34766C7.69238 3.34766 7.45312 3.58691 7.45312 3.8877V7.83203H4.54102C4.2334 7.83203 4.00098 8.06445 4.00098 8.37207C4.00098 8.67285 4.2334 8.91211 4.54102 8.91211Z"></path></svg></span>最終更新日時</th><td><time>@2025年6月12日 7:50</time></td></tr></tbody></table></header><div class="page-body"><h1 id="1f614d9d-93a3-8093-bf37-c9e11a0dd8ed" class="">アプリ名</h1><hr id="1f614d9d-93a3-80a1-b21f-cf5459e2a4ed"/><h2 id="1f614d9d-93a3-8071-bc70-c23ff3e0fb76" class="">まるっとMoneger💰🪙</h2><p id="1f614d9d-93a3-806a-afe0-f14722c9079d" class="">
+</p><p id="1f614d9d-93a3-8006-aca5-f31dcc260dc1" class="">　お金に関する様々な管理をしてくれるアプリを作成したい。そのような思いから生まれたまるっとMonegerは、「Money」と「Manager」を掛け合わして出来たアプリ名です。</p><p id="1f614d9d-93a3-8033-ba9d-c10e8605a28b" class="">　ただ支出記録をするだけではなく、いつまでにこれくらいお金を貯めたい、そうであれば毎月どのくらい貯金をすべきであるのか、そして実際に自由に使うことが出来るお金はどのくらいあるのかが一目でわかる、そんな貯金×貯金目標管理が出来るアプリとなっています。</p><p id="1f614d9d-93a3-8043-bb85-fdd32220e32d" class="">
+</p><h1 id="1f614d9d-93a3-8086-aab5-f0fae41179be" class="">目的・背景</h1><hr id="1f614d9d-93a3-800c-a32f-dcfb8239484e"/><p id="1f614d9d-93a3-8047-820c-dc6a177bf6fd" class="">　現在、私は家計簿アプリと貯金アプリの二つを使用しています。家計簿アプリで普段の収支を記録しつつ、収入が入ったときに、貯金アプリに記録を付けています。</p><p id="1f614d9d-93a3-80fc-90a9-f8671650bab4" class="">　現在このように運用していて不便に感じることがあります。それは、実際に私が自由に使うことが出来る金額を知るのに、手間がかかるということです。家計簿アプリで「収入ー支出」を計算した上で、その後貯金アプリで「家計簿アプリで算出された金額ー毎月の貯金額」を計算しなおさなければ、今月私が自由に使うことが出来る金額を知ることが出来ないのです。このような手間を面倒に感じ、家計簿アプリと貯金アプリを一つに纏めたアプリを自作しようと考えました。</p><p id="1f614d9d-93a3-8091-907c-c3700f8dea54" class="">
+</p><h1 id="1f614d9d-93a3-8014-ba51-d4fb4abe16d6" class="">ペルソナ</h1><hr id="1f614d9d-93a3-8020-aeb1-e2591474e68a"/><p id="1f614d9d-93a3-801c-9ce2-e3e68d27c54e" class="">想定ユーザーは以下の通りです。</p><ul id="1f614d9d-93a3-80fb-9ff9-f7cac6648b0c" class="bulleted-list"><li style="list-style-type:disc">貯金目標がある人</li></ul><ul id="1f614d9d-93a3-807b-85d2-ca80476dec91" class="bulleted-list"><li style="list-style-type:disc">現在の貯金状況の把握が出来ていない人</li></ul><ul id="1f614d9d-93a3-8092-b788-dabe5c7be349" class="bulleted-list"><li style="list-style-type:disc">浪費癖がある人</li></ul><p id="1f614d9d-93a3-806a-86d5-f24d9d2d813f" class="">
+</p><p id="1f614d9d-93a3-80da-a019-e03363ad2ce3" class="">現在の貯蓄状況の把握と、将来のための貯金が出来ることで、浪費を防ぐ効果もあります。</p><p id="1f614d9d-93a3-8014-992b-e76b6a1a5237" class="">
+</p><h1 id="1f614d9d-93a3-8007-bb57-f61ae083135f" class="">ユースケース＋機能一覧</h1><hr id="1f614d9d-93a3-80f5-bd13-f3f6840022fb"/><table id="1f614d9d-93a3-8022-aff5-cf2da3e80a24" class="simple-table"><thead class="simple-table-header"><tr id="1f614d9d-93a3-80e6-9b7b-cca46c9bb7cf"><th id="duKX" class="simple-table-header-color simple-table-header" style="width:352px">ユースケース</th><th id="`y]&gt;" class="simple-table-header-color simple-table-header" style="width:275px">機能一覧</th><th id="b&lt;~J" class="simple-table-header-color simple-table-header" style="width:82px">CRUD</th></tr></thead><tbody><tr id="1f614d9d-93a3-80bd-b1a8-da1f470d4930"><td id="duKX" class="" style="width:352px">自分だけのデータとして記録したい</td><td id="`y]&gt;" class="" style="width:275px">ユーザー登録・ログイン・ログアウト</td><td id="b&lt;~J" class="" style="width:82px">C/R/D</td></tr><tr id="1f614d9d-93a3-80ca-bf4f-ec11c28114e9"><td id="duKX" class="" style="width:352px">他人に見られたくないので、データを保護したい</td><td id="`y]&gt;" class="" style="width:275px">認証機能（Sanctum）</td><td id="b&lt;~J" class="" style="width:82px">-</td></tr><tr id="1f614d9d-93a3-80ff-a624-de093829fe95"><td id="duKX" class="" style="width:352px">日々の収支を記録して、使いすぎないようにしたい</td><td id="`y]&gt;" class="" style="width:275px">収支の登録・一覧・編集・削除</td><td id="b&lt;~J" class="" style="width:82px">C/R/U/D</td></tr><tr id="1f614d9d-93a3-801d-967d-eefe6305cc15"><td id="duKX" class="" style="width:352px">家賃や光熱費など、毎月決まった出費をあらかじめ登録しておきたい</td><td id="`y]&gt;" class="" style="width:275px">固定費のCRUD</td><td id="b&lt;~J" class="" style="width:82px">C/R/U/D</td></tr><tr id="1f614d9d-93a3-8091-896c-dc762af80b80"><td id="duKX" class="" style="width:352px">旅行のために〇月までに〇万円貯めたいので、その目標を立てたい</td><td id="`y]&gt;" class="" style="width:275px">貯金目標のCRUD・毎月貯金金額自動計算</td><td id="b&lt;~J" class="" style="width:82px">C/R/U/D</td></tr><tr id="1f614d9d-93a3-8057-8e2a-fbdfb43f1111"><td id="duKX" class="" style="width:352px">今月あといくら使えるか、いつでも見えるようにしたい</td><td id="`y]&gt;" class="" style="width:275px">自動残金計算・表示</td><td id="b&lt;~J" class="" style="width:82px">R</td></tr><tr id="1f614d9d-93a3-807a-ad45-c3ac6d937df9"><td id="duKX" class="" style="width:352px">自分の貯金が目標に対してどのくらい進んでいるか知りたい</td><td id="`y]&gt;" class="" style="width:275px">目標との比較グラフ</td><td id="b&lt;~J" class="" style="width:82px">R</td></tr><tr id="1f614d9d-93a3-8023-95b8-ea7f53d374b9"><td id="duKX" class="" style="width:352px">今月の支出はどのようなものが多かったのか確認して、使いすぎを防ぎたい</td><td id="`y]&gt;" class="" style="width:275px">収支ジャンル分けランキング表示</td><td id="b&lt;~J" class="" style="width:82px">R</td></tr><tr id="1f614d9d-93a3-801c-a3a6-cf22dc4e4e3f"><td id="duKX" class="block-color-purple_background" style="width:352px">余裕があれば</td><td id="`y]&gt;" class="block-color-purple_background" style="width:275px"></td><td id="b&lt;~J" class="block-color-purple_background" style="width:82px"></td></tr><tr id="1f614d9d-93a3-80ee-a8b7-c572b95b2c26"><td id="duKX" class="" style="width:352px">今月何を買ったのか写真を表示して、買いすぎを防ぎたい</td><td id="`y]&gt;" class="" style="width:275px">購入物品写真アルバム</td><td id="b&lt;~J" class="" style="width:82px">R</td></tr></tbody></table><p id="1f614d9d-93a3-8003-a806-f17fc38bcadd" class="">
+</p><h1 id="1f614d9d-93a3-8010-a94a-fadd18995e11" class="">非機能要件（性能・制約・運用・セキュリティ・品質）</h1><hr id="1f614d9d-93a3-80a4-a424-c9230cacf17b"/><p id="20d14d9d-93a3-805b-bb18-ea9fb35d0c86" class="">⬛︎性能</p><ul id="20d14d9d-93a3-80c8-b3db-e489b67a9b35" class="bulleted-list"><li style="list-style-type:disc">様々なサイズの端末での使用を想定しているので、レスポンシブデザインでUIを実装する</li></ul><ul id="20d14d9d-93a3-80fe-b219-d90ca486a642" class="bulleted-list"><li style="list-style-type:disc">直感的な操作を重要視し、ユニバーサルデザインを意識したUIを実装する</li></ul><p id="20d14d9d-93a3-8077-a1a7-f8133b1f17a9" class="">⬛︎制約</p><ul id="20d14d9d-93a3-80eb-abd8-c2514877aa4f" class="bulleted-list"><li style="list-style-type:disc">レスポンス速度は、ログイン時含め基本的に1秒以内のレスポンスを目指す</li></ul><ul id="20f14d9d-93a3-806f-bbf7-fe2c4fefc274" class="bulleted-list"><li style="list-style-type:disc">画面は1秒以内の表示を目指す</li></ul><p id="20d14d9d-93a3-8073-8fae-ded86ba244a7" class="">⬛︎運用</p><ul id="20d14d9d-93a3-8060-8eb6-ed030ef41b37" class="bulleted-list"><li style="list-style-type:disc">CloudWatchにて監視のみ行う</li></ul><p id="20d14d9d-93a3-800f-a79c-c547acca5377" class="">⬛︎セキュリティ</p><ul id="20d14d9d-93a3-800d-853b-ce9e3605b581" class="bulleted-list"><li style="list-style-type:disc">インフラ構成設計書にて詳しく記載しているため割愛</li></ul><p id="20d14d9d-93a3-8009-9f44-f60fd9387aae" class="">⬛︎待避復旧</p><ul id="20d14d9d-93a3-80c1-aea9-de08ac1d71d1" class="bulleted-list"><li style="list-style-type:disc">本番環境は、AWSクラウドサービスを利用し、クロスリージョン構成を想定している。Tokyo regionをプライマリサイトとし、Canada regionをDRサイトとする<ul id="20e14d9d-93a3-80b6-9138-cc8ca574db75" class="bulleted-list"><li style="list-style-type:circle">各サービスにおけるバックアップとリストア</li></ul><table id="20e14d9d-93a3-8086-b633-c8fa1a96898c" class="simple-table"><thead class="simple-table-header"><tr id="20e14d9d-93a3-800f-9c2b-f5082168cd6b"><th id="}X&lt;v" class="simple-table-header-color simple-table-header">サービス名</th><th id="qFjz" class="simple-table-header-color simple-table-header">バックアップ方法</th><th id="q~Eg" class="simple-table-header-color simple-table-header">リストア方法</th></tr></thead><tbody><tr id="20e14d9d-93a3-8039-9ee6-cbd203058498"><td id="}X&lt;v" class="">S3</td><td id="qFjz" class="">クロスリージョンレプリケーションを使用し、Canada regionにレプリカを置く</td><td id="q~Eg" class="">Canada regionにあるレプリカを使用</td></tr><tr id="20e14d9d-93a3-80cf-a5ee-cc9ed9584fd7"><td id="}X&lt;v" class="">ECS + fargate</td><td id="qFjz" class="">Tokyo regionで稼働し、Canada regionではコンテナ停止状態<br/><br/></td><td id="q~Eg" class="">Tokyo regionで稼働不可能になった際、Canada regionにてコンテナを起動</td></tr><tr id="20e14d9d-93a3-8052-94b0-f50e48ad8a02"><td id="}X&lt;v" class="">RDS</td><td id="qFjz" class="">Amazon backupを使用し、自動で作成されるバックアップを、Canada regionへとコピー</td><td id="q~Eg" class="">Canada regionにあるコピーから新しいインスタンスを作成</td></tr></tbody></table></li></ul><p id="1f614d9d-93a3-8023-a404-d21c906752b4" class="">
+</p><h1 id="1f614d9d-93a3-8024-b816-ea4993aaa6a9" class="">画面構成</h1><hr id="1f614d9d-93a3-8063-a424-cab7df95f2fe"/><p id="20d14d9d-93a3-8070-beab-f2ea948c02d2" class="">本アプリの画面一覧と詳細なUI仕様については、別途作成した画面定義書にて明示しているため、本要件定義書では割愛する</p><p id="20f14d9d-93a3-805a-a15a-ef92960101a1" class="">
+</p><h1 id="20d14d9d-93a3-808e-986a-eb5f19d02e54" class="">DB</h1><hr id="20d14d9d-93a3-8041-9566-d719fe8aab41"/><p id="20d14d9d-93a3-8000-893b-f6af08f7a456" class="">本アプリのテーブル一覧とテーブル詳細、E-R図については、別途作成したDB定義書にて明示しているため、本要件定義書では割愛する</p><p id="20d14d9d-93a3-8071-aefb-dfc5a82ff7c3" class="">
+</p><h1 id="1f614d9d-93a3-8074-9755-c9f6d6e9dce9" class="">使用言語・技術</h1><hr id="1f614d9d-93a3-806e-bde7-c7c5dfb5fbd2"/><ul id="1f614d9d-93a3-80db-8808-df675adf6e5a" class="bulleted-list"><li style="list-style-type:disc">フロントエンド：TypeScript（React）<ul id="1f614d9d-93a3-804a-98e1-fda8502f25c1" class="bulleted-list"><li style="list-style-type:circle">使用ライブラリ：</li></ul><table id="20d14d9d-93a3-8087-8363-c9d499c75bc0" class="simple-table"><thead class="simple-table-header"><tr id="20d14d9d-93a3-8031-a98b-d6f1a3530faf"><th id="OX^L" class="simple-table-header-color simple-table-header">分類</th><th id="J=`F" class="simple-table-header-color simple-table-header" style="width:406.765625px">ライブラリ名</th></tr></thead><tbody><tr id="20d14d9d-93a3-80e7-bac8-caa1190ff407"><td id="OX^L" class="">ルーティング</td><td id="J=`F" class="" style="width:406.765625px">react-router-dom</td></tr><tr id="20d14d9d-93a3-800e-a435-db3feaa54783"><td id="OX^L" class="">スタイリング</td><td id="J=`F" class="" style="width:406.765625px">tailwindcss</td></tr><tr id="20d14d9d-93a3-80eb-a058-d16f997356c4"><td id="OX^L" class="">状態管理</td><td id="J=`F" class="" style="width:406.765625px">redux, @reduxjs/toolkit, react-redux</td></tr><tr id="20d14d9d-93a3-8043-a8d7-dc443a35ee43"><td id="OX^L" class="">フォーム制御</td><td id="J=`F" class="" style="width:406.765625px">react-hook-form</td></tr><tr id="20d14d9d-93a3-80a3-907d-f5be69be4cd4"><td id="OX^L" class="">バリデーション</td><td id="J=`F" class="" style="width:406.765625px">zod</td></tr><tr id="20d14d9d-93a3-8087-b79b-f0c6604a3a72"><td id="OX^L" class="">HTTP通信</td><td id="J=`F" class="" style="width:406.765625px">axios</td></tr><tr id="20d14d9d-93a3-8057-9d97-ffeee2dd44c9"><td id="OX^L" class="">日付処理</td><td id="J=`F" class="" style="width:406.765625px">dayjs</td></tr><tr id="20d14d9d-93a3-80e1-b449-fc4f45acd640"><td id="OX^L" class="">UIコンポーネント</td><td id="J=`F" class="" style="width:406.765625px">shadcn/ui, radix-ui, react-dialog等</td></tr></tbody></table></li></ul><ul id="1f614d9d-93a3-8077-a78e-de6947371546" class="bulleted-list"><li style="list-style-type:disc">バックエンド：PHP（Laravel 10）</li></ul><p id="20e14d9d-93a3-8042-af97-e84422fd09a9" class="">
+</p><h1 id="20e14d9d-93a3-809e-8259-db7ada8f6242" class="">インフラ</h1><hr id="20e14d9d-93a3-804e-a11f-eaf67fe485da"/><p id="20e14d9d-93a3-8012-b13d-eb4b2c9f3332" class="">本アプリの稼働する開発環境・本番環境ついては、別途作成したネットワーク構成図にて明示しているため、本要件定義書では割愛する</p><p id="20d14d9d-93a3-801c-8485-fc17d3b692b3" class="">
+</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
