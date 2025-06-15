@@ -6,8 +6,8 @@ const loginForm = z.object({
   'password': z.string().min(10,'10文字以上12文字以下で入力してください').max(12,'10文字以上12文字以下で入力してください')
 });
 
-type LoginForm = z.infer<typeof loginForm>
+type LoginForm = z.infer<typeof loginForm>;
 
 
-export { loginForm }
-export type { LoginForm }
+export { loginForm };
+export type { LoginForm };

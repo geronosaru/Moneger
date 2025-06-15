@@ -1,139 +1,62 @@
 import type React from "react";
+import DeleteConfirmDialog from "../../../app/components/DeleteConfirmDialog";
+import GenreItem from "./GenreItem";
+import { deleteGenre, fetchGenres } from "../api/genreApi";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { useEffect, useState } from "react";
-import { deleteGenre, fetchGenres } from "../api/genreApi";
-import GenreForm from "./GenreForm";
-import DeleteConfirmDialog from "../../../app/components/DeleteConfirmDialog";
 
 
 const GenreList: React.FC = () => {
   const genres = useAppSelector((state) => state.genre.genres);
   const dispatch = useAppDispatch();
   const [editingGenreId, setEditingGenreId] = useState<number | null>(null);
-  const handleDelete = (id: number) => {
-    dispatch(deleteGenre(id))
-  }
   const [selectedGenreId, setSelectedGenreId] = useState<number | null>(null);
   const [selectedGenreName, setSelectedGenreName] = useState<string>("");
 
+  const clearSelection = () => {
+    setSelectedGenreId(null);
+    setSelectedGenreName("");
+  };
+
+  const handleDelete = async(id: number) => {
+    await dispatch(deleteGenre(id));
+    clearSelection();
+    dispatch(fetchGenres());
+  };
+
   useEffect(() => {
     dispatch(fetchGenres());
-  }, [])
+  }, []);
 
   return(
-    <>
-      <div className="size-96">
-        <ul className="h-full w-full p-3 flex flex-col justify-center items-start space-y-2 overflow-auto">
-          {
-            genres 
-            ? (
-              <>
-                {genres.map((genre) => {
-                    return(
-                      <>
-                        {
-                          editingGenreId
-                          ?
-                          <li 
-                            key={genre.id}
-                            className="h-10 w-full p-1 flex justify-between items-center rounded-sm shadow-sm bg-white"
-                          >
-                            {
-                              genre.id === editingGenreId
-                              ?
-                              <GenreForm genreId={editingGenreId} defaultName={genre.name} setEditingGenreId={setEditingGenreId} />
-                              :
-                              <>
-                                <p className="h-full w-2/3 flex justify-start items-center">{genre.name}</p>
-                                {
-                                  genre.is_default
-                                  ?
-                                  <>
-                                  </>
-                                  :
-                                    <div className="h-full w-1/3 flex justify-end items-center">
-                                      <svg className="w-6 h-6 text-slate-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-                                        <path fillRule="evenodd" d="M11.32 6.176H5c-1.105 0-2 .949-2 2.118v10.588C3 20.052 3.895 21 5 21h11c1.105 0 2-.948 2-2.118v-7.75l-3.914 4.144A2.46 2.46 0 0 1 12.81 16l-2.681.568c-1.75.37-3.292-1.263-2.942-3.115l.536-2.839c.097-.512.335-.983.684-1.352l2.914-3.086Z" clip-rule="evenodd"/>
-                                        <path fillRule="evenodd" d="M19.846 4.318a2.148 2.148 0 0 0-.437-.692 2.014 2.014 0 0 0-.654-.463 1.92 1.92 0 0 0-1.544 0 2.014 2.014 0 0 0-.654.463l-.546.578 2.852 3.02.546-.579a2.14 2.14 0 0 0 .437-.692 2.244 2.244 0 0 0 0-1.635ZM17.45 8.721 14.597 5.7 9.82 10.76a.54.54 0 0 0-.137.27l-.536 2.84c-.07.37.239.696.588.622l2.682-.567a.492.492 0 0 0 .255-.145l4.778-5.06Z" clip-rule="evenodd"/>
-                                      </svg>
-                                      <svg className="w-6 h-6 text-slate-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-                                        <path fillRule="evenodd" d="M8.586 2.586A2 2 0 0 1 10 2h4a2 2 0 0 1 2 2v2h3a1 1 0 1 1 0 2v12a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V8a1 1 0 0 1 0-2h3V4a2 2 0 0 1 .586-1.414ZM10 6h4V4h-4v2Zm1 4a1 1 0 1 0-2 0v8a1 1 0 1 0 2 0v-8Zm4 0a1 1 0 1 0-2 0v8a1 1 0 1 0 2 0v-8Z" clip-rule="evenodd"/>
-                                      </svg>
-                                    </div>
-                                }
-                              </>
-                            }
-                          </li>
-                          :
-                          <>
-                            <li 
-                              key={genre.id}
-                              className="h-10 w-full p-1 flex justify-between items-center rounded-sm shadow-sm bg-white"
-                            >
-                              <p className="h-full w-2/3 flex justify-start items-center">{genre.name}</p>
-                              {
-                                genre.is_default
-                                ?
-                                <>
-                                </>
-                                :
-                                <>
-                                  <div className="h-full w-1/3 flex justify-end items-center">
-                                    <svg 
-                                      className="w-6 h-6 text-slate-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24"
-                                      onClick={() => setEditingGenreId(genre.id)}
-                                    >
-                                      <path fillRule="evenodd" d="M11.32 6.176H5c-1.105 0-2 .949-2 2.118v10.588C3 20.052 3.895 21 5 21h11c1.105 0 2-.948 2-2.118v-7.75l-3.914 4.144A2.46 2.46 0 0 1 12.81 16l-2.681.568c-1.75.37-3.292-1.263-2.942-3.115l.536-2.839c.097-.512.335-.983.684-1.352l2.914-3.086Z" clip-rule="evenodd"/>
-                                      <path fillRule="evenodd" d="M19.846 4.318a2.148 2.148 0 0 0-.437-.692 2.014 2.014 0 0 0-.654-.463 1.92 1.92 0 0 0-1.544 0 2.014 2.014 0 0 0-.654.463l-.546.578 2.852 3.02.546-.579a2.14 2.14 0 0 0 .437-.692 2.244 2.244 0 0 0 0-1.635ZM17.45 8.721 14.597 5.7 9.82 10.76a.54.54 0 0 0-.137.27l-.536 2.84c-.07.37.239.696.588.622l2.682-.567a.492.492 0 0 0 .255-.145l4.778-5.06Z" clip-rule="evenodd"/>
-                                    </svg>
-                                    <svg className="w-6 h-6 text-slate-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24"
-                                      onClick={() => {
-                                        setSelectedGenreId(genre.id)
-                                        setSelectedGenreName(genre.name)
-                                      }}
-                                    >
-                                      <path fillRule="evenodd" d="M8.586 2.586A2 2 0 0 1 10 2h4a2 2 0 0 1 2 2v2h3a1 1 0 1 1 0 2v12a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V8a1 1 0 0 1 0-2h3V4a2 2 0 0 1 .586-1.414ZM10 6h4V4h-4v2Zm1 4a1 1 0 1 0-2 0v8a1 1 0 1 0 2 0v-8Zm4 0a1 1 0 1 0-2 0v8a1 1 0 1 0 2 0v-8Z" clip-rule="evenodd"/>
-                                    </svg>
-                                  </div>
-                                </>
-                              }
-                            </li>
-                          </>
-                        }
-
-                      </>
-                    )
-                  })
-                }
-              </>
-            )
-            :
-            <>
-              <li className="text-slate-600">ジャンルが登録されていません</li>
-            </>
-          }
-        </ul>
-        {
-          selectedGenreId !== null && (
-            <DeleteConfirmDialog
-              selectedGenreId={selectedGenreId}
-              selectedGenreName={selectedGenreName}
-              onConfirm={() => {
-                handleDelete(selectedGenreId);
-                setSelectedGenreId(null);
-                setSelectedGenreName("");
-                dispatch(fetchGenres());
-              }}
-              onCancel={() => {
-                setSelectedGenreId(null);
-                setSelectedGenreName("");
-              }}
-            />
-          )
-        }
-      </div>
-    </>
-  )
+    <div className="size-96">
+      <ul className="h-full w-full p-3 flex flex-col justify-center items-start space-y-2 overflow-auto">
+        {genres !== undefined && (genres.map((genre) => (
+          <GenreItem
+            key={genre.id}
+            genre={genre}
+            isEditing={editingGenreId === genre.id}
+            onEdit={() => setEditingGenreId(genre.id)}
+            setEditingGenreId={setEditingGenreId}
+            onOpenDeleteDialog={() => {
+              setSelectedGenreId(genre.id);
+              setSelectedGenreName(genre.name);
+            }}
+          />
+        )))}
+      </ul>
+      {
+        selectedGenreId !== null && (
+          <DeleteConfirmDialog
+            deleteGenreId={selectedGenreId}
+            deleteGenreName={selectedGenreName}
+            onConfirm={() => handleDelete(selectedGenreId)}
+            onCancel={clearSelection}
+          />
+        )
+      }
+    </div>
+  );
 }
 
 

@@ -6,7 +6,7 @@ type Transaction = {
   amount: number;
   date: string;
   memo?: string;
-}
+};
 
 
-export type {Transaction}
+export type {Transaction};
