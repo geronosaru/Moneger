@@ -11,10 +11,10 @@ const transactionForm = z.object({
     message: "日付の形式が正しくありません"
   }),
   memo: z.string().max(255, "255文字以内で入力してください")
-})
+});
 
-type TransactionForm = z.infer<typeof transactionForm>
+type TransactionForm = z.infer<typeof transactionForm>;
 
 
-export { transactionForm }
-export type { TransactionForm }
+export type { TransactionForm };
+export { transactionForm };

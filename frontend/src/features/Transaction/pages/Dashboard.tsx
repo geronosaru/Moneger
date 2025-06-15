@@ -1,11 +1,11 @@
 import type React from "react";
-import Template from "../../../app/components/Template";
 import Card from "../components/Card";
 import Calendar from "../components/Calendar";
+import Template from "../../../app/components/Template";
 import TransactionDetailList from "../components/TransactionList";
+import { fetchTransactions } from "../api/transactionApi";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { useEffect, useState } from "react";
-import { fetchTransactions } from "../api/transactionApi";
 
 
 const Dashboard: React.FC = () => {
@@ -15,7 +15,7 @@ const Dashboard: React.FC = () => {
 
   useEffect(() => {
     dispatch(fetchTransactions())
-  },[])
+  },[]);
 
   return(
     <>
@@ -47,8 +47,8 @@ const Dashboard: React.FC = () => {
         </div>
       </Template>
     </>
-  )
-}
+  );
+};
 
 
-export default Dashboard
+export default Dashboard;
