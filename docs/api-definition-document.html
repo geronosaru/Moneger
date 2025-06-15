@@ -1,0 +1,1652 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>API定義書</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(50, 48, 44, 1);
+}
+.highlight-gray {
+	color: rgba(115, 114, 110, 1);
+	fill: rgba(115, 114, 110, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(205, 60, 58, 1);
+	fill: rgba(205, 60, 58, 1);
+}
+.highlight-default_background {
+	color: rgba(50, 48, 44, 1);
+}
+.highlight-gray_background {
+	background: rgba(248, 248, 247, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(248, 243, 252, 1);
+}
+.highlight-pink_background {
+	background: rgba(252, 241, 246, 1);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(115, 114, 110, 1);
+	fill: rgba(115, 114, 110, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(205, 60, 58, 1);
+	fill: rgba(205, 60, 58, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(248, 248, 247, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(248, 243, 252, 1);
+}
+.block-color-pink_background {
+	background: rgba(252, 241, 246, 1);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: undefined; }
+.select-value-color-pink { background-color: rgba(225, 136, 179, 0.27); }
+.select-value-color-purple { background-color: rgba(168, 129, 197, 0.27); }
+.select-value-color-green { background-color: rgba(123, 183, 129, 0.27); }
+.select-value-color-gray { background-color: rgba(84, 72, 49, 0.15); }
+.select-value-color-translucentGray { background-color: undefined; }
+.select-value-color-orange { background-color: rgba(224, 124, 57, 0.27); }
+.select-value-color-brown { background-color: rgba(210, 162, 141, 0.35); }
+.select-value-color-red { background-color: rgba(244, 171, 159, 0.4); }
+.select-value-color-yellow { background-color: rgba(236, 191, 66, 0.39); }
+.select-value-color-blue { background-color: rgba(93, 165, 206, 0.27); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="1f614d9d-93a3-8024-ad3b-f8e46ab79b93" class="page sans"><header><h1 class="page-title">API定義書</h1><p class="page-description"></p><table class="properties"><tbody><tr class="property-row property-row-status"><th><span class="icon property-icon"><svg aria-hidden="true" role="graphics-symbol" viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(71, 70, 68, 0.6);flex-shrink:0" class="typesStatus"><path d="M8.75488 1.02344C8.75488 0.613281 8.41309 0.264648 8.00293 0.264648C7.59277 0.264648 7.25098 0.613281 7.25098 1.02344V3.11523C7.25098 3.51855 7.59277 3.86719 8.00293 3.86719C8.41309 3.86719 8.75488 3.51855 8.75488 3.11523V1.02344ZM3.91504 5.0293C4.20215 5.31641 4.69434 5.32324 4.97461 5.03613C5.26855 4.74902 5.26855 4.25684 4.98145 3.96973L3.53906 2.52051C3.25195 2.2334 2.7666 2.21973 2.47949 2.50684C2.19238 2.79395 2.18555 3.28613 2.47266 3.57324L3.91504 5.0293ZM10.9629 4.01758C10.6826 4.30469 10.6826 4.79688 10.9697 5.08398C11.2568 5.37109 11.749 5.36426 12.0361 5.07715L13.4854 3.62793C13.7725 3.34082 13.7725 2.84863 13.4785 2.55469C13.1982 2.27441 12.7061 2.27441 12.4189 2.56152L10.9629 4.01758ZM15.0234 8.78906C15.4336 8.78906 15.7822 8.44727 15.7822 8.03711C15.7822 7.62695 15.4336 7.28516 15.0234 7.28516H12.9385C12.5283 7.28516 12.1797 7.62695 12.1797 8.03711C12.1797 8.44727 12.5283 8.78906 12.9385 8.78906H15.0234ZM0.975586 7.28516C0.56543 7.28516 0.223633 7.62695 0.223633 8.03711C0.223633 8.44727 0.56543 8.78906 0.975586 8.78906H3.07422C3.48438 8.78906 3.83301 8.44727 3.83301 8.03711C3.83301 7.62695 3.48438 7.28516 3.07422 7.28516H0.975586ZM12.0361 10.9902C11.749 10.71 11.2568 10.71 10.9629 10.9971C10.6826 11.2842 10.6826 11.7764 10.9697 12.0635L12.4258 13.5127C12.7129 13.7998 13.2051 13.793 13.4922 13.5059C13.7793 13.2256 13.7725 12.7266 13.4854 12.4395L12.0361 10.9902ZM2.52051 12.4395C2.22656 12.7266 2.22656 13.2188 2.50684 13.5059C2.79395 13.793 3.28613 13.7998 3.57324 13.5127L5.02246 12.0703C5.31641 11.7832 5.31641 11.291 5.03613 11.0039C4.74902 10.7168 4.25684 10.71 3.96973 10.9971L2.52051 12.4395ZM8.75488 12.9658C8.75488 12.5557 8.41309 12.207 8.00293 12.207C7.59277 12.207 7.25098 12.5557 7.25098 12.9658V15.0576C7.25098 15.4609 7.59277 15.8096 8.00293 15.8096C8.41309 15.8096 8.75488 15.4609 8.75488 15.0576V12.9658Z"></path></svg></span>Qiita用ブラッシュアップ</th><td><span class="status-value"><div class="status-dot"></div>未着手</span></td></tr><tr class="property-row property-row-status"><th><span class="icon property-icon"><svg aria-hidden="true" role="graphics-symbol" viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(71, 70, 68, 0.6);flex-shrink:0" class="typesStatus"><path d="M8.75488 1.02344C8.75488 0.613281 8.41309 0.264648 8.00293 0.264648C7.59277 0.264648 7.25098 0.613281 7.25098 1.02344V3.11523C7.25098 3.51855 7.59277 3.86719 8.00293 3.86719C8.41309 3.86719 8.75488 3.51855 8.75488 3.11523V1.02344ZM3.91504 5.0293C4.20215 5.31641 4.69434 5.32324 4.97461 5.03613C5.26855 4.74902 5.26855 4.25684 4.98145 3.96973L3.53906 2.52051C3.25195 2.2334 2.7666 2.21973 2.47949 2.50684C2.19238 2.79395 2.18555 3.28613 2.47266 3.57324L3.91504 5.0293ZM10.9629 4.01758C10.6826 4.30469 10.6826 4.79688 10.9697 5.08398C11.2568 5.37109 11.749 5.36426 12.0361 5.07715L13.4854 3.62793C13.7725 3.34082 13.7725 2.84863 13.4785 2.55469C13.1982 2.27441 12.7061 2.27441 12.4189 2.56152L10.9629 4.01758ZM15.0234 8.78906C15.4336 8.78906 15.7822 8.44727 15.7822 8.03711C15.7822 7.62695 15.4336 7.28516 15.0234 7.28516H12.9385C12.5283 7.28516 12.1797 7.62695 12.1797 8.03711C12.1797 8.44727 12.5283 8.78906 12.9385 8.78906H15.0234ZM0.975586 7.28516C0.56543 7.28516 0.223633 7.62695 0.223633 8.03711C0.223633 8.44727 0.56543 8.78906 0.975586 8.78906H3.07422C3.48438 8.78906 3.83301 8.44727 3.83301 8.03711C3.83301 7.62695 3.48438 7.28516 3.07422 7.28516H0.975586ZM12.0361 10.9902C11.749 10.71 11.2568 10.71 10.9629 10.9971C10.6826 11.2842 10.6826 11.7764 10.9697 12.0635L12.4258 13.5127C12.7129 13.7998 13.2051 13.793 13.4922 13.5059C13.7793 13.2256 13.7725 12.7266 13.4854 12.4395L12.0361 10.9902ZM2.52051 12.4395C2.22656 12.7266 2.22656 13.2188 2.50684 13.5059C2.79395 13.793 3.28613 13.7998 3.57324 13.5127L5.02246 12.0703C5.31641 11.7832 5.31641 11.291 5.03613 11.0039C4.74902 10.7168 4.25684 10.71 3.96973 10.9971L2.52051 12.4395ZM8.75488 12.9658C8.75488 12.5557 8.41309 12.207 8.00293 12.207C7.59277 12.207 7.25098 12.5557 7.25098 12.9658V15.0576C7.25098 15.4609 7.59277 15.8096 8.00293 15.8096C8.41309 15.8096 8.75488 15.4609 8.75488 15.0576V12.9658Z"></path></svg></span>ステータス</th><td><span class="status-value select-value-color-green"><div class="status-dot status-dot-color-green"></div>完了</span></td></tr><tr class="property-row property-row-created_time"><th><span class="icon property-icon"><svg aria-hidden="true" role="graphics-symbol" viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(71, 70, 68, 0.6);flex-shrink:0" class="typesCreatedAt"><path d="M8 15.126C11.8623 15.126 15.0615 11.9336 15.0615 8.06445C15.0615 4.20215 11.8623 1.00293 7.99316 1.00293C4.13086 1.00293 0.938477 4.20215 0.938477 8.06445C0.938477 11.9336 4.1377 15.126 8 15.126ZM8 13.7383C4.85547 13.7383 2.33301 11.209 2.33301 8.06445C2.33301 4.91992 4.84863 2.39746 7.99316 2.39746C11.1377 2.39746 13.6738 4.91992 13.6738 8.06445C13.6738 11.209 11.1445 13.7383 8 13.7383ZM4.54102 8.91211H7.99316C8.30078 8.91211 8.54004 8.67285 8.54004 8.37207V3.8877C8.54004 3.58691 8.30078 3.34766 7.99316 3.34766C7.69238 3.34766 7.45312 3.58691 7.45312 3.8877V7.83203H4.54102C4.2334 7.83203 4.00098 8.06445 4.00098 8.37207C4.00098 8.67285 4.2334 8.91211 4.54102 8.91211Z"></path></svg></span>作成日時</th><td><time>@2025年5月17日 18:54</time></td></tr><tr class="property-row property-row-last_edited_time"><th><span class="icon property-icon"><svg aria-hidden="true" role="graphics-symbol" viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(71, 70, 68, 0.6);flex-shrink:0" class="typesCreatedAt"><path d="M8 15.126C11.8623 15.126 15.0615 11.9336 15.0615 8.06445C15.0615 4.20215 11.8623 1.00293 7.99316 1.00293C4.13086 1.00293 0.938477 4.20215 0.938477 8.06445C0.938477 11.9336 4.1377 15.126 8 15.126ZM8 13.7383C4.85547 13.7383 2.33301 11.209 2.33301 8.06445C2.33301 4.91992 4.84863 2.39746 7.99316 2.39746C11.1377 2.39746 13.6738 4.91992 13.6738 8.06445C13.6738 11.209 11.1445 13.7383 8 13.7383ZM4.54102 8.91211H7.99316C8.30078 8.91211 8.54004 8.67285 8.54004 8.37207V3.8877C8.54004 3.58691 8.30078 3.34766 7.99316 3.34766C7.69238 3.34766 7.45312 3.58691 7.45312 3.8877V7.83203H4.54102C4.2334 7.83203 4.00098 8.06445 4.00098 8.37207C4.00098 8.67285 4.2334 8.91211 4.54102 8.91211Z"></path></svg></span>最終更新日時</th><td><time>@2025年6月16日 4:58</time></td></tr></tbody></table></header><div class="page-body"><h1 id="1f614d9d-93a3-8064-9be5-d8cd5b97250a" class="">新規ユーザー登録画面</h1><hr id="1f614d9d-93a3-80ac-a031-dc87237f18ec"/><h2 id="1f614d9d-93a3-80d8-8428-d70c09dd50c4" class="">API一覧</h2><table id="1f614d9d-93a3-80f2-beab-ff6ad6531d9c" class="simple-table"><thead class="simple-table-header"><tr id="1f614d9d-93a3-80d7-a3ef-f3748176ecd1"><th id="EFjS" class="simple-table-header-color simple-table-header" style="width:43.99999237060547px">No.</th><th id="CtJr" class="simple-table-header-color simple-table-header">API名</th><th id="W]ef" class="simple-table-header-color simple-table-header">メソッド</th><th id="?|ec" class="simple-table-header-color simple-table-header">URI</th><th id="@POi" class="simple-table-header-color simple-table-header">用途</th><th id="KW^Y" class="simple-table-header-color simple-table-header" style="width:57.99999237060547px">CRUD</th><th id="[d`n" class="simple-table-header-color simple-table-header" style="width:50.99999237060547px">認証</th><th id="&lt;hRg" class="simple-table-header-color simple-table-header">備考</th></tr></thead><tbody><tr id="1f614d9d-93a3-806e-957c-d21991b35051"><td id="EFjS" class="" style="width:43.99999237060547px">1</td><td id="CtJr" class="">ユーザー登録</td><td id="W]ef" class="">POST</td><td id="?|ec" class="">/api/register</td><td id="@POi" class="">新規登録</td><td id="KW^Y" class="" style="width:57.99999237060547px">C</td><td id="[d`n" class="" style="width:50.99999237060547px">✖</td><td id="&lt;hRg" class=""></td></tr></tbody></table><p id="1f614d9d-93a3-800f-a42d-d97a07c95b9a" class="">
+</p><h2 id="1f614d9d-93a3-806f-9d0c-dec57c42e3c1" class="">API詳細</h2><h3 id="1f614d9d-93a3-80d1-8203-e13828b88514" class="">No.1　/api/register</h3><p id="1f614d9d-93a3-809b-b4b9-f449a4583081" class="">リクエスト</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1f614d9d-93a3-80d7-a391-ec175272cfd9" class="code"><code class="language-JSON">	【ヘッダー】
+		{
+		  &quot;Accept&quot;: &quot;application/json&quot;,
+		  &quot;Content-Type&quot;: &quot;application/json&quot;
+		}
+
+	【ボディ】
+		{
+			&quot;name&quot;: &quot;山田太郎&quot;,
+			&quot;email&quot;: &quot;yamada@taro.com&quot;,
+			&quot;password&quot;: &quot;Password&quot;,
+			&quot;password_confirmation&quot;: &quot;Password&quot;
+		}</code></pre><p id="1f614d9d-93a3-80f8-be19-e4f42e2cb27d" class="">レスポンス</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1f614d9d-93a3-80b7-b302-e1e61f429e66" class="code"><code class="language-JSON">【成功時】
+	ステータスコード: 201 Created
+	{
+	  &quot;message&quot;: &quot;Success to store a new user.&quot;,
+	  &quot;user&quot;: {
+	    &quot;id&quot;: 1,
+	    &quot;name&quot;: &quot;山田太郎&quot;,
+	    &quot;email&quot;: &quot;yamada@taro.com&quot;
+	  }
+	}
+	
+	【バリデーションエラー】
+	ステータスコード: 422 Unprocessable Entity
+	{
+	  &quot;message&quot;: &quot;The given data was invalid.&quot;,
+	  &quot;errors&quot;: {
+	    &quot;name&quot;: [&quot;50字以内で入力してください&quot;],
+	    &quot;email&quot;: [&quot;255字以内で入力してください&quot;],
+	    &quot;password&quot;: [&quot;8文字以上入力してください&quot;]
+	  }
+	}
+	
+	【サーバーエラー】
+	ステータスコード: 500 Internal Server Error
+	{
+	  &quot;message&quot;: &quot;Failed to store a new user.&quot;
+	}</code></pre><p id="1f614d9d-93a3-800c-95dc-c2b6b87e116b" class="">
+</p><h1 id="1f614d9d-93a3-80f0-90b7-cef157054060" class="">ログイン画面</h1><hr id="1f614d9d-93a3-8059-88ad-d2fd2a9a5897"/><h2 id="1f614d9d-93a3-8087-b537-e40ea5ac4d26" class="">API一覧</h2><table id="1f614d9d-93a3-80bd-be9e-e87a3e5e81b8" class="simple-table"><thead class="simple-table-header"><tr id="1f614d9d-93a3-80a3-bd8e-e2c0390936e6"><th id="EFjS" class="simple-table-header-color simple-table-header" style="width:43.99999237060547px">No.</th><th id="CtJr" class="simple-table-header-color simple-table-header">API名</th><th id="W]ef" class="simple-table-header-color simple-table-header">メソッド</th><th id="?|ec" class="simple-table-header-color simple-table-header">URI</th><th id="@POi" class="simple-table-header-color simple-table-header">用途</th><th id="KW^Y" class="simple-table-header-color simple-table-header" style="width:57.99999237060547px">CRUD</th><th id="[d`n" class="simple-table-header-color simple-table-header" style="width:50.99999237060547px">認証</th><th id="&lt;hRg" class="simple-table-header-color simple-table-header">備考</th></tr></thead><tbody><tr id="1f614d9d-93a3-807e-8216-f08241e5f25d"><td id="EFjS" class="" style="width:43.99999237060547px">1</td><td id="CtJr" class="">ログイン</td><td id="W]ef" class="">GET</td><td id="?|ec" class="">/api/login</td><td id="@POi" class="">ログイン</td><td id="KW^Y" class="" style="width:57.99999237060547px">R</td><td id="[d`n" class="" style="width:50.99999237060547px">✖</td><td id="&lt;hRg" class=""></td></tr></tbody></table><p id="1f614d9d-93a3-807a-962e-fa5dd4b18014" class="">
+</p><h2 id="1f614d9d-93a3-80d8-8c49-ca3d9aba46d2" class="">API詳細</h2><h3 id="1f614d9d-93a3-8083-bf4b-edf6b3516efd" class="">No.1　/api/login</h3><p id="1f614d9d-93a3-80cd-9f80-e822732895c2" class="">リクエスト</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1f614d9d-93a3-80e2-bdfa-ec77d9a3d786" class="code"><code class="language-JSON">	【ヘッダー】
+		{
+		  &quot;Accept&quot;: &quot;application/json&quot;,
+		  &quot;Content-Type&quot;: &quot;application/json&quot;,
+		  &quot;X-XSRF-TOKEN&quot;: &quot;取得したトークン&quot;,
+		  &quot;withCredentials&quot;: true
+		}
+
+	【ボディ】
+		{
+			&quot;email&quot;: &quot;yamada@taro.com&quot;,
+			&quot;password&quot;: &quot;Password&quot;
+		}</code></pre><p id="1f614d9d-93a3-800f-bcf2-effe5e7dab54" class="">レスポンス</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1f614d9d-93a3-803a-82f9-cc350cfe583d" class="code"><code class="language-JSON">【成功時】
+	ステータスコード: 200 OK
+	{
+	  &quot;message&quot;: &quot;Success to login.&quot;,
+	  &quot;access_token&quot;: &quot;1|sd5Xc8eOGN4gAp9fOaHk3JmE6lA1Khkx0lmA...&quot;,
+	  &quot;token_type&quot;: &quot;Bearer&quot;,
+	  &quot;user&quot;: {
+	    &quot;id&quot;: 1,
+	    &quot;name&quot;: &quot;山田太郎&quot;,
+	    &quot;email&quot;: &quot;yamada@taro.com&quot;
+	  }
+	}
+	
+	【バリデーションエラー】
+	ステータスコード: 422 Unprocessable Entity
+	{
+	  &quot;message&quot;: &quot;The given data was invalid.&quot;,
+	  &quot;errors&quot;: {
+	    &quot;email&quot;: [&quot;255字以内で入力してください&quot;],
+	    &quot;password&quot;: [&quot;8文字以上入力してください&quot;]
+	  }
+	}
+	
+	【サーバーエラー】
+	ステータスコード: 500 Internal Server Error
+	{
+	  &quot;message&quot;: &quot;Failed to login.&quot;
+	}</code></pre><p id="1f614d9d-93a3-808f-a1d6-de045a4178ad" class="">
+</p><p id="1f614d9d-93a3-8050-beab-c722538927ea" class="">
+</p><h1 id="1f614d9d-93a3-80c2-b77d-f8c005fd8a1d" class="">ユーザー情報編集画面</h1><hr id="1f614d9d-93a3-8053-a3d7-c0be09638950"/><p id="1f614d9d-93a3-805a-8aa0-f677e3c843bd" class="">
+</p><h2 id="1f614d9d-93a3-801e-b957-cb810a63c109" class="">API一覧</h2><table id="1f614d9d-93a3-8056-90f2-ecc83b13b751" class="simple-table"><thead class="simple-table-header"><tr id="1f614d9d-93a3-8048-bcec-d104e35e98a3"><th id="EFjS" class="simple-table-header-color simple-table-header" style="width:43.99999237060547px">No.</th><th id="CtJr" class="simple-table-header-color simple-table-header">API名</th><th id="W]ef" class="simple-table-header-color simple-table-header">メソッド</th><th id="?|ec" class="simple-table-header-color simple-table-header">URI</th><th id="@POi" class="simple-table-header-color simple-table-header">用途</th><th id="KW^Y" class="simple-table-header-color simple-table-header" style="width:57.99999237060547px">CRUD</th><th id="[d`n" class="simple-table-header-color simple-table-header" style="width:50.99999237060547px">認証</th><th id="&lt;hRg" class="simple-table-header-color simple-table-header">備考</th></tr></thead><tbody><tr id="1f614d9d-93a3-8082-9248-d3003f89f51e"><td id="EFjS" class="" style="width:43.99999237060547px">1</td><td id="CtJr" class="">ユーザー情報編集</td><td id="W]ef" class="">PATCH</td><td id="?|ec" class="">/api/user/me</td><td id="@POi" class="">ユーザー情報の更新</td><td id="KW^Y" class="" style="width:57.99999237060547px">U</td><td id="[d`n" class="" style="width:50.99999237060547px">✅</td><td id="&lt;hRg" class=""></td></tr></tbody></table><p id="1f614d9d-93a3-80f3-9e17-e1f5ab0067f7" class="">
+</p><h2 id="1f614d9d-93a3-80c8-a2b2-f8ee9c0ec09c" class="">API詳細</h2><h3 id="1f614d9d-93a3-80fc-9855-fd3a547801a0" class="">No.1　/api/user/me</h3><p id="1f614d9d-93a3-8085-89c1-f577f8f9f312" class="">リクエスト</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1f614d9d-93a3-8043-ab31-dc8bbd0f35ab" class="code"><code class="language-JSON">	【ヘッダー】
+		{
+		  &quot;Accept&quot;: &quot;application/json&quot;,
+		  &quot;Content-Type&quot;: &quot;application/json&quot;,
+		  &quot;X-XSRF-TOKEN&quot;: &quot;取得したトークン&quot;,
+		  &quot;withCredentials&quot;: true
+		}
+
+	【ボディ】
+		{
+		  &quot;name&quot;: &quot;田中次郎&quot;,
+			&quot;email&quot;: &quot;yamada@taro.com&quot;,
+			&quot;password&quot;: &quot;Password&quot;,
+			&quot;password_confirmation&quot;: &quot;Password&quot;
+		}</code></pre><p id="1f614d9d-93a3-808d-8d94-c753d2894088" class="">レスポンス</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1f614d9d-93a3-80d8-a9ca-db91616e32b8" class="code"><code class="language-JSON">【成功時】
+	ステータスコード: 200 OK
+	{
+	  &quot;message&quot;: &quot;Success to update a user information.&quot;,
+	  &quot;user&quot;: {
+	    &quot;id&quot;: 1,
+	    &quot;name&quot;: &quot;山田次郎&quot;,
+	    &quot;email&quot;: &quot;yamada@taro.com&quot;
+	  }
+	}
+	
+	【バリデーションエラー】
+	ステータスコード: 422 Unprocessable Entity
+	{
+	  &quot;message&quot;: &quot;The given data was invalid.&quot;,
+	  &quot;errors&quot;: {
+	    &quot;name&quot;: [&quot;50字以内で入力してください&quot;],
+	    &quot;email&quot;: [&quot;255字以内で入力してください&quot;],
+	    &quot;password&quot;: [&quot;8文字以上入力してください&quot;]
+	  }
+	}
+	
+	【サーバーエラー】
+	ステータスコード: 500 Internal Server Error
+	{
+	  &quot;message&quot;: &quot;Failed to update a user information.&quot;
+	}</code></pre><p id="1f614d9d-93a3-8099-8211-d7e35e94c9bb" class="">
+</p><h1 id="1f614d9d-93a3-807e-b38c-d34874a1c998" class="">収支情報登録画面</h1><hr id="1f614d9d-93a3-80b2-bdca-dbec1c95379d"/><p id="1f614d9d-93a3-806f-bf7c-e2432dd965d7" class="">
+</p><h2 id="1f614d9d-93a3-8007-aa9c-c818778d021a" class="">API一覧</h2><table id="1f614d9d-93a3-802c-8fcb-cbab79891514" class="simple-table"><thead class="simple-table-header"><tr id="1f614d9d-93a3-8036-ad80-d6293d09988f"><th id="EFjS" class="simple-table-header-color simple-table-header" style="width:43.99999237060547px">No.</th><th id="CtJr" class="simple-table-header-color simple-table-header">API名</th><th id="W]ef" class="simple-table-header-color simple-table-header">メソッド</th><th id="?|ec" class="simple-table-header-color simple-table-header">URI</th><th id="@POi" class="simple-table-header-color simple-table-header">用途</th><th id="KW^Y" class="simple-table-header-color simple-table-header" style="width:57.99999237060547px">CRUD</th><th id="[d`n" class="simple-table-header-color simple-table-header" style="width:50.99999237060547px">認証</th><th id="&lt;hRg" class="simple-table-header-color simple-table-header">備考</th></tr></thead><tbody><tr id="1f614d9d-93a3-8089-b947-d06402c6f863"><td id="EFjS" class="" style="width:43.99999237060547px">1</td><td id="CtJr" class="">収支登録</td><td id="W]ef" class="">POST</td><td id="?|ec" class="">/api/transactions</td><td id="@POi" class="">支出・収入の新規登録</td><td id="KW^Y" class="" style="width:57.99999237060547px">C</td><td id="[d`n" class="" style="width:50.99999237060547px">✅</td><td id="&lt;hRg" class="">収支の判断はtypeカラムで判断する。income | expense</td></tr><tr id="1f614d9d-93a3-8037-8b0c-d4cd4c0baa30"><td id="EFjS" class="" style="width:43.99999237060547px">2</td><td id="CtJr" class="">画像アップロード</td><td id="W]ef" class="">POST</td><td id="?|ec" class="">/api/transactions/{transaction}/photo</td><td id="@POi" class="">写真を登録（支出時のみ）</td><td id="KW^Y" class="" style="width:57.99999237060547px">C</td><td id="[d`n" class="" style="width:50.99999237060547px">✅</td><td id="&lt;hRg" class="">1の収支登録処理が成功後に行う。</td></tr><tr id="1f614d9d-93a3-804a-8d53-e9c11bc21e9a"><td id="EFjS" class="" style="width:43.99999237060547px">3</td><td id="CtJr" class="">ジャンル一覧取得</td><td id="W]ef" class="">GET</td><td id="?|ec" class="">/api/genres</td><td id="@POi" class="">プルダウン用のジャンル一覧取得</td><td id="KW^Y" class="" style="width:57.99999237060547px">R</td><td id="[d`n" class="" style="width:50.99999237060547px">✅</td><td id="&lt;hRg" class="">ジャンルを追加したいときのために、最後のoptionに「追加する」を用意し、押下するとモーダルにて新規登録が出来るようにする。</td></tr><tr id="1f614d9d-93a3-80fa-9b21-f6a672ce7e13"><td id="EFjS" class="" style="width:43.99999237060547px">4</td><td id="CtJr" class="">ジャンル登録</td><td id="W]ef" class="">POST</td><td id="?|ec" class="">/api/genres</td><td id="@POi" class="">ジャンルの新規登録</td><td id="KW^Y" class="" style="width:57.99999237060547px">C</td><td id="[d`n" class="" style="width:50.99999237060547px">✅</td><td id="&lt;hRg" class="">このAPI実行後、3のジャンル一覧取得を実行する。</td></tr></tbody></table><p id="1f614d9d-93a3-8057-a20c-f97a1d115c32" class="">
+</p><h2 id="1f614d9d-93a3-804a-8347-f04b3d397a72" class="">API詳細</h2><h3 id="1f614d9d-93a3-801a-9871-e84b7baa4092" class="">No.1　/api/transactions</h3><p id="1f614d9d-93a3-806b-9ac5-f17ac9d4494f" class="">リクエスト</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1f614d9d-93a3-800a-940a-fb152cfebd50" class="code"><code class="language-JSON">	【ヘッダー】
+		{
+		  &quot;Accept&quot;: &quot;application/json&quot;,
+		  &quot;Content-Type&quot;: &quot;application/json&quot;,
+		  &quot;X-XSRF-TOKEN&quot;: &quot;取得したトークン&quot;,
+		  &quot;withCredentials&quot;: true
+		}
+
+	【ボディ】
+		{
+		  &quot;user_id&quot;: 1,
+			&quot;genre_id&quot;: 3,
+			&quot;type&quot;: &quot;expense&quot;,
+			&quot;amount&quot;: 500,
+			&quot;date&quot;: &quot;YYYY-MM-DD&quot;,
+			&quot;memo&quot;: &quot;○○のために買った&quot;
+		}</code></pre><p id="1f614d9d-93a3-8082-9c99-f18a9996fc79" class="">レスポンス</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1f614d9d-93a3-80c1-adaf-df81b18c6672" class="code"><code class="language-JSON">【成功時】
+	ステータスコード: 201 Created
+	{
+	  &quot;message&quot;: &quot;Success to store a expense record.&quot;,
+	  &quot;transaction&quot;: {
+		  &quot;id&quot;: 1,
+		  &quot;user_id&quot;: 1,
+			&quot;genre_id&quot;: 3,
+			&quot;type&quot;: &quot;expense&quot;,
+			&quot;amount&quot;: 500,
+			&quot;date&quot;: &quot;YYYY-MM-DD&quot;,
+			&quot;memo&quot;: &quot;○○のために買った&quot;,
+			&quot;created_at&quot;: &quot;YYYY-MM-DD-HH:MM&quot;,
+			&quot;updated_at&quot;: null
+	  }
+	}
+	
+【バリデーションエラー】
+	ステータスコード: 422 Unprocessable Entity
+	{
+	  &quot;message&quot;: &quot;The given data was invalid.&quot;,
+	  &quot;errors&quot;: {
+			&quot;memo&quot;: [&quot;255字以内で入力してください&quot;],
+	  }
+	}
+	
+【サーバーエラー】
+	ステータスコード: 500 Internal Server Error
+	{
+	  &quot;message&quot;: &quot;Failed to store a new record.&quot;
+	}</code></pre><p id="1f614d9d-93a3-8069-9e7e-dd8bdb2d3354" class="">
+</p><h3 id="1f614d9d-93a3-8022-9acd-d58ec0b72221" class="">No.2　/api/transactions/{transaction}/photo</h3><p id="1f614d9d-93a3-80ca-8cd1-e50789ee8248" class="">リクエスト</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1f614d9d-93a3-8031-b6bb-d60034d7627f" class="code"><code class="language-JSON">	【ヘッダー】
+		{
+		  &quot;Accept&quot;: &quot;application/json&quot;,
+		  &quot;Content-Type&quot;: &quot;multipart/form-data&quot;,
+		  &quot;X-XSRF-TOKEN&quot;: &quot;取得したトークン&quot;,
+		  &quot;withCredentials&quot;: true
+		}
+
+	【FormData】
+		image: ファイル（画像）</code></pre><p id="1f614d9d-93a3-8021-89bd-cf6f5fb04d5d" class="">レスポンス</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1f614d9d-93a3-804f-8e07-c81858105b8c" class="code"><code class="language-JSON">【成功時】
+	ステータスコード: 201 Created
+	{
+	  &quot;message&quot;: &quot;Success to store an image.&quot;,
+	  &quot;photo&quot;: {
+		  &quot;id&quot;: 1,
+		  &quot;transaction_id&quot;: 1,
+			&quot;image_path&quot;: &quot;/images/flower.jpg&quot;,
+			&quot;created_at&quot;: &quot;YYYY-MM-DD-HH:MM&quot;,
+			&quot;updated_at&quot;: null
+	  }
+	}
+	
+【サーバーエラー】
+	ステータスコード: 500 Internal Server Error
+	{
+	  &quot;message&quot;: &quot;Failed to store an image.&quot;
+	}</code></pre><p id="1f614d9d-93a3-8050-b3f0-e17706c29c7e" class="">
+</p><h3 id="1f614d9d-93a3-8035-b352-edf73d79663d" class="">No.3　/api/genres</h3><p id="1f614d9d-93a3-8060-90a6-d708024b67f0" class="">リクエスト</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1f614d9d-93a3-80be-9417-d21199d20188" class="code"><code class="language-JSON">	【ヘッダー】
+		{
+		  &quot;Accept&quot;: &quot;application/json&quot;,
+		  &quot;Content-Type&quot;: &quot;multipart/form-data&quot;,
+		  &quot;X-XSRF-TOKEN&quot;: &quot;取得したトークン&quot;,
+		  &quot;withCredentials&quot;: true
+		}
+
+	【ボディ】
+ 　なし</code></pre><p id="1f614d9d-93a3-8068-bdb1-c01156da7fa3" class="">レスポンス</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1f614d9d-93a3-806d-885c-c39e90e401a0" class="code"><code class="language-JSON">【成功時】
+	ステータスコード: 201 Created
+	{
+	  &quot;message&quot;: &quot;Success to get genres.&quot;,
+	  &quot;genres&quot;: [{
+		  &quot;id&quot;: 1,
+		  &quot;name&quot;: &quot;食費&quot;,
+			&quot;user_id&quot;: 1,
+			&quot;is_default&quot;: true,
+			&quot;created_at&quot;: &quot;YYYY-MM-DD-HH:MM&quot;,
+			&quot;updated_at&quot;: null
+	  },{
+		  &quot;id&quot;: 1,
+		  &quot;name&quot;: &quot;交通費&quot;,
+			&quot;user_id&quot;: 1,
+			&quot;is_default&quot;: true,
+			&quot;created_at&quot;: &quot;YYYY-MM-DD-HH:MM&quot;,
+			&quot;updated_at&quot;: null
+	  }]
+	}
+	
+【サーバーエラー】
+	ステータスコード: 500 Internal Server Error
+	{
+	  &quot;message&quot;: &quot;Failed to get genres.&quot;
+	}</code></pre><p id="1f614d9d-93a3-80a1-b06b-ee7eb881dc21" class="">
+</p><h3 id="1f614d9d-93a3-802a-bb1f-ec6d4debeb6a" class="">No.4　/api/genres</h3><p id="1f614d9d-93a3-80bf-a767-e917cc529a67" class="">リクエスト</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1f614d9d-93a3-80d5-b298-f22ac7c3047c" class="code"><code class="language-JSON">	【ヘッダー】
+		{
+		  &quot;Accept&quot;: &quot;application/json&quot;,
+		  &quot;Content-Type&quot;: &quot;application/json&quot;,
+		  &quot;X-XSRF-TOKEN&quot;: &quot;取得したトークン&quot;,
+		  &quot;withCredentials&quot;: true
+		}
+
+	【ボディ】
+		{
+		  &quot;name&quot;: &quot;食費&quot;,
+			&quot;user_id&quot;: 1,
+		}</code></pre><p id="1f614d9d-93a3-805f-912c-d832c500b578" class="">レスポンス</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1f614d9d-93a3-8003-af48-cb05e36b1341" class="code"><code class="language-JSON">【成功時】
+	ステータスコード: 201 Created
+	{
+	  &quot;message&quot;: &quot;Success to store a new genre.&quot;,
+	  &quot;genre&quot;: {
+		  &quot;id&quot;: 1,
+		  &quot;name&quot;: &quot;食費&quot;,
+			&quot;user_id&quot;: 1,
+			&quot;is_default&quot;: true,
+			&quot;created_at&quot;: &quot;YYYY-MM-DD-HH:MM&quot;,
+			&quot;updated_at&quot;: null
+	  }
+	}
+	
+【バリデーションエラー】
+	ステータスコード: 422 Unprocessable Entity
+	{
+	  &quot;message&quot;: &quot;The given data was invalid.&quot;,
+	  &quot;errors&quot;: {
+			&quot;name&quot;: [&quot;20字以内で入力してください&quot;],
+	  }
+	}
+	
+【サーバーエラー】
+	ステータスコード: 500 Internal Server Error
+	{
+	  &quot;message&quot;: &quot;Failed to store a new genre.&quot;
+	}</code></pre><p id="1f614d9d-93a3-80a5-bad7-eee3de8e6d8d" class="">
+</p><p id="1f614d9d-93a3-802a-8f54-ce723b5096fb" class="">
+</p><h1 id="1f614d9d-93a3-80e6-8ae7-c6df53a81d66" class="">Dashboard</h1><hr id="1f614d9d-93a3-80c4-b245-fe4b8dfcfbc0"/><p id="1f614d9d-93a3-80b1-ace0-c5ae1d5964d4" class="">
+</p><h2 id="1f614d9d-93a3-80f9-8589-e14b929c77c3" class="">API一覧</h2><table id="1f614d9d-93a3-80f0-b6da-f8a003e989d3" class="simple-table"><thead class="simple-table-header"><tr id="1f614d9d-93a3-8027-b967-d3cac3eaf24d"><th id="EFjS" class="simple-table-header-color simple-table-header" style="width:43.99999237060547px">No.</th><th id="CtJr" class="simple-table-header-color simple-table-header">API名</th><th id="W]ef" class="simple-table-header-color simple-table-header">メソッド</th><th id="?|ec" class="simple-table-header-color simple-table-header">URI</th><th id="@POi" class="simple-table-header-color simple-table-header">用途</th><th id="KW^Y" class="simple-table-header-color simple-table-header" style="width:57.99999237060547px">CRUD</th><th id="[d`n" class="simple-table-header-color simple-table-header" style="width:50.99999237060547px">認証</th><th id="&lt;hRg" class="simple-table-header-color simple-table-header">備考</th></tr></thead><tbody><tr id="1f614d9d-93a3-80c5-9514-d6d6bccb2ad5"><td id="EFjS" class="" style="width:43.99999237060547px">1</td><td id="CtJr" class="">今月の収支一覧取得</td><td id="W]ef" class="">GET</td><td id="?|ec" class="">/api/transactions?month=”YYYY-MM”</td><td id="@POi" class="">カレンダーに表示する収支の取得</td><td id="KW^Y" class="" style="width:57.99999237060547px">R</td><td id="[d`n" class="" style="width:50.99999237060547px">✅</td><td id="&lt;hRg" class="">カレンダーの月を移動するボタン押下時に発火。収支詳細もすぐに表示できるよう、すべてのカラムを取得する</td></tr><tr id="1f614d9d-93a3-8071-98a0-d09318239f4e"><td id="EFjS" class="" style="width:43.99999237060547px">2</td><td id="CtJr" class="">ダッシュボード情報取得</td><td id="W]ef" class="">GET</td><td id="?|ec" class="">/api/dashboard</td><td id="@POi" class="">ダッシュボードに表示する項目を返す</td><td id="KW^Y" class="" style="width:57.99999237060547px">R</td><td id="[d`n" class="" style="width:50.99999237060547px">✅</td><td id="&lt;hRg" class="">以下の項目を返す。<br/>「今月の収入」「今月の支出」<br/>「今月の残金」<br/>「総資産」<br/>「今月使用可能な額」<br/></td></tr><tr id="1f614d9d-93a3-8097-8343-e334b57335d6"><td id="EFjS" class="" style="width:43.99999237060547px">3</td><td id="CtJr" class="">ログアウト</td><td id="W]ef" class="">POST</td><td id="?|ec" class="">/api/logout</td><td id="@POi" class="">ログアウト</td><td id="KW^Y" class="" style="width:57.99999237060547px">U</td><td id="[d`n" class="" style="width:50.99999237060547px">✅</td><td id="&lt;hRg" class="">ログアウト後、ログイン画面へ遷移する</td></tr></tbody></table><p id="1f614d9d-93a3-8067-b435-d8eda2e35bb9" class="">
+</p><h3 id="1f614d9d-93a3-8036-9ff5-c97c865d23d4" class="">No.1　/api/transactions?month=”YYYY-MM”</h3><p id="1f614d9d-93a3-8037-bb78-dd700bf148b5" class="">リクエスト</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1f614d9d-93a3-80a7-83f6-f660b0f39bb0" class="code"><code class="language-JSON">	【ヘッダー】
+		{
+		  &quot;Accept&quot;: &quot;application/json&quot;,
+		  &quot;X-XSRF-TOKEN&quot;: &quot;取得したトークン&quot;,
+		  &quot;withCredentials&quot;: true
+		}
+	【ボディ】
+	　なし</code></pre><p id="1f614d9d-93a3-8097-8fe8-f22701a9c35c" class="">レスポンス</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1f614d9d-93a3-8097-834f-e408626b2cf1" class="code"><code class="language-JSON">【成功時】
+	ステータスコード: 200 OK
+	{
+	  &quot;message&quot;: &quot;Success to get transactions.&quot;,
+	  &quot;transactions&quot;: [{
+		  &quot;id&quot;: 1,
+		  &quot;user_id&quot;: 1,
+			&quot;genre_id&quot;: 3,
+			&quot;type&quot;: &quot;expense&quot;,
+			&quot;amount&quot;: 500,
+			&quot;date&quot;: &quot;YYYY-MM-DD&quot;,
+			&quot;memo&quot;: &quot;○○のために買った&quot;,
+			&quot;created_at&quot;: &quot;YYYY-MM-DD-HH:MM&quot;,
+			&quot;updated_at&quot;: null
+	  },{
+		  &quot;id&quot;: 2,
+		  &quot;user_id&quot;: 1,
+			&quot;genre_id&quot;: 2,
+			&quot;type&quot;: &quot;expense&quot;,
+			&quot;amount&quot;: 1000,
+			&quot;date&quot;: &quot;YYYY-MM-DD&quot;,
+			&quot;memo&quot;: null,
+			&quot;created_at&quot;: &quot;YYYY-MM-DD-HH:MM&quot;,
+			&quot;updated_at&quot;: null
+	  }]
+	}
+	
+【サーバーエラー】
+	ステータスコード: 500 Internal Server Error
+	{
+	  &quot;message&quot;: &quot;Failed to get transactions.&quot;
+	}</code></pre><p id="1f614d9d-93a3-804c-a0c1-fef9a8f02cf3" class="">
+</p><h3 id="1f614d9d-93a3-80da-82b9-cc6aa051d8d1" class="">No.2　/api/dashboard</h3><p id="1f614d9d-93a3-8058-b611-cc2a9b61aac8" class="">リクエスト</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1f614d9d-93a3-8059-bb42-f30900bf96c3" class="code"><code class="language-JSON">	【ヘッダー】
+		{
+		  &quot;Accept&quot;: &quot;application/json&quot;,
+		  &quot;X-XSRF-TOKEN&quot;: &quot;取得したトークン&quot;,
+		  &quot;withCredentials&quot;: true
+		}
+
+	【ボディ】
+	　なし</code></pre><p id="1f614d9d-93a3-8028-8514-f194414068eb" class="">レスポンス</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1f614d9d-93a3-80ec-bd46-fd72c8b50c03" class="code"><code class="language-JSON">【成功時】
+	ステータスコード: 200 OK
+	{
+	  &quot;message&quot;: &quot;Success to get informations.&quot;,
+	  &quot;summary&quot;: {
+			&quot;this_month_income&quot;: 10000,
+			&quot;this_month_expense&quot;: 1000,
+			&quot;remaining_amount&quot;: 9000,
+			&quot;total_balance&quot;: 39000,
+			&quot;available_amount&quot;: 5000
+		}
+	}
+	
+【サーバーエラー】
+	ステータスコード: 500 Internal Server Error
+	{
+	  &quot;message&quot;: &quot;Failed to get informations.&quot;
+	}</code></pre><p id="1f614d9d-93a3-80d6-9dc0-f6c6b5ad0a24" class="">
+</p><h3 id="1f614d9d-93a3-8007-8f21-e6112bdfe355" class="">No.3　/api/logout</h3><p id="1f614d9d-93a3-80ed-83a8-ed70647d3527" class="">リクエスト</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1f614d9d-93a3-8045-b334-f0e486b8a315" class="code"><code class="language-JSON">	【ヘッダー】
+		{
+		  &quot;Accept&quot;: &quot;application/json&quot;,
+		  &quot;X-XSRF-TOKEN&quot;: &quot;取得したトークン&quot;,
+		  &quot;withCredentials&quot;: true
+		}
+
+	【ボディ】
+	　なし</code></pre><p id="1f614d9d-93a3-8011-82ec-f8193ea3a694" class="">レスポンス</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1f614d9d-93a3-80af-9dc2-f66ae32ae91c" class="code"><code class="language-JSON">【成功時】
+	ステータスコード: 200 OK
+	{
+	  &quot;message&quot;: &quot;Success to logout&quot;
+	}
+	
+【サーバーエラー】
+	ステータスコード: 500 Internal Server Error
+	{
+	  &quot;message&quot;: &quot;Failed to logout.&quot;
+	}</code></pre><p id="1f614d9d-93a3-8072-bbe5-f4de29e2804e" class="">
+</p><h1 id="1f614d9d-93a3-8032-ad98-cf40b14339e7" class="">固定費関係</h1><hr id="1f614d9d-93a3-803b-9dc4-fa6a21d046f1"/><p id="1f614d9d-93a3-8089-b9db-e222819fccf1" class="">
+</p><h2 id="1f614d9d-93a3-8042-bc95-f3db524445b5" class="">API一覧</h2><table id="1f614d9d-93a3-8083-844f-f75cce3673fb" class="simple-table"><thead class="simple-table-header"><tr id="1f614d9d-93a3-80b6-b26c-d782fa32e6b6"><th id="EFjS" class="simple-table-header-color simple-table-header" style="width:43.99999237060547px">No.</th><th id="CtJr" class="simple-table-header-color simple-table-header">API名</th><th id="W]ef" class="simple-table-header-color simple-table-header">メソッド</th><th id="?|ec" class="simple-table-header-color simple-table-header">URI</th><th id="@POi" class="simple-table-header-color simple-table-header">用途</th><th id="KW^Y" class="simple-table-header-color simple-table-header" style="width:57.99999237060547px">CRUD</th><th id="[d`n" class="simple-table-header-color simple-table-header" style="width:50.99999237060547px">認証</th><th id="&lt;hRg" class="simple-table-header-color simple-table-header">備考</th></tr></thead><tbody><tr id="1f614d9d-93a3-800a-8484-ec34c42762f8"><td id="EFjS" class="" style="width:43.99999237060547px">1</td><td id="CtJr" class="">固定費一覧取得</td><td id="W]ef" class="">GET</td><td id="?|ec" class="">/api/fixed-costs</td><td id="@POi" class="">固定費一覧の取得</td><td id="KW^Y" class="" style="width:57.99999237060547px">R</td><td id="[d`n" class="" style="width:50.99999237060547px">✅</td><td id="&lt;hRg" class="">固定費のすべての情報を取得し、フロントエンドで一覧表示と詳細表示で表示するカラムを調整する。</td></tr><tr id="1f614d9d-93a3-802e-b833-dbb038f491ab"><td id="EFjS" class="" style="width:43.99999237060547px">2</td><td id="CtJr" class="">固定費有効状態更新</td><td id="W]ef" class="">PATCH</td><td id="?|ec" class="">/api/fixed-costs/{fixed-cost}/is_active</td><td id="@POi" class="">固定費の有効状態を更新</td><td id="KW^Y" class="" style="width:57.99999237060547px">U</td><td id="[d`n" class="" style="width:50.99999237060547px">✅</td><td id="&lt;hRg" class="">トグル操作時にイベント発火</td></tr><tr id="1f614d9d-93a3-809f-a318-f1a07acd3cf1"><td id="EFjS" class="" style="width:43.99999237060547px">3</td><td id="CtJr" class="">固定費変更</td><td id="W]ef" class="">PATCH</td><td id="?|ec" class="">/api/fixed-costs/{fixed-cost}</td><td id="@POi" class="">固定費の変更</td><td id="KW^Y" class="" style="width:57.99999237060547px">U</td><td id="[d`n" class="" style="width:50.99999237060547px">✅</td><td id="&lt;hRg" class="">固定費の有効状態以外を送る</td></tr><tr id="1f614d9d-93a3-80fb-81b6-e3f8a896cb87"><td id="EFjS" class="" style="width:43.99999237060547px">4</td><td id="CtJr" class="">固定費登録</td><td id="W]ef" class="">POST</td><td id="?|ec" class="">/api/fixed-costs</td><td id="@POi" class="">固定費の新規登録</td><td id="KW^Y" class="" style="width:57.99999237060547px">C</td><td id="[d`n" class="" style="width:50.99999237060547px">✅</td><td id="&lt;hRg" class="">固定費の有効状態以外を送る</td></tr><tr id="1f614d9d-93a3-80a0-9043-e33f85f57745"><td id="EFjS" class="" style="width:43.99999237060547px">5</td><td id="CtJr" class="">固定費削除</td><td id="W]ef" class="">DELETE</td><td id="?|ec" class="">/api/fixed-costs/{fixed-cost}</td><td id="@POi" class="">固定費の削除</td><td id="KW^Y" class="" style="width:57.99999237060547px">D</td><td id="[d`n" class="" style="width:50.99999237060547px">✅</td><td id="&lt;hRg" class=""></td></tr></tbody></table><p id="1f614d9d-93a3-80e3-a1a2-f77f5cc576b3" class="">
+</p><h3 id="1f614d9d-93a3-80e5-b0bd-f4884081a8c4" class="">No.4　/api/fixed-costs</h3><p id="1f614d9d-93a3-80fd-bd40-c08f1c87b3b7" class="">リクエスト</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1f614d9d-93a3-80bb-aea5-c16fcd6bcff4" class="code"><code class="language-JSON">	【ヘッダー】
+		{
+		  &quot;Accept&quot;: &quot;application/json&quot;,
+		  &quot;X-XSRF-TOKEN&quot;: &quot;取得したトークン&quot;,
+		  &quot;withCredentials&quot;: true
+		}
+	【ボディ】
+	　なし</code></pre><p id="1f614d9d-93a3-8047-a1ba-d0cc66539687" class="">レスポンス</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1f614d9d-93a3-8018-8c1e-cb0968bf9330" class="code"><code class="language-JSON">【成功時】
+	ステータスコード: 200 OK
+	{
+	  &quot;message&quot;: &quot;Success to get fixed-costs.&quot;,
+	  &quot;fixed-costs&quot;: [{
+		  &quot;id&quot;: 1,
+		  &quot;user_id&quot;: 1,
+			&quot;genre&quot;: {
+      &quot;id&quot;: 3,
+      &quot;name&quot;: &quot;住居&quot;
+	    },
+			&quot;name&quot;: &quot;家賃&quot;,
+			&quot;amount&quot;: &quot;80000&quot;,
+			&quot;day_of_month&quot;: 10,
+			&quot;interval_months&quot;: 1,
+			&quot;start_date&quot;: &quot;2025-05-20&quot;,
+			&quot;is_occurence_date&quot;: &quot;2025-06-10&quot;,
+			&quot;is_active&quot;: true,
+			&quot;memo&quot;: &quot;&quot;,
+			&quot;created_at&quot;: &quot;YYYY-MM-DD-HH:MM&quot;,
+			&quot;updated_at&quot;: null
+	  },{
+		  &quot;id&quot;: 2,
+		  &quot;user_id&quot;: 1,
+			&quot;genre&quot;: {
+	      &quot;id&quot;: 4,
+	      &quot;name&quot;: &quot;インフラ&quot;
+	    },
+			&quot;name&quot;: &quot;通信代&quot;,
+			&quot;amount&quot;: &quot;8000&quot;,
+			&quot;day_of_month&quot;: 2,
+			&quot;interval_months&quot;: 1,
+			&quot;start_date&quot;: &quot;2025-05-20&quot;,
+			&quot;is_occurence_date&quot;: &quot;2025-06-02&quot;,
+			&quot;is_active&quot;: true,
+			&quot;memo&quot;: &quot;&quot;,
+			&quot;created_at&quot;: &quot;YYYY-MM-DD-HH:MM&quot;,
+			&quot;updated_at&quot;: null
+	  }]
+	}
+	
+【サーバーエラー】
+	ステータスコード: 500 Internal Server Error
+	{
+	  &quot;message&quot;: &quot;Failed to get fixed-costs.&quot;
+	}</code></pre><p id="1f614d9d-93a3-8096-bf6b-c1095ceba9d3" class="">
+</p><h3 id="1f614d9d-93a3-80bc-a917-e7c70efd8e97" class="">No.2　/api/fixed-costs/{fixed-costs}/is_active</h3><p id="1f614d9d-93a3-8039-8760-e22b019ebcb7" class="">リクエスト</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1f614d9d-93a3-801b-a14d-e9832de87804" class="code"><code class="language-JSON">	【ヘッダー】
+		{
+		  &quot;Accept&quot;: &quot;application/json&quot;,
+			&quot;X-XSRF-TOKEN&quot;: &quot;取得したトークン&quot;,
+		  &quot;withCredentials&quot;: true
+		}
+
+	【ボディ】
+	　なし</code></pre><p id="1f614d9d-93a3-8091-8ad5-f6fbc52f28da" class="">レスポンス</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1f614d9d-93a3-8011-8093-ffa741f870e3" class="code"><code class="language-JSON">【成功時】
+	ステータスコード: 200 OK
+	{
+	  &quot;message&quot;: &quot;Success to change the fixed-cost&#x27;s is_active state.&quot;,
+	  &quot;fixed_cost&quot;: {
+		  &quot;id&quot;: 1,
+			&quot;is_active&quot;: true,
+			&quot;updated_at&quot;: &quot;YYYY-MM-DD-HH:MM&quot;
+		}
+	}
+	
+【サーバーエラー】
+	ステータスコード: 500 Internal Server Error
+	{
+	  &quot;message&quot;: &quot;Failed to change the fixed-cost&#x27;s is_active state.&quot;
+	}</code></pre><p id="1f614d9d-93a3-803c-8578-de38cc1694fb" class="">
+</p><h3 id="1f614d9d-93a3-80fa-b002-c5a7f5477e08" class="">No.3　/api/fixed-costs/{fixed-costs}</h3><p id="1f614d9d-93a3-808a-b0a1-c7767f8c71ff" class="">リクエスト</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1f614d9d-93a3-80f2-bd2b-c92139eaeaee" class="code"><code class="language-JSON">	【ヘッダー】
+		{
+		  &quot;Accept&quot;: &quot;application/json&quot;,
+		  &quot;X-XSRF-TOKEN&quot;: &quot;取得したトークン&quot;,
+		  &quot;withCredentials&quot;: true
+		}
+
+	【ボディ】
+		{
+			&quot;genre_id&quot;: 3
+			&quot;name&quot;: &quot;家賃&quot;,
+			&quot;amount&quot;: &quot;80000&quot;,
+			&quot;day_of_month&quot;: 10,
+			&quot;interval_months&quot;: 1,
+			&quot;start_date&quot;: &quot;2025-05-20&quot;,
+			&quot;is_active&quot;: true,
+			&quot;memo&quot;: &quot;&quot;,
+		}</code></pre><p id="1f614d9d-93a3-80c2-9f8c-ff89c5f74af6" class="">レスポンス</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1f614d9d-93a3-80e7-910e-c8c8931597e0" class="code"><code class="language-JSON">【成功時】
+	ステータスコード: 200 OK
+	{
+	  &quot;message&quot;: &quot;Success to change the fixed-cost.&quot;
+		&quot;fixed-costs&quot;: {
+		  &quot;id&quot;: 1,
+		  &quot;user_id&quot;: 1,
+			&quot;genre&quot;: {
+      &quot;id&quot;: 3,
+      &quot;name&quot;: &quot;住居&quot;
+	    },
+			&quot;name&quot;: &quot;家賃&quot;,
+			&quot;amount&quot;: &quot;80000&quot;,
+			&quot;day_of_month&quot;: 10,
+			&quot;interval_months&quot;: 1,
+			&quot;start_date&quot;: &quot;2025-05-20&quot;,
+			&quot;is_occurence_date&quot;: &quot;2025-06-10&quot;,
+			&quot;is_active&quot;: true,
+			&quot;memo&quot;: &quot;&quot;,
+			&quot;created_at&quot;: &quot;YYYY-MM-DD-HH:MM&quot;,
+			&quot;updated_at&quot;: null
+	  }
+	}
+	
+	
+ 【バリデーションエラー】
+	ステータスコード: 422 Unprocessable Entity
+	{
+	  &quot;message&quot;: &quot;The given data was invalid.&quot;,
+	  &quot;errors&quot;: {
+			&quot;name&quot;: [&quot;20字以内で入力してください&quot;],
+			&quot;memo&quot;: [&quot;255字以内で入力してください&quot;],
+	  }
+	}
+	
+【サーバーエラー】
+	ステータスコード: 500 Internal Server Error
+	{
+	  &quot;message&quot;: &quot;Failed to change the fixed-cost&quot;
+	}</code></pre><p id="1f614d9d-93a3-80a3-a71e-d98a9704058c" class="">
+</p><h3 id="1f614d9d-93a3-8008-ac29-d9a733c0b13d" class="">No.4　/api/fixed-costs</h3><p id="1f614d9d-93a3-8091-b379-eb18c4cb7999" class="">リクエスト</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1f614d9d-93a3-80e8-8286-f43c4c7f4f01" class="code"><code class="language-JSON">	【ヘッダー】
+		{
+		  &quot;Accept&quot;: &quot;application/json&quot;,
+		  &quot;X-XSRF-TOKEN&quot;: &quot;取得したトークン&quot;,
+		  &quot;withCredentials&quot;: true
+		}
+
+	【ボディ】
+		{
+			&quot;genre_id&quot;: 3,
+			&quot;name&quot;: &quot;家賃&quot;,
+			&quot;amount&quot;: &quot;80000&quot;,
+			&quot;day_of_month&quot;: 10,
+			&quot;interval_months&quot;: 1,
+			&quot;start_date&quot;: &quot;2025-05-20&quot;,
+			&quot;is_active&quot;: true,
+			&quot;memo&quot;: &quot;&quot;,
+		}</code></pre><p id="1f614d9d-93a3-80d3-a8c1-f8f0e233f40a" class="">レスポンス</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1f614d9d-93a3-807f-affd-c39cae857c54" class="code"><code class="language-JSON">【成功時】
+	ステータスコード: 201 Created
+	{
+	  &quot;message&quot;: &quot;Success to store a new fixed-cost.&quot;
+		&quot;fixed-costs&quot;: {
+		  &quot;id&quot;: 1,
+		  &quot;user_id&quot;: 1,
+			&quot;genre&quot;: {
+      &quot;id&quot;: 3,
+      &quot;name&quot;: &quot;住居&quot;
+	    },
+			&quot;name&quot;: &quot;家賃&quot;,
+			&quot;amount&quot;: &quot;80000&quot;,
+			&quot;day_of_month&quot;: 10,
+			&quot;interval_months&quot;: 1,
+			&quot;start_date&quot;: &quot;2025-05-20&quot;,
+			&quot;is_occurence_date&quot;: &quot;2025-06-10&quot;,
+			&quot;is_active&quot;: true,
+			&quot;memo&quot;: &quot;&quot;,
+			&quot;created_at&quot;: &quot;YYYY-MM-DD-HH:MM&quot;,
+			&quot;updated_at&quot;: null
+	  }
+	}
+	
+	
+【バリデーションエラー】
+	ステータスコード: 422 Unprocessable Entity
+	{
+	  &quot;message&quot;: &quot;The given data was invalid.&quot;,
+	  &quot;errors&quot;: {
+			&quot;name&quot;: [&quot;20字以内で入力してください&quot;],
+			&quot;memo&quot;: [&quot;255字以内で入力してください&quot;],
+	  }
+	}
+	
+【サーバーエラー】
+	ステータスコード: 500 Internal Server Error
+	{
+	  &quot;message&quot;: &quot;Failed to store a new fixed-cost&quot;
+	}</code></pre><p id="1f614d9d-93a3-808a-8ddc-ee51e9bcb396" class="">
+</p><p id="1f614d9d-93a3-80cc-8d48-fe59ce91bea7" class="">
+</p><h3 id="1f614d9d-93a3-800a-9a8c-e527d8b65549" class="">No.5　/api/fixed-costs/{fixed-costs}</h3><p id="1f614d9d-93a3-8057-b8b6-e7bc2dd3a19d" class="">リクエスト</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1f614d9d-93a3-8085-9a8c-eed39c5723a2" class="code"><code class="language-JSON">	【ヘッダー】
+		{
+		  &quot;Accept&quot;: &quot;application/json&quot;,
+		  &quot;X-XSRF-TOKEN&quot;: &quot;取得したトークン&quot;,
+		  &quot;withCredentials&quot;: true
+		}
+
+	【ボディ】
+		なし</code></pre><p id="1f614d9d-93a3-80e5-9239-fd6043a98ab9" class="">レスポンス</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1f614d9d-93a3-80a4-ba84-f5c006576da9" class="code"><code class="language-JSON">【成功時】
+	ステータスコード: 200 OK
+	{
+	  &quot;message&quot;: &quot;Success to delete a task. task_id = 1&quot;
+	}
+	
+【サーバーエラー】
+	ステータスコード: 500 Internal Server Error
+	{
+	  &quot;message&quot;: &quot;Failed to delete the task.&quot;
+	}</code></pre><p id="1f614d9d-93a3-804f-9e91-cab67532ea9b" class="">
+</p><p id="1f614d9d-93a3-8055-8c93-f2e9a4e33dae" class="">
+</p><h1 id="1f614d9d-93a3-802c-8d57-d8bb3e9d33f4" class="">貯金目標一覧</h1><hr id="1f614d9d-93a3-8065-93be-fbeeb8facc3d"/><p id="1f614d9d-93a3-8034-a4e9-c2cd712a743a" class="">
+</p><h2 id="1f614d9d-93a3-80a8-8818-f5b837e2f827" class="">API一覧</h2><table id="1f614d9d-93a3-809a-a326-cf115b14143b" class="simple-table"><thead class="simple-table-header"><tr id="1f614d9d-93a3-8052-ac1a-ca94d757812d"><th id="EFjS" class="simple-table-header-color simple-table-header" style="width:43.99999237060547px">No.</th><th id="CtJr" class="simple-table-header-color simple-table-header">API名</th><th id="W]ef" class="simple-table-header-color simple-table-header">メソッド</th><th id="?|ec" class="simple-table-header-color simple-table-header">URI</th><th id="@POi" class="simple-table-header-color simple-table-header">用途</th><th id="KW^Y" class="simple-table-header-color simple-table-header" style="width:57.99999237060547px">CRUD</th><th id="[d`n" class="simple-table-header-color simple-table-header" style="width:50.99999237060547px">認証</th><th id="&lt;hRg" class="simple-table-header-color simple-table-header">備考</th></tr></thead><tbody><tr id="1f614d9d-93a3-8090-9042-f7036d5e9d2d"><td id="EFjS" class="" style="width:43.99999237060547px">1</td><td id="CtJr" class="">貯金目標一覧取得</td><td id="W]ef" class="">GET</td><td id="?|ec" class="">/api/saving-goals</td><td id="@POi" class="">貯金目標一覧の取得</td><td id="KW^Y" class="" style="width:57.99999237060547px">R</td><td id="[d`n" class="" style="width:50.99999237060547px">✅</td><td id="&lt;hRg" class="">固定費のid,name,と現在の貯金額を計算して返す</td></tr></tbody></table><p id="1f614d9d-93a3-8086-990f-e13c2945aacf" class="">
+</p><h3 id="1f614d9d-93a3-8044-9641-dcbd43750a2d" class="">No.1　/api/saving-goals</h3><p id="1f614d9d-93a3-80b0-bda1-f5d360db115a" class="">リクエスト</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1f614d9d-93a3-8025-bd72-da693ce26d0b" class="code"><code class="language-JSON">	【ヘッダー】
+		{
+		  &quot;Accept&quot;: &quot;application/json&quot;,
+		  &quot;X-XSRF-TOKEN&quot;: &quot;取得したトークン&quot;,
+		  &quot;withCredentials&quot;: true
+		}
+	【ボディ】
+	　なし</code></pre><p id="1f614d9d-93a3-80b9-bec5-d590364cade2" class="">レスポンス</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1f614d9d-93a3-80de-91a7-f189f7736396" class="code"><code class="language-JSON">【成功時】
+	ステータスコード: 200 OK
+	{
+	 &quot;message&quot;: &quot;Success to get saving_goals.&quot;,
+	 &quot;saving_goals&quot;: [
+	    {
+	      &quot;id&quot;: 1,
+	      &quot;name&quot;: &quot;海外旅行&quot;,
+	      &quot;target_amount&quot;: 100000,
+	      &quot;saving_amount&quot;: 50000,
+	      &quot;deadline&quot;: &quot;2025-09-01&quot;
+	    },
+	    {
+	      &quot;id&quot;: 2,
+	      &quot;name&quot;: &quot;将来のための貯金&quot;,
+	      &quot;target_amount&quot;: 200000,
+	      &quot;saving_amount&quot;: 100000,
+	      &quot;deadline&quot;: &quot;2026-01-01&quot;
+	    }
+	  ]
+	}
+	
+【サーバーエラー】
+	ステータスコード: 500 Internal Server Error
+	{
+	  &quot;message&quot;: &quot;Failed to get saving_goals.&quot;
+	}</code></pre><p id="1f714d9d-93a3-80c3-a149-d4c7cca02dc8" class="">
+</p><h1 id="1f714d9d-93a3-80ef-8e2e-f6c7e6ab6aee" class="">貯金目標詳細</h1><hr id="1f714d9d-93a3-8057-96b9-da3822b2507d"/><p id="1f714d9d-93a3-8066-b8e2-cb888e7fdb7b" class="">
+</p><h2 id="1f714d9d-93a3-805f-969c-e6f12af83552" class="">API一覧</h2><table id="1f714d9d-93a3-8034-98ff-d4232959a21f" class="simple-table"><thead class="simple-table-header"><tr id="1f714d9d-93a3-8070-87c5-ebb8bbb91359"><th id="EFjS" class="simple-table-header-color simple-table-header" style="width:43.99999237060547px">No.</th><th id="CtJr" class="simple-table-header-color simple-table-header">API名</th><th id="W]ef" class="simple-table-header-color simple-table-header">メソッド</th><th id="?|ec" class="simple-table-header-color simple-table-header">URI</th><th id="@POi" class="simple-table-header-color simple-table-header">用途</th><th id="KW^Y" class="simple-table-header-color simple-table-header" style="width:57.99999237060547px">CRUD</th><th id="[d`n" class="simple-table-header-color simple-table-header" style="width:50.99999237060547px">認証</th><th id="&lt;hRg" class="simple-table-header-color simple-table-header" style="width:427.99999237060547px">備考</th></tr></thead><tbody><tr id="1f714d9d-93a3-8083-94eb-c89784de8c68"><td id="EFjS" class="" style="width:43.99999237060547px">1</td><td id="CtJr" class="">貯金目標詳細取得</td><td id="W]ef" class="">GET</td><td id="?|ec" class="">/api/saving-goals/{saving-goal}</td><td id="@POi" class="">貯金目標詳細の取得</td><td id="KW^Y" class="" style="width:57.99999237060547px">R</td><td id="[d`n" class="" style="width:50.99999237060547px">✅</td><td id="&lt;hRg" class="" style="width:427.99999237060547px">saving_goalsの全カラムと外部キーにそのsaving_goalのidを持っているsaving_progressの全カラムを取得。また、現在の貯金状況を判断するメッセージも取得。（このままのペースで行けば達成できます！やこのままのペースで行くと、締切日時点で〇円足りなくなります。）</td></tr><tr id="1f714d9d-93a3-802d-9a4d-facb2b64b794"><td id="EFjS" class="" style="width:43.99999237060547px">2</td><td id="CtJr" class="">貯金目標削除</td><td id="W]ef" class="">DELETE</td><td id="?|ec" class="">/api/saving-goals/{saving-goal}</td><td id="@POi" class="">貯金目標の削除</td><td id="KW^Y" class="" style="width:57.99999237060547px">D</td><td id="[d`n" class="" style="width:50.99999237060547px">✅</td><td id="&lt;hRg" class="" style="width:427.99999237060547px">貯金目標を削除すると、今まで記録していた貯金履歴も削除される。</td></tr><tr id="1f714d9d-93a3-803d-a05f-e9ede69bdd12"><td id="EFjS" class="" style="width:43.99999237060547px">3</td><td id="CtJr" class="">貯金履歴削除</td><td id="W]ef" class="">DELETE</td><td id="?|ec" class="">/api/saving-progresses/{saving-progress}</td><td id="@POi" class="">貯金履歴の削除</td><td id="KW^Y" class="" style="width:57.99999237060547px">D</td><td id="[d`n" class="" style="width:50.99999237060547px">✅</td><td id="&lt;hRg" class="" style="width:427.99999237060547px"></td></tr><tr id="1f714d9d-93a3-80e4-9340-c10d12a9daa2"><td id="EFjS" class="" style="width:43.99999237060547px">4</td><td id="CtJr" class="">貯金目標有効化変更</td><td id="W]ef" class="">PATCH</td><td id="?|ec" class="">/api/saving-progresses/{saving-progress}/is_active</td><td id="@POi" class="">貯金目標の有効化カラムの変更</td><td id="KW^Y" class="" style="width:57.99999237060547px">U</td><td id="[d`n" class="" style="width:50.99999237060547px">✅</td><td id="&lt;hRg" class="" style="width:427.99999237060547px"></td></tr></tbody></table><p id="1f714d9d-93a3-8078-a7ec-d4a13bcfc008" class="">
+</p><h3 id="1f714d9d-93a3-800e-94d8-ce52309b75b2" class="">No.1　/api/saving_goals/{saving_goal}</h3><p id="1f714d9d-93a3-80fa-bd6b-f63ef8af5e04" class="">リクエスト</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1f714d9d-93a3-806d-bdcd-f10d11395dd9" class="code"><code class="language-JSON">	【ヘッダー】
+		{
+		  &quot;Accept&quot;: &quot;application/json&quot;,
+		  &quot;X-XSRF-TOKEN&quot;: &quot;取得したトークン&quot;,
+		  &quot;withCredentials&quot;: true
+		}
+	【ボディ】
+	　なし</code></pre><p id="1f714d9d-93a3-80be-87d6-e884983b3ccb" class="">レスポンス</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1f714d9d-93a3-804e-93e9-ec4b4fa6aaac" class="code"><code class="language-JSON">【成功時】
+	ステータスコード: 200 OK
+	{
+	 &quot;message&quot;: &quot;Success to get the saving_goal summary.&quot;,
+	 &quot;summary&quot;: {
+		 &quot;saving_goal&quot;: {
+	      &quot;id&quot;: 1,
+	      &quot;name&quot;: &quot;海外旅行&quot;,
+	      &quot;target_amount&quot;: 1000000,
+	      &quot;deadline&quot;: &quot;YYYY-MM-DD&quot;,
+	      &quot;auto_monthly_amount&quot;: 50000,
+	      &quot;is_active&quot;: true,
+	      &quot;created_at&quot;: &quot;YYYY-MM-DD&quot;,
+	      &quot;updated_at&quot;: &quot;YYYY-MM-DD&quot;
+		 },
+		 &quot;saving_progresses&quot;: [{
+			 &quot;id&quot;: 1,
+			 &quot;saving_goal_id&quot;: 1,
+			 &quot;amount&quot;: 50000,
+			 &quot;date&quot;: &quot;YYYY-MM-DD&quot;,
+	     &quot;created_at&quot;: &quot;YYYY-MM-DD&quot;,
+	     &quot;updated_at&quot;: &quot;YYYY-MM-DD&quot;
+		 }],
+		 &quot;circumstance&quot;: {
+			 &quot;message&quot;: &quot;このままのペースで行けば達成できます！&quot;,
+			 &quot;saving_amount&quot;: 50000
+		 }
+	  }
+	}
+	
+【サーバーエラー】
+	ステータスコード: 500 Internal Server Error
+	{
+	  &quot;message&quot;: &quot;Failed to get saving_goal summary.&quot;
+	}</code></pre><p id="1f714d9d-93a3-8013-ad8f-f142cfec189a" class="">
+</p><h3 id="1f714d9d-93a3-8023-8f06-d6dd63fe21af" class="">No.2　/api/saving_goals/{saving_goal}</h3><p id="1f714d9d-93a3-806f-8b9c-f8f10def4e26" class="">リクエスト</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1f714d9d-93a3-80c3-a835-fb5125f6dc31" class="code"><code class="language-JSON">	【ヘッダー】
+		{
+		  &quot;Accept&quot;: &quot;application/json&quot;,
+		  &quot;X-XSRF-TOKEN&quot;: &quot;取得したトークン&quot;,
+		  &quot;withCredentials&quot;: true
+		}
+	【ボディ】
+	　なし</code></pre><p id="1f714d9d-93a3-8060-88f7-d49637776a4f" class="">レスポンス</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1f714d9d-93a3-8050-be4a-d7c0fac662f7" class="code"><code class="language-JSON">【成功時】
+	ステータスコード: 200 OK
+	{
+	 &quot;message&quot;: &quot;Success to delete a saving_goal and related saving_progresses. id=1&quot;
+	}
+	
+【サーバーエラー】
+	ステータスコード: 500 Internal Server Error
+	{
+	  &quot;message&quot;: &quot;Failed to delete a saving_goal and related saving_progresses. id=1&quot;
+	}</code></pre><p id="1f714d9d-93a3-80c1-a99a-eae1d0b84ab4" class="">
+</p><p id="1f714d9d-93a3-80d4-934c-d845a4976cdc" class="">
+</p><h3 id="1f714d9d-93a3-80f0-9f27-d2cd9285e560" class="">No.3　/api/saving_progresses/{saving_progress}</h3><p id="1f714d9d-93a3-8016-9a81-fb034498a4f3" class="">リクエスト</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1f714d9d-93a3-807e-a4b7-d97f658f91f3" class="code"><code class="language-JSON">	【ヘッダー】
+		{
+		  &quot;Accept&quot;: &quot;application/json&quot;,
+		  &quot;X-XSRF-TOKEN&quot;: &quot;取得したトークン&quot;,
+		  &quot;withCredentials&quot;: true
+		}
+	【ボディ】
+	　なし</code></pre><p id="1f714d9d-93a3-805a-bbf5-f768a9058906" class="">レスポンス</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1f714d9d-93a3-801c-9275-fc9b9b6105ac" class="code"><code class="language-JSON">【成功時】
+	ステータスコード: 200 OK
+	{
+	 &quot;message&quot;: &quot;Success to delete a saving_progresses. id=1&quot;
+	}
+	
+【サーバーエラー】
+	ステータスコード: 500 Internal Server Error
+	{
+	  &quot;message&quot;: &quot;Failed to delete a saving_progresses. id=1&quot;
+	}</code></pre><p id="1f714d9d-93a3-8007-9127-fabf7e2bc103" class="">
+</p><h3 id="1f714d9d-93a3-8026-ac59-ef62f163f493" class="">No.4　/api/saving-goals/{saving-goal}/is_active</h3><p id="1f714d9d-93a3-80b5-af82-cf9cfc6da711" class="">リクエスト</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1f714d9d-93a3-805b-afca-db36bba62880" class="code"><code class="language-JSON">	【ヘッダー】
+		{
+		  &quot;Accept&quot;: &quot;application/json&quot;,
+		  &quot;X-XSRF-TOKEN&quot;: &quot;取得したトークン&quot;,
+		  &quot;withCredentials&quot;: true
+		}
+	【ボディ】
+	　なし</code></pre><p id="1f714d9d-93a3-8077-bc24-d38b999a773d" class="">レスポンス</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1f714d9d-93a3-8055-be70-d6c5dbc78ab9" class="code"><code class="language-JSON">【成功時】
+	ステータスコード: 200 OK
+	{
+	 &quot;message&quot;: &quot;Success to toggle the saving_goal&#x27;s is_active status.&quot;,
+	 &quot;saving_progress&quot;: {
+		 &quot;id&quot;: 1,
+		 &quot;is_active&quot;: false,
+     &quot;updated_at&quot;: &quot;2025-05-18T10:30:00&quot;
+	 }
+	}
+	
+【サーバーエラー】
+	ステータスコード: 500 Internal Server Error
+	{
+	  &quot;message&quot;: &quot;Failed to toggle the saving_goal&#x27;s is_active status.&quot;
+	}</code></pre><p id="1f714d9d-93a3-80a3-9c53-c1aa7f2a41c1" class="">
+</p><h1 id="1f714d9d-93a3-8020-b3bb-d3f093c1d4ce" class="">貯金目標登録</h1><hr id="1f714d9d-93a3-80d1-a45d-f9d6d1b2e7c4"/><p id="1f714d9d-93a3-8010-bcff-e77060c1d78c" class="">
+</p><h2 id="1f714d9d-93a3-8075-ad64-c272098b0171" class="">API一覧</h2><table id="1f714d9d-93a3-80fe-ba92-e561908ba182" class="simple-table"><thead class="simple-table-header"><tr id="1f714d9d-93a3-8058-93e4-d5edeae06eb0"><th id="EFjS" class="simple-table-header-color simple-table-header" style="width:43.99999237060547px">No.</th><th id="CtJr" class="simple-table-header-color simple-table-header">API名</th><th id="W]ef" class="simple-table-header-color simple-table-header">メソッド</th><th id="?|ec" class="simple-table-header-color simple-table-header">URI</th><th id="@POi" class="simple-table-header-color simple-table-header">用途</th><th id="KW^Y" class="simple-table-header-color simple-table-header" style="width:57.99999237060547px">CRUD</th><th id="[d`n" class="simple-table-header-color simple-table-header" style="width:50.99999237060547px">認証</th><th id="&lt;hRg" class="simple-table-header-color simple-table-header" style="width:76.99713134765625px">備考</th></tr></thead><tbody><tr id="1f714d9d-93a3-8001-bb49-f71aa91af8f0"><td id="EFjS" class="" style="width:43.99999237060547px">1</td><td id="CtJr" class="">貯金目標詳登録</td><td id="W]ef" class="">POST</td><td id="?|ec" class="">/api/saving-goals</td><td id="@POi" class="">貯金目標の新規登録</td><td id="KW^Y" class="" style="width:57.99999237060547px">C</td><td id="[d`n" class="" style="width:50.99999237060547px">✅</td><td id="&lt;hRg" class="" style="width:76.99713134765625px"></td></tr></tbody></table><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="1fa14d9d-93a3-80df-a634-db5400a5af33"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%"><p id="1fa14d9d-93a3-8009-94f0-c919a5f77981" class="">月次貯金金額の計算はフロントエンド側で処理する</p></div></figure><h3 id="1f714d9d-93a3-8026-b40b-df29eed2b543" class="">No.1　/api/saving-goals</h3><p id="1f714d9d-93a3-80ef-9e9f-e7446c950a94" class="">リクエスト</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1f714d9d-93a3-8077-8404-fc80a059052c" class="code"><code class="language-JSON">	【ヘッダー】
+		{
+		  &quot;Accept&quot;: &quot;application/json&quot;,
+		  &quot;Content-Type&quot;: &quot;application/json&quot;,
+		  &quot;X-XSRF-TOKEN&quot;: &quot;取得したトークン&quot;,
+		  &quot;withCredentials&quot;: true
+		}
+	【ボディ】
+		{
+			&quot;name&quot;: &quot;海外旅行&quot;,
+			&quot;target_amount&quot;: 1000000,
+			&quot;deadline&quot;: &quot;YYYY-MM-DD&quot;,
+			&quot;auto_monthly_amount&quot;: 50000
+		}</code></pre><p id="1f714d9d-93a3-80af-9d2d-f630df11bc69" class="">レスポンス</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1f714d9d-93a3-8006-a4f8-f42ac2a3a8fd" class="code"><code class="language-JSON">【成功時】
+	ステータスコード: 201 Created
+	{
+	 &quot;message&quot;: &quot;Success to create a new saving_goal.&quot;,
+	 &quot;saving_goal&quot;: {
+      &quot;id&quot;: 1,
+      &quot;name&quot;: &quot;海外旅行&quot;,
+      &quot;target_amount&quot;: 1000000,
+      &quot;deadline&quot;: &quot;YYYY-MM-DD&quot;,
+      &quot;auto_monthly_amount&quot;: 50000,
+      &quot;is_active&quot;: true,
+      &quot;created_at&quot;: &quot;YYYY-MM-DD&quot;,
+      &quot;updated_at&quot;: &quot;YYYY-MM-DD&quot;
+	  }
+	}
+	
+【バリデーションエラー】
+	ステータスコード: 422 Unprocessable Entity
+	{
+	  &quot;message&quot;: &quot;The given data was invalid.&quot;,
+	  &quot;errors&quot;: {
+			&quot;name&quot;: [&quot;20字以内で入力してください&quot;],
+			&quot;deadline&quot;: [&quot;今日よりも後の日付を設定してください&quot;]
+	  }
+	}
+	
+【サーバーエラー】
+	ステータスコード: 500 Internal Server Error
+	{
+	  &quot;message&quot;: &quot;Failed to create a new saving_goal.&quot;
+	}</code></pre><p id="1f714d9d-93a3-802e-961e-c1119333c828" class="">
+</p><h1 id="1f714d9d-93a3-804d-82b0-deb38d1c3db4" class="">貯金目標編集</h1><hr id="1f714d9d-93a3-802d-9a0c-ecf190977a73"/><p id="1f714d9d-93a3-800f-95e6-db2f37c950f3" class="">
+</p><h2 id="1f714d9d-93a3-8022-8b67-d524923aa0df" class="">API一覧</h2><table id="1f714d9d-93a3-80b1-a705-f637d7492e96" class="simple-table"><thead class="simple-table-header"><tr id="1f714d9d-93a3-8073-bc7a-f3ff57e875a1"><th id="EFjS" class="simple-table-header-color simple-table-header" style="width:43.99999237060547px">No.</th><th id="CtJr" class="simple-table-header-color simple-table-header">API名</th><th id="W]ef" class="simple-table-header-color simple-table-header">メソッド</th><th id="?|ec" class="simple-table-header-color simple-table-header">URI</th><th id="@POi" class="simple-table-header-color simple-table-header">用途</th><th id="KW^Y" class="simple-table-header-color simple-table-header" style="width:57.99999237060547px">CRUD</th><th id="[d`n" class="simple-table-header-color simple-table-header" style="width:50.99999237060547px">認証</th><th id="&lt;hRg" class="simple-table-header-color simple-table-header" style="width:76.99713134765625px">備考</th></tr></thead><tbody><tr id="1f714d9d-93a3-80c8-98c9-f2eec3cfd0bf"><td id="EFjS" class="" style="width:43.99999237060547px">1</td><td id="CtJr" class="">貯金目標詳編集</td><td id="W]ef" class="">PATCH</td><td id="?|ec" class="">/api/saving-goals/{saving-goal}</td><td id="@POi" class="">貯金目標の編集</td><td id="KW^Y" class="" style="width:57.99999237060547px">U</td><td id="[d`n" class="" style="width:50.99999237060547px">✅</td><td id="&lt;hRg" class="" style="width:76.99713134765625px"></td></tr></tbody></table><p id="1f714d9d-93a3-804a-87eb-f5d9df0c5a33" class="">
+</p><h3 id="1f714d9d-93a3-80af-b65b-cebf1224482e" class="">No.1　/api/saving-goals/{saving-goal}</h3><p id="1f714d9d-93a3-805f-af8b-ca4722012e4e" class="">リクエスト</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1f714d9d-93a3-8016-bd8e-f0ba92111f81" class="code"><code class="language-JSON">	【ヘッダー】
+		{
+		  &quot;Accept&quot;: &quot;application/json&quot;,
+		  &quot;Content-Type&quot;: &quot;application/json&quot;,
+		  &quot;X-XSRF-TOKEN&quot;: &quot;取得したトークン&quot;,
+		  &quot;withCredentials&quot;: true
+		}
+	【ボディ】
+		{
+			&quot;name&quot;: &quot;海外旅行&quot;,
+			&quot;target_amount&quot;: 1000000,
+			&quot;deadline&quot;: &quot;YYYY-MM-DD&quot;,
+			&quot;auto_monthly_amount&quot;: 50000
+		}</code></pre><p id="1f714d9d-93a3-80c3-a03f-f6278601da27" class="">レスポンス</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1f714d9d-93a3-80cf-9398-f772b92abe2b" class="code"><code class="language-JSON">【成功時】
+	ステータスコード: 200 OK
+	{
+	 &quot;message&quot;: &quot;Success to update the saving_goal.&quot;,
+	 &quot;saving_goal&quot;: {
+      &quot;id&quot;: 1,
+      &quot;name&quot;: &quot;海外旅行&quot;,
+      &quot;target_amount&quot;: 1000000,
+      &quot;deadline&quot;: &quot;YYYY-MM-DD&quot;,
+      &quot;auto_monthly_amount&quot;: 50000,
+      &quot;is_active&quot;: true,
+      &quot;created_at&quot;: &quot;YYYY-MM-DD&quot;,
+      &quot;updated_at&quot;: &quot;YYYY-MM-DD&quot;
+	  }
+	}
+	
+【バリデーションエラー】
+	ステータスコード: 422 Unprocessable Entity
+	{
+	  &quot;message&quot;: &quot;The given data was invalid.&quot;,
+	  &quot;errors&quot;: {
+			&quot;name&quot;: [&quot;20字以内で入力してください&quot;],
+			&quot;deadline&quot;: [&quot;今日より30日以上先の日付を設定してください&quot;]
+	  }
+	}
+	
+【サーバーエラー】
+	ステータスコード: 500 Internal Server Error
+	{
+	  &quot;message&quot;: &quot;Failed to update the saving_goal.&quot;
+	}</code></pre><p id="1f714d9d-93a3-807e-9b19-c25d4122a633" class="">
+</p><p id="1f714d9d-93a3-8080-8870-eec20854d996" class="">
+</p><h1 id="1f714d9d-93a3-80b6-b44b-fafd23a8c5ec" class="">貯金履歴登録</h1><hr id="1f714d9d-93a3-8090-bcb3-e9de65b82d3d"/><p id="1f714d9d-93a3-8058-9c3a-d04cf0fee8a7" class="">
+</p><h2 id="1f714d9d-93a3-8022-af99-f34b1f9c7955" class="">API一覧</h2><table id="1f714d9d-93a3-80a7-a8fa-dd5087b7b95f" class="simple-table"><thead class="simple-table-header"><tr id="1f714d9d-93a3-802b-8011-f08761fc26a8"><th id="EFjS" class="simple-table-header-color simple-table-header" style="width:43.99999237060547px">No.</th><th id="CtJr" class="simple-table-header-color simple-table-header">API名</th><th id="W]ef" class="simple-table-header-color simple-table-header">メソッド</th><th id="?|ec" class="simple-table-header-color simple-table-header">URI</th><th id="@POi" class="simple-table-header-color simple-table-header">用途</th><th id="KW^Y" class="simple-table-header-color simple-table-header" style="width:57.99999237060547px">CRUD</th><th id="[d`n" class="simple-table-header-color simple-table-header" style="width:50.99999237060547px">認証</th><th id="&lt;hRg" class="simple-table-header-color simple-table-header" style="width:76.99713134765625px">備考</th></tr></thead><tbody><tr id="1f714d9d-93a3-80fa-adbd-dac431bf783d"><td id="EFjS" class="" style="width:43.99999237060547px">1</td><td id="CtJr" class="">貯金履歴登録</td><td id="W]ef" class="">POST</td><td id="?|ec" class="">/api/saving-goals/{saving-goal}/saving-progresses</td><td id="@POi" class="">貯金履歴の新規登録</td><td id="KW^Y" class="" style="width:57.99999237060547px">C</td><td id="[d`n" class="" style="width:50.99999237060547px">✅</td><td id="&lt;hRg" class="" style="width:76.99713134765625px"></td></tr></tbody></table><p id="1f714d9d-93a3-8000-a261-cb39d0e1661d" class="">
+</p><h3 id="1f714d9d-93a3-80bc-bdd2-e6109299aea9" class="">No.1　/api/saving-goals/{saving-goal}/saving-progresses</h3><p id="1f714d9d-93a3-80b4-a539-d19db4d64bd5" class="">リクエスト</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1f714d9d-93a3-80c1-b7eb-cc0cfd0bcac7" class="code"><code class="language-JSON">	【ヘッダー】
+		{
+		  &quot;Accept&quot;: &quot;application/json&quot;,
+		  &quot;Content-Type&quot;: &quot;application/json&quot;,
+		  &quot;X-XSRF-TOKEN&quot;: &quot;取得したトークン&quot;,
+		  &quot;withCredentials&quot;: true
+		}
+	【ボディ】
+		{
+			&quot;date&quot;: &quot;YYYY-MM-DD&quot;,
+			&quot;amount&quot;: 50000,
+			&quot;memo&quot;: &quot;今月余裕があったので追加貯金&quot;,
+		}</code></pre><p id="1f714d9d-93a3-801e-b6c8-daa83de41547" class="">レスポンス</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1f714d9d-93a3-80e5-a3e8-f730612a6a19" class="code"><code class="language-JSON">【成功時】
+	ステータスコード: 201 Created
+	{
+	 &quot;message&quot;: &quot;Success to create a new saving_progress.&quot;,
+	 &quot;saving_progress&quot;: {
+      &quot;id&quot;: 1,
+      &quot;user_id&quot;: 1,
+      &quot;amount&quot;: 50000,
+      &quot;date&quot;: &quot;YYYY-MM-DD&quot;,
+      &quot;memo&quot;: &quot;今月余裕があったので追加貯金&quot;,
+      &quot;created_at&quot;: &quot;YYYY-MM-DD&quot;,
+      &quot;updated_at&quot;: null
+	  }
+	}
+	
+【バリデーションエラー】
+	ステータスコード: 422 Unprocessable Entity
+	{
+	  &quot;message&quot;: &quot;The given data was invalid.&quot;,
+	  &quot;errors&quot;: {
+			&quot;memo&quot;: [&quot;255字以内で入力してください&quot;]
+	  }
+	}
+	
+【サーバーエラー】
+	ステータスコード: 500 Internal Server Error
+	{
+	  &quot;message&quot;: &quot;Failed　to create a new saving_progress.&quot;
+	}</code></pre><p id="1f714d9d-93a3-807d-8f5b-d245c7212f99" class="">
+</p><p id="1f714d9d-93a3-80d9-93c5-db4707dfc477" class="">
+</p><h1 id="1f714d9d-93a3-80ee-bc8f-e1acf48d7bb7" class="">貯金履歴編集</h1><hr id="1f714d9d-93a3-80a6-b4ec-cba22a46273c"/><p id="1f714d9d-93a3-8028-b12c-e2f58886e4eb" class="">
+</p><h2 id="1f714d9d-93a3-8092-a67a-c9aa6456733e" class="">fAPI一覧</h2><table id="1f714d9d-93a3-80ac-a3d9-f191fb28fa74" class="simple-table"><thead class="simple-table-header"><tr id="1f714d9d-93a3-8010-953a-f0761b74710d"><th id="EFjS" class="simple-table-header-color simple-table-header" style="width:43.99999237060547px">No.</th><th id="CtJr" class="simple-table-header-color simple-table-header">API名</th><th id="W]ef" class="simple-table-header-color simple-table-header">メソッド</th><th id="?|ec" class="simple-table-header-color simple-table-header">URI</th><th id="@POi" class="simple-table-header-color simple-table-header">用途</th><th id="KW^Y" class="simple-table-header-color simple-table-header" style="width:57.99999237060547px">CRUD</th><th id="[d`n" class="simple-table-header-color simple-table-header" style="width:50.99999237060547px">認証</th><th id="&lt;hRg" class="simple-table-header-color simple-table-header" style="width:76.99713134765625px">備考</th></tr></thead><tbody><tr id="1f714d9d-93a3-800d-8cd2-f968a6acf71b"><td id="EFjS" class="" style="width:43.99999237060547px">1</td><td id="CtJr" class="">貯金履歴編集</td><td id="W]ef" class="">PATCH</td><td id="?|ec" class="">/api/saving-goals/{saving-goal}/saving-progresses/{saving-progress}</td><td id="@POi" class="">貯金履歴の編集</td><td id="KW^Y" class="" style="width:57.99999237060547px">U</td><td id="[d`n" class="" style="width:50.99999237060547px">✅</td><td id="&lt;hRg" class="" style="width:76.99713134765625px"></td></tr></tbody></table><p id="1f714d9d-93a3-8062-aea6-faf6b8e29d61" class="">
+</p><h3 id="1f714d9d-93a3-803f-b99f-c3b6cdb97047" class="">No.1　/api/saving-goals/{saving-goal}/saving-progresses/{saving-progress}</h3><p id="1f714d9d-93a3-806c-808b-e00c8e6a5881" class="">リクエスト</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1f714d9d-93a3-80b7-a5b5-da426c80fccb" class="code"><code class="language-JSON">	【ヘッダー】
+		{
+		  &quot;Accept&quot;: &quot;application/json&quot;,
+		  &quot;Content-Type&quot;: &quot;application/json&quot;,
+		  &quot;X-XSRF-TOKEN&quot;: &quot;取得したトークン&quot;,
+		  &quot;withCredentials&quot;: true
+		}
+	【ボディ】
+		{
+			&quot;date&quot;: &quot;YYYY-MM-DD&quot;,
+			&quot;amount&quot;: 50000,
+			&quot;memo&quot;: &quot;今月余裕があったので追加貯金&quot;,
+		}</code></pre><p id="1f714d9d-93a3-80fa-80b4-eaafc84ef491" class="">レスポンス</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1f714d9d-93a3-8051-810a-f64c5e22aee5" class="code"><code class="language-JSON">【成功時】
+	ステータスコード: 200 OK
+	{
+	 &quot;message&quot;: &quot;Success to update the saving_progress.&quot;,
+	 &quot;saving_progress&quot;: {
+      &quot;id&quot;: 1,
+      &quot;user_id&quot;: 1,
+      &quot;amount&quot;: 50000,
+      &quot;date&quot;: &quot;YYYY-MM-DD&quot;,
+      &quot;memo&quot;: &quot;今月余裕があったので追加貯金&quot;,
+      &quot;created_at&quot;: &quot;YYYY-MM-DD&quot;,
+      &quot;updated_at&quot;: &quot;YYYY-MM-DD&quot;
+	  }
+	}
+	
+【バリデーションエラー】
+	ステータスコード: 422 Unprocessable Entity
+	{
+	  &quot;message&quot;: &quot;The given data was invalid.&quot;,
+	  &quot;errors&quot;: {
+			&quot;memo&quot;: [&quot;255字以内で入力してください&quot;]
+	  }
+	}
+	
+【サーバーエラー】
+	ステータスコード: 500 Internal Server Error
+	{
+	  &quot;message&quot;: &quot;Failed　to update the saving_progress.&quot;
+	}</code></pre><p id="1f714d9d-93a3-8069-89d8-f0a4f1d6cd01" class="">
+</p><p id="1f714d9d-93a3-805d-afc9-f0b293961128" class="">
+</p><h1 id="1f714d9d-93a3-802d-97c9-d15fa6a0f8d9" class="">貯金履歴削除</h1><hr id="1f714d9d-93a3-801a-aa1b-f0e5fa7c469c"/><p id="1f714d9d-93a3-8026-a092-f100ead40427" class="">
+</p><h2 id="1f714d9d-93a3-80b9-b993-f166e0550358" class="">API一覧</h2><table id="1f714d9d-93a3-809b-aa2f-c4e7e9d388af" class="simple-table"><thead class="simple-table-header"><tr id="1f714d9d-93a3-80f8-8a86-c89f11218f14"><th id="EFjS" class="simple-table-header-color simple-table-header" style="width:43.99999237060547px">No.</th><th id="CtJr" class="simple-table-header-color simple-table-header">API名</th><th id="W]ef" class="simple-table-header-color simple-table-header">メソッド</th><th id="?|ec" class="simple-table-header-color simple-table-header">URI</th><th id="@POi" class="simple-table-header-color simple-table-header">用途</th><th id="KW^Y" class="simple-table-header-color simple-table-header" style="width:57.99999237060547px">CRUD</th><th id="[d`n" class="simple-table-header-color simple-table-header" style="width:50.99999237060547px">認証</th><th id="&lt;hRg" class="simple-table-header-color simple-table-header" style="width:76.99713134765625px">備考</th></tr></thead><tbody><tr id="1f714d9d-93a3-806b-83ba-cc88172855bb"><td id="EFjS" class="" style="width:43.99999237060547px">1</td><td id="CtJr" class="">貯金履歴削除</td><td id="W]ef" class="">DELETE</td><td id="?|ec" class="">/api/saving-goals/{saving-goal}/saving-progresses/{saving-progress}</td><td id="@POi" class="">貯金履歴の削除</td><td id="KW^Y" class="" style="width:57.99999237060547px">D</td><td id="[d`n" class="" style="width:50.99999237060547px">✅</td><td id="&lt;hRg" class="" style="width:76.99713134765625px">バックエンドで、saving-goalとsaving-progressのリレーション関係が成立しているかを必ず確かめる</td></tr></tbody></table><p id="1f714d9d-93a3-8054-8ea8-efe7e96d8d8c" class="">
+</p><h3 id="1f714d9d-93a3-801c-b5ec-cd4b4f4190d5" class="">No.1　/api/saving-goals/{saving-goal}/saving-progresses/{saving-progress}</h3><p id="1f714d9d-93a3-80e4-bee0-ce8d608479fd" class="">リクエスト</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1f714d9d-93a3-80f9-8ef5-fb47becf7043" class="code"><code class="language-JSON">	【ヘッダー】
+		{
+		  &quot;Accept&quot;: &quot;application/json&quot;,
+		  &quot;Content-Type&quot;: &quot;application/json&quot;,
+		  &quot;X-XSRF-TOKEN&quot;: &quot;取得したトークン&quot;,
+		  &quot;withCredentials&quot;: true
+		}
+	【ボディ】
+		なし</code></pre><p id="1f714d9d-93a3-8027-9342-f733f80cd149" class="">レスポンス</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1f714d9d-93a3-80d0-9830-ea2aa01cdf77" class="code"><code class="language-JSON">【成功時】
+	ステータスコード: 200 OK
+	{
+	 &quot;message&quot;: &quot;Success to delete the saving_progress. id=1&quot;
+	}
+	
+【サーバーエラー】
+	ステータスコード: 500 Internal Server Error
+	{
+	  &quot;message&quot;: &quot;Failed to delete the saving_progress. id=1&quot;
+	}</code></pre><p id="1f714d9d-93a3-80ef-9b5c-ef0f6a4ed57c" class="">
+</p><p id="1f714d9d-93a3-803e-b447-d50223499ebf" class="">
+</p><h1 id="1f714d9d-93a3-8067-9aff-d4863771cec6" class="">貯金履歴削除</h1><hr id="1f714d9d-93a3-80a0-ab34-ecc433bf49c4"/><p id="1f714d9d-93a3-804f-9bd0-d2ef5af76c4b" class="">
+</p><h2 id="1f714d9d-93a3-805e-bb7e-c69d7685d26b" class="">API一覧</h2><table id="1f714d9d-93a3-801e-a722-f68d039141e1" class="simple-table"><thead class="simple-table-header"><tr id="1f714d9d-93a3-80ed-be9e-f861445f3f17"><th id="EFjS" class="simple-table-header-color simple-table-header" style="width:43.99999237060547px">No.</th><th id="CtJr" class="simple-table-header-color simple-table-header">API名</th><th id="W]ef" class="simple-table-header-color simple-table-header">メソッド</th><th id="?|ec" class="simple-table-header-color simple-table-header">URI</th><th id="@POi" class="simple-table-header-color simple-table-header">用途</th><th id="KW^Y" class="simple-table-header-color simple-table-header" style="width:57.99999237060547px">CRUD</th><th id="[d`n" class="simple-table-header-color simple-table-header" style="width:50.99999237060547px">認証</th><th id="&lt;hRg" class="simple-table-header-color simple-table-header" style="width:76.99713134765625px">備考</th></tr></thead><tbody><tr id="1f714d9d-93a3-80c7-ba2f-d735186e6363"><td id="EFjS" class="" style="width:43.99999237060547px">1</td><td id="CtJr" class="">ジャンル編集</td><td id="W]ef" class="">PATCH</td><td id="?|ec" class="">/api/genres/{genre}</td><td id="@POi" class="">ジャンルの編集</td><td id="KW^Y" class="" style="width:57.99999237060547px">U</td><td id="[d`n" class="" style="width:50.99999237060547px">✅</td><td id="&lt;hRg" class="" style="width:76.99713134765625px"></td></tr><tr id="1f714d9d-93a3-801a-b3d5-c53f930466db"><td id="EFjS" class="" style="width:43.99999237060547px">2</td><td id="CtJr" class="">ジャンル削除</td><td id="W]ef" class="">DELETE</td><td id="?|ec" class="">/api/genres/{genre}</td><td id="@POi" class="">ジャンル削除</td><td id="KW^Y" class="" style="width:57.99999237060547px">D</td><td id="[d`n" class="" style="width:50.99999237060547px">✅</td><td id="&lt;hRg" class="" style="width:76.99713134765625px"></td></tr></tbody></table><p id="1f714d9d-93a3-8045-88d0-ffcf5a005067" class="">
+</p><h3 id="1f714d9d-93a3-8020-9cf5-f2e0a09cee9f" class="">No.1　/api/genres/{genre}</h3><p id="1f714d9d-93a3-80a8-bfe3-e3d9c3e6d173" class="">リクエスト</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1f714d9d-93a3-8090-989a-c18c6296fba0" class="code"><code class="language-JSON">	【ヘッダー】
+		{
+		  &quot;Accept&quot;: &quot;application/json&quot;,
+		  &quot;Content-Type&quot;: &quot;application/json&quot;,
+		  &quot;X-XSRF-TOKEN&quot;: &quot;取得したトークン&quot;,
+		  &quot;withCredentials&quot;: true
+		}
+	【ボディ】
+		{
+			&quot;name&quot;: &quot;交通費&quot;
+		}</code></pre><p id="1f714d9d-93a3-8052-846d-e7d846ec5014" class="">レスポンス</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1f714d9d-93a3-807b-a51d-c4f25fa4aa05" class="code"><code class="language-JSON">【成功時】
+	ステータスコード: 200 OK
+	{
+	 &quot;message&quot;: &quot;Success to update the genre.&quot;,
+	 &quot;genre&quot;: {
+		 &quot;id&quot;: 1,
+		 &quot;name&quot;: &quot;交通費&quot;,
+		 &quot;created_at&quot;: &quot;YYYY-MM-DD&quot;,
+		 &quot;updated_at&quot;: &quot;YYYY-MM-DD&quot;
+	 }
+	}
+	
+【サーバーエラー】
+	ステータスコード: 500 Internal Server Error
+	{
+	  &quot;message&quot;: &quot;Failed to update the genre.&quot;
+	}</code></pre><p id="1f714d9d-93a3-8027-b4a5-fc07c3cbf5ad" class="">
+</p><p id="1f714d9d-93a3-80bb-b924-ffc18ffefbba" class="">
+</p><h3 id="1f714d9d-93a3-80b2-a4a6-f334ee5063be" class="">No.2　/api/genres/{genre}</h3><p id="1f714d9d-93a3-80be-b668-e8ebaf5c45ac" class="">リクエスト</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1f714d9d-93a3-8001-af6b-cc00bc191225" class="code"><code class="language-JSON">	【ヘッダー】
+		{
+		  &quot;Accept&quot;: &quot;application/json&quot;,
+		  &quot;Content-Type&quot;: &quot;application/json&quot;,
+		  &quot;X-XSRF-TOKEN&quot;: &quot;取得したトークン&quot;,
+		  &quot;withCredentials&quot;: true
+		}
+	【ボディ】
+		なし</code></pre><p id="1f714d9d-93a3-80c8-b772-d04267c5e756" class="">レスポンス</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1f714d9d-93a3-80d2-9414-d569059e3f0e" class="code"><code class="language-JSON">【成功時】
+	ステータスコード: 200 OK
+	{
+	 &quot;message&quot;: &quot;Success to delete the genre. id=1.&quot;
+	}
+	
+【サーバーエラー】
+	ステータスコード: 500 Internal Server Error
+	{
+	  &quot;message&quot;: &quot;Failed to delete the genre. id=1.&quot;
+	}</code></pre><p id="1f714d9d-93a3-8068-928d-fa9567835e58" class="">
+</p><p id="1f614d9d-93a3-800f-8257-f6e589b99f8a" class="">
+</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

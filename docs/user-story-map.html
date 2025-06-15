@@ -1,0 +1,708 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>ユーザーストーリーマップ・ユースケース記述</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(50, 48, 44, 1);
+}
+.highlight-gray {
+	color: rgba(115, 114, 110, 1);
+	fill: rgba(115, 114, 110, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(205, 60, 58, 1);
+	fill: rgba(205, 60, 58, 1);
+}
+.highlight-default_background {
+	color: rgba(50, 48, 44, 1);
+}
+.highlight-gray_background {
+	background: rgba(248, 248, 247, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(248, 243, 252, 1);
+}
+.highlight-pink_background {
+	background: rgba(252, 241, 246, 1);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(115, 114, 110, 1);
+	fill: rgba(115, 114, 110, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(205, 60, 58, 1);
+	fill: rgba(205, 60, 58, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(248, 248, 247, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(248, 243, 252, 1);
+}
+.block-color-pink_background {
+	background: rgba(252, 241, 246, 1);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: undefined; }
+.select-value-color-pink { background-color: rgba(225, 136, 179, 0.27); }
+.select-value-color-purple { background-color: rgba(168, 129, 197, 0.27); }
+.select-value-color-green { background-color: rgba(123, 183, 129, 0.27); }
+.select-value-color-gray { background-color: rgba(84, 72, 49, 0.15); }
+.select-value-color-translucentGray { background-color: undefined; }
+.select-value-color-orange { background-color: rgba(224, 124, 57, 0.27); }
+.select-value-color-brown { background-color: rgba(210, 162, 141, 0.35); }
+.select-value-color-red { background-color: rgba(244, 171, 159, 0.4); }
+.select-value-color-yellow { background-color: rgba(236, 191, 66, 0.39); }
+.select-value-color-blue { background-color: rgba(93, 165, 206, 0.27); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="1f614d9d-93a3-800d-9243-d0ae676c4d0c" class="page sans"><header><h1 class="page-title">ユーザーストーリーマップ・ユースケース記述</h1><p class="page-description"></p><table class="properties"><tbody><tr class="property-row property-row-status"><th><span class="icon property-icon"><svg aria-hidden="true" role="graphics-symbol" viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(71, 70, 68, 0.6);flex-shrink:0" class="typesStatus"><path d="M8.75488 1.02344C8.75488 0.613281 8.41309 0.264648 8.00293 0.264648C7.59277 0.264648 7.25098 0.613281 7.25098 1.02344V3.11523C7.25098 3.51855 7.59277 3.86719 8.00293 3.86719C8.41309 3.86719 8.75488 3.51855 8.75488 3.11523V1.02344ZM3.91504 5.0293C4.20215 5.31641 4.69434 5.32324 4.97461 5.03613C5.26855 4.74902 5.26855 4.25684 4.98145 3.96973L3.53906 2.52051C3.25195 2.2334 2.7666 2.21973 2.47949 2.50684C2.19238 2.79395 2.18555 3.28613 2.47266 3.57324L3.91504 5.0293ZM10.9629 4.01758C10.6826 4.30469 10.6826 4.79688 10.9697 5.08398C11.2568 5.37109 11.749 5.36426 12.0361 5.07715L13.4854 3.62793C13.7725 3.34082 13.7725 2.84863 13.4785 2.55469C13.1982 2.27441 12.7061 2.27441 12.4189 2.56152L10.9629 4.01758ZM15.0234 8.78906C15.4336 8.78906 15.7822 8.44727 15.7822 8.03711C15.7822 7.62695 15.4336 7.28516 15.0234 7.28516H12.9385C12.5283 7.28516 12.1797 7.62695 12.1797 8.03711C12.1797 8.44727 12.5283 8.78906 12.9385 8.78906H15.0234ZM0.975586 7.28516C0.56543 7.28516 0.223633 7.62695 0.223633 8.03711C0.223633 8.44727 0.56543 8.78906 0.975586 8.78906H3.07422C3.48438 8.78906 3.83301 8.44727 3.83301 8.03711C3.83301 7.62695 3.48438 7.28516 3.07422 7.28516H0.975586ZM12.0361 10.9902C11.749 10.71 11.2568 10.71 10.9629 10.9971C10.6826 11.2842 10.6826 11.7764 10.9697 12.0635L12.4258 13.5127C12.7129 13.7998 13.2051 13.793 13.4922 13.5059C13.7793 13.2256 13.7725 12.7266 13.4854 12.4395L12.0361 10.9902ZM2.52051 12.4395C2.22656 12.7266 2.22656 13.2188 2.50684 13.5059C2.79395 13.793 3.28613 13.7998 3.57324 13.5127L5.02246 12.0703C5.31641 11.7832 5.31641 11.291 5.03613 11.0039C4.74902 10.7168 4.25684 10.71 3.96973 10.9971L2.52051 12.4395ZM8.75488 12.9658C8.75488 12.5557 8.41309 12.207 8.00293 12.207C7.59277 12.207 7.25098 12.5557 7.25098 12.9658V15.0576C7.25098 15.4609 7.59277 15.8096 8.00293 15.8096C8.41309 15.8096 8.75488 15.4609 8.75488 15.0576V12.9658Z"></path></svg></span>Qiita用ブラッシュアップ</th><td><span class="status-value"><div class="status-dot"></div>未着手</span></td></tr><tr class="property-row property-row-status"><th><span class="icon property-icon"><svg aria-hidden="true" role="graphics-symbol" viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(71, 70, 68, 0.6);flex-shrink:0" class="typesStatus"><path d="M8.75488 1.02344C8.75488 0.613281 8.41309 0.264648 8.00293 0.264648C7.59277 0.264648 7.25098 0.613281 7.25098 1.02344V3.11523C7.25098 3.51855 7.59277 3.86719 8.00293 3.86719C8.41309 3.86719 8.75488 3.51855 8.75488 3.11523V1.02344ZM3.91504 5.0293C4.20215 5.31641 4.69434 5.32324 4.97461 5.03613C5.26855 4.74902 5.26855 4.25684 4.98145 3.96973L3.53906 2.52051C3.25195 2.2334 2.7666 2.21973 2.47949 2.50684C2.19238 2.79395 2.18555 3.28613 2.47266 3.57324L3.91504 5.0293ZM10.9629 4.01758C10.6826 4.30469 10.6826 4.79688 10.9697 5.08398C11.2568 5.37109 11.749 5.36426 12.0361 5.07715L13.4854 3.62793C13.7725 3.34082 13.7725 2.84863 13.4785 2.55469C13.1982 2.27441 12.7061 2.27441 12.4189 2.56152L10.9629 4.01758ZM15.0234 8.78906C15.4336 8.78906 15.7822 8.44727 15.7822 8.03711C15.7822 7.62695 15.4336 7.28516 15.0234 7.28516H12.9385C12.5283 7.28516 12.1797 7.62695 12.1797 8.03711C12.1797 8.44727 12.5283 8.78906 12.9385 8.78906H15.0234ZM0.975586 7.28516C0.56543 7.28516 0.223633 7.62695 0.223633 8.03711C0.223633 8.44727 0.56543 8.78906 0.975586 8.78906H3.07422C3.48438 8.78906 3.83301 8.44727 3.83301 8.03711C3.83301 7.62695 3.48438 7.28516 3.07422 7.28516H0.975586ZM12.0361 10.9902C11.749 10.71 11.2568 10.71 10.9629 10.9971C10.6826 11.2842 10.6826 11.7764 10.9697 12.0635L12.4258 13.5127C12.7129 13.7998 13.2051 13.793 13.4922 13.5059C13.7793 13.2256 13.7725 12.7266 13.4854 12.4395L12.0361 10.9902ZM2.52051 12.4395C2.22656 12.7266 2.22656 13.2188 2.50684 13.5059C2.79395 13.793 3.28613 13.7998 3.57324 13.5127L5.02246 12.0703C5.31641 11.7832 5.31641 11.291 5.03613 11.0039C4.74902 10.7168 4.25684 10.71 3.96973 10.9971L2.52051 12.4395ZM8.75488 12.9658C8.75488 12.5557 8.41309 12.207 8.00293 12.207C7.59277 12.207 7.25098 12.5557 7.25098 12.9658V15.0576C7.25098 15.4609 7.59277 15.8096 8.00293 15.8096C8.41309 15.8096 8.75488 15.4609 8.75488 15.0576V12.9658Z"></path></svg></span>ステータス</th><td><span class="status-value select-value-color-green"><div class="status-dot status-dot-color-green"></div>完了</span></td></tr><tr class="property-row property-row-created_time"><th><span class="icon property-icon"><svg aria-hidden="true" role="graphics-symbol" viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(71, 70, 68, 0.6);flex-shrink:0" class="typesCreatedAt"><path d="M8 15.126C11.8623 15.126 15.0615 11.9336 15.0615 8.06445C15.0615 4.20215 11.8623 1.00293 7.99316 1.00293C4.13086 1.00293 0.938477 4.20215 0.938477 8.06445C0.938477 11.9336 4.1377 15.126 8 15.126ZM8 13.7383C4.85547 13.7383 2.33301 11.209 2.33301 8.06445C2.33301 4.91992 4.84863 2.39746 7.99316 2.39746C11.1377 2.39746 13.6738 4.91992 13.6738 8.06445C13.6738 11.209 11.1445 13.7383 8 13.7383ZM4.54102 8.91211H7.99316C8.30078 8.91211 8.54004 8.67285 8.54004 8.37207V3.8877C8.54004 3.58691 8.30078 3.34766 7.99316 3.34766C7.69238 3.34766 7.45312 3.58691 7.45312 3.8877V7.83203H4.54102C4.2334 7.83203 4.00098 8.06445 4.00098 8.37207C4.00098 8.67285 4.2334 8.91211 4.54102 8.91211Z"></path></svg></span>作成日時</th><td><time>@2025年5月17日 18:54</time></td></tr><tr class="property-row property-row-last_edited_time"><th><span class="icon property-icon"><svg aria-hidden="true" role="graphics-symbol" viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(71, 70, 68, 0.6);flex-shrink:0" class="typesCreatedAt"><path d="M8 15.126C11.8623 15.126 15.0615 11.9336 15.0615 8.06445C15.0615 4.20215 11.8623 1.00293 7.99316 1.00293C4.13086 1.00293 0.938477 4.20215 0.938477 8.06445C0.938477 11.9336 4.1377 15.126 8 15.126ZM8 13.7383C4.85547 13.7383 2.33301 11.209 2.33301 8.06445C2.33301 4.91992 4.84863 2.39746 7.99316 2.39746C11.1377 2.39746 13.6738 4.91992 13.6738 8.06445C13.6738 11.209 11.1445 13.7383 8 13.7383ZM4.54102 8.91211H7.99316C8.30078 8.91211 8.54004 8.67285 8.54004 8.37207V3.8877C8.54004 3.58691 8.30078 3.34766 7.99316 3.34766C7.69238 3.34766 7.45312 3.58691 7.45312 3.8877V7.83203H4.54102C4.2334 7.83203 4.00098 8.06445 4.00098 8.37207C4.00098 8.67285 4.2334 8.91211 4.54102 8.91211Z"></path></svg></span>最終更新日時</th><td><time>@2025年6月12日 7:48</time></td></tr></tbody></table></header><div class="page-body"><h2 id="1f614d9d-93a3-80db-bd81-c35902e83356" class="">ユーザーストーリーマップ</h2><hr id="1f614d9d-93a3-80de-8950-ebfb208f10d1"/><p id="1f614d9d-93a3-8015-b5bd-ff088c93f94a" class="">ゴール：浪費を防ぎたい</p><table id="1f614d9d-93a3-80fd-a5ce-fb76aaadb640" class="simple-table"><thead class="simple-table-header"><tr id="1f614d9d-93a3-80bd-91eb-ccc1142e915b"><th id="r}sB" class="simple-table-header-color simple-table-header" style="width:46px">No.</th><th id="udv&gt;" class="simple-table-header-color simple-table-header" style="width:350px">アクティビティ</th><th id="~bLB" class="simple-table-header-color simple-table-header" style="width:317px">タスク（機能）</th></tr></thead><tbody><tr id="1f614d9d-93a3-807e-853d-cddb6508e443"><td id="r}sB" class="" style="width:46px">1</td><td id="udv&gt;" class="" style="width:350px">支出を記録する</td><td id="~bLB" class="" style="width:317px">収支を登録する画面を開く</td></tr><tr id="1f614d9d-93a3-802e-92f8-c9fba126ef19"><td id="r}sB" class="" style="width:46px"></td><td id="udv&gt;" class="" style="width:350px"></td><td id="~bLB" class="" style="width:317px">収支トグルを支出に設定する</td></tr><tr id="1f614d9d-93a3-80c5-9d3f-f1d1a60856b9"><td id="r}sB" class="" style="width:46px"></td><td id="udv&gt;" class="" style="width:350px"></td><td id="~bLB" class="" style="width:317px">金額・ジャンル・日付を入力する</td></tr><tr id="1f614d9d-93a3-8077-a319-d4bafd18c202"><td id="r}sB" class="" style="width:46px"></td><td id="udv&gt;" class="" style="width:350px"></td><td id="~bLB" class="" style="width:317px">写真を添付する（任意）</td></tr><tr id="1f614d9d-93a3-8061-94d9-eaefc83e2f11"><td id="r}sB" class="" style="width:46px"></td><td id="udv&gt;" class="" style="width:350px"></td><td id="~bLB" class="" style="width:317px">登録ボタンを押す</td></tr><tr id="1f614d9d-93a3-802d-ac67-dd42c1ab3d24"><td id="r}sB" class="" style="width:46px"></td><td id="udv&gt;" class="" style="width:350px"></td><td id="~bLB" class="" style="width:317px">ダッシュボードに反映される</td></tr><tr id="1f614d9d-93a3-806a-88e3-fe3975788cbe"><td id="r}sB" class="" style="width:46px">2</td><td id="udv&gt;" class="" style="width:350px">収入を記録する</td><td id="~bLB" class="" style="width:317px">収支を登録する画面を開く</td></tr><tr id="1f614d9d-93a3-8048-87b6-c05a933ab3a4"><td id="r}sB" class="" style="width:46px"></td><td id="udv&gt;" class="" style="width:350px"></td><td id="~bLB" class="" style="width:317px">収支トグルを収入に設定する</td></tr><tr id="1f614d9d-93a3-8007-a664-d64c5f7b04d2"><td id="r}sB" class="" style="width:46px"></td><td id="udv&gt;" class="" style="width:350px"></td><td id="~bLB" class="" style="width:317px">金額・ジャンル・日付を入力する</td></tr><tr id="1f614d9d-93a3-80b3-bd0b-d238526cfa97"><td id="r}sB" class="" style="width:46px"></td><td id="udv&gt;" class="" style="width:350px"></td><td id="~bLB" class="" style="width:317px">登録ボタンを押す</td></tr><tr id="1f614d9d-93a3-8005-9f35-ed570638849b"><td id="r}sB" class="" style="width:46px"></td><td id="udv&gt;" class="" style="width:350px"></td><td id="~bLB" class="" style="width:317px">ダッシュボードに反映される</td></tr><tr id="1f614d9d-93a3-80a4-9af4-e69a020d5c72"><td id="r}sB" class="" style="width:46px">3</td><td id="udv&gt;" class="" style="width:350px">固定費を記録する</td><td id="~bLB" class="" style="width:317px">固定費を登録する画面を開く</td></tr><tr id="1f614d9d-93a3-806c-9cea-da8825e3dff0"><td id="r}sB" class="" style="width:46px"></td><td id="udv&gt;" class="" style="width:350px"></td><td id="~bLB" class="" style="width:317px">ジャンル・固定費名・金額・何か月の頻度で何日に支出が発生するのか・いつから登録するのか・メモを入力する</td></tr><tr id="1f614d9d-93a3-80e0-b531-e87f0f32c1cd"><td id="r}sB" class="" style="width:46px"></td><td id="udv&gt;" class="" style="width:350px"></td><td id="~bLB" class="" style="width:317px">登録を押す</td></tr><tr id="1f614d9d-93a3-806e-939c-daa5c4a1c57d"><td id="r}sB" class="" style="width:46px"></td><td id="udv&gt;" class="" style="width:350px"></td><td id="~bLB" class="" style="width:317px">固定費一覧に反映される</td></tr><tr id="1f614d9d-93a3-80d6-a759-c800bc1d10f3"><td id="r}sB" class="" style="width:46px">4</td><td id="udv&gt;" class="" style="width:350px">貯金目標を記録する</td><td id="~bLB" class="" style="width:317px">貯金目標を登録する画面を開く</td></tr><tr id="1f614d9d-93a3-8042-b519-dd84a5921ed6"><td id="r}sB" class="" style="width:46px"></td><td id="udv&gt;" class="" style="width:350px"></td><td id="~bLB" class="" style="width:317px">貯金目標名・貯金目標金額・締切・自動で毎月記録される額を入力する</td></tr><tr id="1f614d9d-93a3-8073-acfa-fc5361133656"><td id="r}sB" class="" style="width:46px"></td><td id="udv&gt;" class="" style="width:350px"></td><td id="~bLB" class="" style="width:317px">貯金目標一覧に反映される</td></tr><tr id="1f614d9d-93a3-80cd-a611-ffd43c8fb2dc"><td id="r}sB" class="" style="width:46px">5</td><td id="udv&gt;" class="" style="width:350px">今月あとどのくらいの金額が使用可能か確認する</td><td id="~bLB" class="" style="width:317px">ダッシュボードを開く</td></tr><tr id="1f614d9d-93a3-805a-8ace-d05283f71f4d"><td id="r}sB" class="" style="width:46px"></td><td id="udv&gt;" class="" style="width:350px"></td><td id="~bLB" class="" style="width:317px">ダッシュボードに出力されている、あとどのくらい使用可能であるかの金額を確認する</td></tr><tr id="1f614d9d-93a3-8077-8dbd-f9f29816557e"><td id="r}sB" class="" style="width:46px">6</td><td id="udv&gt;" class="" style="width:350px">支出の履歴を確認・調整する</td><td id="~bLB" class="" style="width:317px">支出一覧を見る（カレンダー／リスト）</td></tr><tr id="1f614d9d-93a3-808d-868b-dabd96e886ae"><td id="r}sB" class="" style="width:46px"></td><td id="udv&gt;" class="" style="width:350px"></td><td id="~bLB" class="" style="width:317px">支出の詳細を開く</td></tr><tr id="1f614d9d-93a3-8022-9d62-f0f30df1005f"><td id="r}sB" class="" style="width:46px"></td><td id="udv&gt;" class="" style="width:350px"></td><td id="~bLB" class="" style="width:317px">支出を編集する</td></tr><tr id="1f614d9d-93a3-8039-ba71-e5249905ce69"><td id="r}sB" class="" style="width:46px"></td><td id="udv&gt;" class="" style="width:350px"></td><td id="~bLB" class="" style="width:317px">支出を削除する</td></tr><tr id="1f614d9d-93a3-8082-95b7-e918a6d784b4"><td id="r}sB" class="" style="width:46px">7</td><td id="udv&gt;" class="" style="width:350px">固定費を確認・調整する</td><td id="~bLB" class="" style="width:317px">固定費一覧を見る</td></tr><tr id="1f614d9d-93a3-8074-835f-e3f57c86b23f"><td id="r}sB" class="" style="width:46px"></td><td id="udv&gt;" class="" style="width:350px"></td><td id="~bLB" class="" style="width:317px">固定費詳細を開く</td></tr><tr id="1f614d9d-93a3-8013-968e-d0af9997e514"><td id="r}sB" class="" style="width:46px"></td><td id="udv&gt;" class="" style="width:350px"></td><td id="~bLB" class="" style="width:317px">固定費を編集する</td></tr><tr id="1f614d9d-93a3-80b2-b6f6-f538e1219b9c"><td id="r}sB" class="" style="width:46px"></td><td id="udv&gt;" class="" style="width:350px"></td><td id="~bLB" class="" style="width:317px">固定費を削除する</td></tr><tr id="1f614d9d-93a3-8008-9b5c-ef8b17cf50d5"><td id="r}sB" class="" style="width:46px">8</td><td id="udv&gt;" class="" style="width:350px">貯金進捗を確認・調整する</td><td id="~bLB" class="" style="width:317px">貯金進捗グラフを開く（saving_goals + saving_progresses）</td></tr><tr id="1f614d9d-93a3-8036-be5f-fd183a0450ff"><td id="r}sB" class="" style="width:46px"></td><td id="udv&gt;" class="" style="width:350px"></td><td id="~bLB" class="" style="width:317px">目標と現在の差を確認する</td></tr><tr id="1f614d9d-93a3-8086-8b81-ce1f7d368c90"><td id="r}sB" class="" style="width:46px"></td><td id="udv&gt;" class="" style="width:350px"></td><td id="~bLB" class="" style="width:317px">手動で進捗を追加・修正する（例：今月は増やせなかった等）</td></tr></tbody></table><p id="1f614d9d-93a3-80ae-928b-ca66779aa919" class="">
+</p><p id="1f614d9d-93a3-804c-8a7e-f48cb05c443d" class="">
+</p><h2 id="1f614d9d-93a3-80e9-a710-d7b636ec7893" class="">ユースケース記述（処理詳細）</h2><hr id="1f614d9d-93a3-8098-9b89-db26a3183097"/><h3 id="1f614d9d-93a3-80c1-8375-e024abad76c1" class="">ユースケース１：支出を記録する</h3><table id="1f614d9d-93a3-80fa-8443-e6cba241e0e0" class="simple-table"><thead class="simple-table-header"><tr id="1f614d9d-93a3-805c-809e-c2e8c807723a"><th id="RYXh" class="simple-table-header-color simple-table-header">項目</th><th id="ImKj" class="simple-table-header-color simple-table-header" style="width:586.484375px">内容</th></tr></thead><tbody><tr id="1f614d9d-93a3-803c-8218-d05d11e83efd"><td id="RYXh" class="">アクター</td><td id="ImKj" class="" style="width:586.484375px">一般ユーザー</td></tr><tr id="1f614d9d-93a3-80ef-a371-fb38fe6bf9ca"><td id="RYXh" class="">事前条件</td><td id="ImKj" class="" style="width:586.484375px">ユーザーがログイン済みである</td></tr></tbody></table><p id="1f614d9d-93a3-800d-9db4-ea2a2638c0bd" class=""><strong>主シナリオ</strong></p><ol type="1" id="1f614d9d-93a3-8059-9b0c-f1e0d55aff3c" class="numbered-list" start="1"><li>ユーザーが収支登録画面を開く</li></ol><ol type="1" id="1f614d9d-93a3-8091-8132-c773ee6e1eb2" class="numbered-list" start="2"><li>収支トグルを支出に設定する</li></ol><ol type="1" id="1f614d9d-93a3-806a-ac72-f9dd072c4843" class="numbered-list" start="3"><li>金額、ジャンル、日付を入力</li></ol><ol type="1" id="1f614d9d-93a3-8066-9bee-e43214b8b48f" class="numbered-list" start="4"><li>写真がある場合アップロード</li></ol><ol type="1" id="1f614d9d-93a3-80ec-bb23-e504fa2eb701" class="numbered-list" start="5"><li>バリデーションを通過</li></ol><ol type="1" id="1f614d9d-93a3-8019-8e57-f562390627ae" class="numbered-list" start="6"><li>トランザクションがDBに保存される</li></ol><ol type="1" id="1f614d9d-93a3-8023-a485-ffd7732056db" class="numbered-list" start="7"><li>成功メッセージと共に一覧画面へ遷移</li></ol><p id="1f614d9d-93a3-8078-9f84-eb5d88169aad" class="">
+</p><p id="1f614d9d-93a3-80ec-a642-f5b08edd8eb7" class=""><strong>代替シナリオ</strong></p><p id="1f614d9d-93a3-80c8-9ac0-eb9a802a7704" class="">金額が未入力の場合、エラー表示</p><p id="1f614d9d-93a3-809f-8e14-c5f861baebbf" class="">
+</p><p id="1f614d9d-93a3-8072-a0da-e6d0590bb9b3" class="">
+</p><h3 id="1f614d9d-93a3-8091-a55a-cec8760b8476" class="">ユースケース２：収入を記録する</h3><table id="1f614d9d-93a3-8046-84c3-c0f1b1ae8c84" class="simple-table"><thead class="simple-table-header"><tr id="1f614d9d-93a3-8052-bffe-cae12a0aed8b"><th id="RYXh" class="simple-table-header-color simple-table-header">項目</th><th id="ImKj" class="simple-table-header-color simple-table-header" style="width:586.484375px">内容</th></tr></thead><tbody><tr id="1f614d9d-93a3-80b6-b1c5-d8a23127a761"><td id="RYXh" class="">アクター</td><td id="ImKj" class="" style="width:586.484375px">一般ユーザー</td></tr><tr id="1f614d9d-93a3-800e-8478-c8240621a662"><td id="RYXh" class="">事前条件</td><td id="ImKj" class="" style="width:586.484375px">ユーザーがログイン済みである</td></tr></tbody></table><p id="1f614d9d-93a3-80c5-9ac0-e8d5e2d84edc" class=""><strong>主シナリオ</strong></p><ol type="1" id="1f614d9d-93a3-8000-9377-eb78410caf8c" class="numbered-list" start="1"><li>ユーザーが収支登録画面を開く</li></ol><ol type="1" id="1f614d9d-93a3-8081-b27a-d13ea4dcd411" class="numbered-list" start="2"><li>収支トグルを収入に設定する</li></ol><ol type="1" id="1f614d9d-93a3-80a5-b861-ee1c4f598dfe" class="numbered-list" start="3"><li>金額、ジャンル、日付を入力</li></ol><ol type="1" id="1f614d9d-93a3-804d-abdd-fde807a85154" class="numbered-list" start="4"><li>バリデーションを通過</li></ol><ol type="1" id="1f614d9d-93a3-80ca-88e8-e7b896837387" class="numbered-list" start="5"><li>トランザクションがDBに保存される</li></ol><ol type="1" id="1f614d9d-93a3-8076-bb4c-d2ea836bcca2" class="numbered-list" start="6"><li>成功メッセージと共に一覧画面へ遷移</li></ol><p id="1f614d9d-93a3-80b5-9d59-d2cb1e692f04" class="">
+</p><p id="1f614d9d-93a3-80c5-b622-cebef5e4d8d2" class=""><strong>代替シナリオ</strong></p><p id="1f614d9d-93a3-8018-97b1-ff2a9506d9a4" class="">金額が未入力の場合、エラー表示</p><p id="1f614d9d-93a3-80ff-8aff-fe44b1a58ba1" class="">
+</p><p id="1f614d9d-93a3-80ee-b833-d3101e0cb747" class="">
+</p><h3 id="1f614d9d-93a3-8026-a695-d5ef01b0334f" class="">ユースケース３：固定費を記録する</h3><table id="1f614d9d-93a3-807a-b5d6-d1d839454046" class="simple-table"><thead class="simple-table-header"><tr id="1f614d9d-93a3-8001-8ef4-ecb11101ecdc"><th id="RYXh" class="simple-table-header-color simple-table-header">項目</th><th id="ImKj" class="simple-table-header-color simple-table-header" style="width:586.484375px">内容</th></tr></thead><tbody><tr id="1f614d9d-93a3-806a-ac43-dda37b1c162e"><td id="RYXh" class="">アクター</td><td id="ImKj" class="" style="width:586.484375px">一般ユーザー</td></tr><tr id="1f614d9d-93a3-8012-8375-cd0e676b562a"><td id="RYXh" class="">事前条件</td><td id="ImKj" class="" style="width:586.484375px">ユーザーがログイン済みである</td></tr></tbody></table><p id="1f614d9d-93a3-80e3-803b-e573cee9db04" class=""><strong>主シナリオ</strong></p><ol type="1" id="1f614d9d-93a3-80ac-a82c-da13eecc8a43" class="numbered-list" start="1"><li>固定費を登録する画面を開く</li></ol><ol type="1" id="1f614d9d-93a3-8052-b2ee-d1c1b5f7e445" class="numbered-list" start="2"><li>ジャンル・固定費名・金額・何か月の頻度で何日に支出が発生するのか・いつから登録するのか・メモを入力する</li></ol><ol type="1" id="1f614d9d-93a3-80cc-949e-ca5265d326e0" class="numbered-list" start="3"><li>バリデーションを通過</li></ol><ol type="1" id="1f614d9d-93a3-8075-bd43-f9709966fa41" class="numbered-list" start="4"><li>固定費がDBに保存される</li></ol><ol type="1" id="1f614d9d-93a3-807b-b54d-ee5b5fdb491a" class="numbered-list" start="5"><li>成功メッセージと共に固定費一覧へ遷移</li></ol><p id="1f614d9d-93a3-80ba-ab0a-d2170e77e09a" class="">
+</p><p id="1f614d9d-93a3-80de-bb19-c1f5dddd45b9" class=""><strong>代替シナリオ</strong></p><p id="1f614d9d-93a3-8016-bfda-debfa32dde68" class="">必要項目（ジャンル・固定費名・金額・頻度・登録開始日）が未入力の場合、エラー表示</p><p id="1f614d9d-93a3-80a7-9148-c6d4905cd1ce" class="">
+</p><p id="1f614d9d-93a3-8095-8dc3-ce7655f8e508" class="">
+</p><h3 id="1f614d9d-93a3-80e7-99cd-d86139cc089d" class="">ユースケース４：貯金目標を記録する</h3><table id="1f614d9d-93a3-8079-8249-e723155e22b9" class="simple-table"><thead class="simple-table-header"><tr id="1f614d9d-93a3-806d-a8c7-e0cdf3997933"><th id="RYXh" class="simple-table-header-color simple-table-header">項目</th><th id="ImKj" class="simple-table-header-color simple-table-header" style="width:586.484375px">内容</th></tr></thead><tbody><tr id="1f614d9d-93a3-8027-b114-e876640ca19a"><td id="RYXh" class="">アクター</td><td id="ImKj" class="" style="width:586.484375px">一般ユーザー</td></tr><tr id="1f614d9d-93a3-80a7-b322-c5d4af285295"><td id="RYXh" class="">事前条件</td><td id="ImKj" class="" style="width:586.484375px">ユーザーがログイン済みである</td></tr></tbody></table><p id="1f614d9d-93a3-8097-93b3-ece27c8abb38" class=""><strong>主シナリオ</strong></p><ol type="1" id="1f614d9d-93a3-80d5-bbb9-f5f990c134a6" class="numbered-list" start="1"><li>貯金目標を登録する画面を開く</li></ol><ol type="1" id="1f614d9d-93a3-8010-b38a-e9d14518b08b" class="numbered-list" start="2"><li>貯金目標名・貯金目標金額・締切・自動で毎月記録される額を入力する</li></ol><ol type="1" id="1f614d9d-93a3-8019-a4aa-cd36056c9ddf" class="numbered-list" start="3"><li>バリデーションを通過</li></ol><ol type="1" id="1f614d9d-93a3-8090-aea5-eafec2ef279c" class="numbered-list" start="4"><li>貯金目標がDBに保存される</li></ol><ol type="1" id="1f614d9d-93a3-80ff-a84e-cb79a74b6d86" class="numbered-list" start="5"><li>成功メッセージと共に貯金目標一覧へ遷移</li></ol><p id="1f614d9d-93a3-80da-b902-db590683ef11" class="">
+</p><p id="1f614d9d-93a3-80b0-bb8f-cf9ea41075dc" class=""><strong>代替シナリオ</strong></p><p id="1f614d9d-93a3-803b-83fb-ca1d8d0b837d" class="">必要項目（貯金目標名・貯金目標金額・締切・自動で毎月記録される額）が未入力の場合、エラー表示</p><p id="1f614d9d-93a3-8002-8fb4-d371b52a8d42" class="">
+</p><p id="1f614d9d-93a3-80f8-b7ca-eb264ba10faa" class="">
+</p><h3 id="1f614d9d-93a3-8012-92cf-c6c0c52d6224" class="">ユースケース５：今月あとどのくらいの金額が使用可能か確認する</h3><table id="1f614d9d-93a3-80e6-a55c-e6161cd38a10" class="simple-table"><thead class="simple-table-header"><tr id="1f614d9d-93a3-80df-acbf-df358e23a6fd"><th id="RYXh" class="simple-table-header-color simple-table-header">項目</th><th id="ImKj" class="simple-table-header-color simple-table-header" style="width:586.484375px">内容</th></tr></thead><tbody><tr id="1f614d9d-93a3-8014-b53a-c8b87344ba62"><td id="RYXh" class="">アクター</td><td id="ImKj" class="" style="width:586.484375px">一般ユーザー</td></tr><tr id="1f614d9d-93a3-8046-90bb-cc890ec3f893"><td id="RYXh" class="">事前条件</td><td id="ImKj" class="" style="width:586.484375px">ユーザーがログイン済みである</td></tr></tbody></table><p id="1f614d9d-93a3-8037-b6c3-c023947da3af" class=""><strong>主シナリオ</strong></p><ol type="1" id="1f614d9d-93a3-80e4-8fd3-f6c7d88ca5ef" class="numbered-list" start="1"><li>ダッシュボードを開く</li></ol><ol type="1" id="1f614d9d-93a3-80a9-9ce3-cdbb9a851816" class="numbered-list" start="2"><li>ダッシュボード表示時、バックエンドで「その月の収入」- (「その月の支出」+ 「目標貯金のために毎月引き落とされる金額の合計」)を計算し、フロントエンドがその数値を取得する</li></ol><p id="1f614d9d-93a3-80fb-97b8-f5ce5a20da67" class="">
+</p><p id="1f614d9d-93a3-805f-9763-d95b1b7fa1fe" class=""><strong>代替シナリオ</strong></p><p id="1f614d9d-93a3-80fa-9f0f-d87405225571" class="">もし使用可能金額が0未満だった場合、次の月の使える額からオーバーした金額を引く</p><p id="1f614d9d-93a3-8099-98ac-dfa0da2bf263" class="">
+</p><p id="1f614d9d-93a3-80a5-aabb-facc3e843750" class="">
+</p><h3 id="1f614d9d-93a3-8035-a227-ddeca5c9acb6" class="">ユースケース６：支出の履歴を確認・調整する</h3><table id="1f614d9d-93a3-80ab-a490-ff23aa5493b9" class="simple-table"><thead class="simple-table-header"><tr id="1f614d9d-93a3-801c-b12c-de88ecbd65dc"><th id="RYXh" class="simple-table-header-color simple-table-header">項目</th><th id="ImKj" class="simple-table-header-color simple-table-header" style="width:586.484375px">内容</th></tr></thead><tbody><tr id="1f614d9d-93a3-80be-853f-d5d96ebbb27f"><td id="RYXh" class="">アクター</td><td id="ImKj" class="" style="width:586.484375px">一般ユーザー</td></tr><tr id="1f614d9d-93a3-804d-af5b-c2ad0b5d5d42"><td id="RYXh" class="">事前条件</td><td id="ImKj" class="" style="width:586.484375px">ユーザーがログイン済みである</td></tr></tbody></table><p id="1f614d9d-93a3-80f8-8226-c50db1aaa141" class=""><strong>主シナリオ</strong></p><ol type="1" id="1f614d9d-93a3-80ca-9606-d60d7af7aeae" class="numbered-list" start="1"><li>収支一覧(カレンダー)を開く</li></ol><ol type="1" id="1f614d9d-93a3-8041-925f-d8d82bebca6a" class="numbered-list" start="2"><li>変更をしたい収支のある日付を押下する</li></ol><ol type="1" id="1f614d9d-93a3-8033-a69c-ca40cf60fada" class="numbered-list" start="3"><li>選択された日付の収支詳細を表示</li></ol><ol type="1" id="1f614d9d-93a3-80a2-83ec-cbb2195e950a" class="numbered-list" start="4"><li>変更したい収支詳細の編集ボタンを押下</li></ol><ol type="1" id="1f614d9d-93a3-80cc-a9f2-cae554785403" class="numbered-list" start="5"><li>収支の編集・削除を行う</li></ol><ol type="1" id="1f614d9d-93a3-8021-96cb-da2a59c9e035" class="numbered-list" start="6"><li>編集の場合は完了ボタンを押下</li></ol><ol type="1" id="1f614d9d-93a3-80ef-94c8-f631b0251084" class="numbered-list" start="7"><li>収支一覧（カレンダー）に変更を反映</li></ol><p id="1f614d9d-93a3-80f9-b0d2-cec7d8aca2df" class="">
+</p><p id="1f614d9d-93a3-8092-aa22-ec259a85c4fd" class=""><strong>代替シナリオ</strong></p><p id="1f614d9d-93a3-8056-a8a6-d56b7ff016a1" class="">金額が未入力の場合、エラー表示</p><p id="1f614d9d-93a3-80f6-a29a-e2ff8e45ba2c" class="">
+</p><p id="1f614d9d-93a3-809c-a80b-fa78d619bba6" class="">
+</p><h3 id="1f614d9d-93a3-8064-ad18-fa4458dbbf04" class="">ユースケース７：固定費を確認・調整する</h3><table id="1f614d9d-93a3-80ff-84ab-f7b45ac0c919" class="simple-table"><thead class="simple-table-header"><tr id="1f614d9d-93a3-805a-b4ec-ea2434155a7b"><th id="RYXh" class="simple-table-header-color simple-table-header">項目</th><th id="ImKj" class="simple-table-header-color simple-table-header" style="width:586.484375px">内容</th></tr></thead><tbody><tr id="1f614d9d-93a3-80a9-926d-c62cb5a170c0"><td id="RYXh" class="">アクター</td><td id="ImKj" class="" style="width:586.484375px">一般ユーザー</td></tr><tr id="1f614d9d-93a3-80ff-840d-f0ae54ba6575"><td id="RYXh" class="">事前条件</td><td id="ImKj" class="" style="width:586.484375px">ユーザーがログイン済みである</td></tr></tbody></table><p id="1f614d9d-93a3-80f7-a834-c40766130800" class=""><strong>主シナリオ</strong></p><ol type="1" id="1f614d9d-93a3-8077-93ae-d83797b2eab9" class="numbered-list" start="1"><li>固定費一覧を開く</li></ol><ol type="1" id="1f614d9d-93a3-803b-995e-ef5e703d44c2" class="numbered-list" start="2"><li>変更したい固定費を押下し固定費詳細画面を開く</li></ol><ol type="1" id="1f614d9d-93a3-80d8-b759-c0bc8be237e0" class="numbered-list" start="3"><li>編集ボタンを押下し、固定費編集モードに切り替わる</li></ol><ol type="1" id="1f614d9d-93a3-8025-b807-c2a685a18cff" class="numbered-list" start="4"><li>固定費の編集・削除を行う</li></ol><ol type="1" id="1f614d9d-93a3-80aa-8109-f10059dff134" class="numbered-list" start="5"><li>編集の場合は完了ボタンを押下</li></ol><ol type="1" id="1f614d9d-93a3-8019-ba49-e0547a9f2f4c" class="numbered-list" start="6"><li>固定費一覧へ遷移する</li></ol><p id="1f614d9d-93a3-80c9-ba03-f19bdb3951c4" class="">
+</p><p id="1f614d9d-93a3-80be-82c0-fd6f4a346ff5" class=""><strong>代替シナリオ</strong></p><p id="1f614d9d-93a3-809a-93eb-dcf9436c4ff6" class="">必要項目（ジャンル・固定費名・金額・頻度・登録開始日）が未入力の場合、エラー表示</p><p id="1f614d9d-93a3-8057-851a-ea71f069e140" class="">
+</p><p id="1f614d9d-93a3-80d3-a03b-c6d63f3010e1" class="">
+</p><h3 id="1f614d9d-93a3-808d-9810-f801504c280b" class="">ユースケース８：貯金進捗を確認する</h3><table id="1f614d9d-93a3-808b-869c-ee855ca81e30" class="simple-table"><thead class="simple-table-header"><tr id="1f614d9d-93a3-807b-86f1-e6fbc458768d"><th id="RYXh" class="simple-table-header-color simple-table-header">項目</th><th id="ImKj" class="simple-table-header-color simple-table-header" style="width:586.484375px">内容</th></tr></thead><tbody><tr id="1f614d9d-93a3-80b3-88a8-dc9f9f04ac54"><td id="RYXh" class="">アクター</td><td id="ImKj" class="" style="width:586.484375px">一般ユーザー</td></tr><tr id="1f614d9d-93a3-804f-8314-fadb9f16fc24"><td id="RYXh" class="">事前条件</td><td id="ImKj" class="" style="width:586.484375px">ユーザーがログイン済みである</td></tr></tbody></table><p id="1f614d9d-93a3-8026-a6e4-d7fb3c0a7832" class=""><strong>主シナリオ</strong></p><ol type="1" id="1f614d9d-93a3-8055-9af2-f9fbb766d44c" class="numbered-list" start="1"><li>貯金目標一覧画面を開く</li></ol><ol type="1" id="1f614d9d-93a3-80e0-82ec-f1ba2c248b52" class="numbered-list" start="2"><li>見たい貯金目標詳細を開く</li></ol><ol type="1" id="1f614d9d-93a3-8095-8c73-dff7e2ae4d66" class="numbered-list" start="3"><li>バックエンドで目標金額と現在貯金できている金額の差を計算し、フロントエンドへ送信</li></ol><ol type="1" id="1f614d9d-93a3-8007-a02e-eee75783ecb7" class="numbered-list" start="4"><li>フロントエンドで円グラフ表示とこれまでの貯金履歴を表示する</li></ol><ol type="1" id="1f614d9d-93a3-8068-b9a8-f306a14c5ff3" class="numbered-list" start="5"><li>目標と現在の差を確認する</li></ol><ol type="1" id="1f614d9d-93a3-80f3-98df-f05f7382fb21" class="numbered-list" start="6"><li>変更がある場合は貯金履歴の変更したい項目の編集ボタンを押下</li></ol><p id="1f614d9d-93a3-8011-a18a-c21d6fac2299" class="">
+</p><p id="1f614d9d-93a3-80b7-b330-fda207164444" class=""><strong>代替シナリオ</strong></p><p id="1f614d9d-93a3-8069-aeec-f7b65f6ac45d" class="">必要項目（貯金目標名・貯金目標金額・締切・自動で毎月記録される額）が未入力の場合、エラー表示</p><p id="1f614d9d-93a3-80b2-9970-f4e93ab97315" class="">
+</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

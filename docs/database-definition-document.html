@@ -1,0 +1,686 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>E-R図・DB定義書</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(50, 48, 44, 1);
+}
+.highlight-gray {
+	color: rgba(115, 114, 110, 1);
+	fill: rgba(115, 114, 110, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(205, 60, 58, 1);
+	fill: rgba(205, 60, 58, 1);
+}
+.highlight-default_background {
+	color: rgba(50, 48, 44, 1);
+}
+.highlight-gray_background {
+	background: rgba(248, 248, 247, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(248, 243, 252, 1);
+}
+.highlight-pink_background {
+	background: rgba(252, 241, 246, 1);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(115, 114, 110, 1);
+	fill: rgba(115, 114, 110, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(205, 60, 58, 1);
+	fill: rgba(205, 60, 58, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(248, 248, 247, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(248, 243, 252, 1);
+}
+.block-color-pink_background {
+	background: rgba(252, 241, 246, 1);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: undefined; }
+.select-value-color-pink { background-color: rgba(225, 136, 179, 0.27); }
+.select-value-color-purple { background-color: rgba(168, 129, 197, 0.27); }
+.select-value-color-green { background-color: rgba(123, 183, 129, 0.27); }
+.select-value-color-gray { background-color: rgba(84, 72, 49, 0.15); }
+.select-value-color-translucentGray { background-color: undefined; }
+.select-value-color-orange { background-color: rgba(224, 124, 57, 0.27); }
+.select-value-color-brown { background-color: rgba(210, 162, 141, 0.35); }
+.select-value-color-red { background-color: rgba(244, 171, 159, 0.4); }
+.select-value-color-yellow { background-color: rgba(236, 191, 66, 0.39); }
+.select-value-color-blue { background-color: rgba(93, 165, 206, 0.27); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="1f614d9d-93a3-8050-a4c1-ffd0506d1972" class="page sans"><header><h1 class="page-title">E-R図・DB定義書</h1><p class="page-description"></p><table class="properties"><tbody><tr class="property-row property-row-status"><th><span class="icon property-icon"><svg aria-hidden="true" role="graphics-symbol" viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(71, 70, 68, 0.6);flex-shrink:0" class="typesStatus"><path d="M8.75488 1.02344C8.75488 0.613281 8.41309 0.264648 8.00293 0.264648C7.59277 0.264648 7.25098 0.613281 7.25098 1.02344V3.11523C7.25098 3.51855 7.59277 3.86719 8.00293 3.86719C8.41309 3.86719 8.75488 3.51855 8.75488 3.11523V1.02344ZM3.91504 5.0293C4.20215 5.31641 4.69434 5.32324 4.97461 5.03613C5.26855 4.74902 5.26855 4.25684 4.98145 3.96973L3.53906 2.52051C3.25195 2.2334 2.7666 2.21973 2.47949 2.50684C2.19238 2.79395 2.18555 3.28613 2.47266 3.57324L3.91504 5.0293ZM10.9629 4.01758C10.6826 4.30469 10.6826 4.79688 10.9697 5.08398C11.2568 5.37109 11.749 5.36426 12.0361 5.07715L13.4854 3.62793C13.7725 3.34082 13.7725 2.84863 13.4785 2.55469C13.1982 2.27441 12.7061 2.27441 12.4189 2.56152L10.9629 4.01758ZM15.0234 8.78906C15.4336 8.78906 15.7822 8.44727 15.7822 8.03711C15.7822 7.62695 15.4336 7.28516 15.0234 7.28516H12.9385C12.5283 7.28516 12.1797 7.62695 12.1797 8.03711C12.1797 8.44727 12.5283 8.78906 12.9385 8.78906H15.0234ZM0.975586 7.28516C0.56543 7.28516 0.223633 7.62695 0.223633 8.03711C0.223633 8.44727 0.56543 8.78906 0.975586 8.78906H3.07422C3.48438 8.78906 3.83301 8.44727 3.83301 8.03711C3.83301 7.62695 3.48438 7.28516 3.07422 7.28516H0.975586ZM12.0361 10.9902C11.749 10.71 11.2568 10.71 10.9629 10.9971C10.6826 11.2842 10.6826 11.7764 10.9697 12.0635L12.4258 13.5127C12.7129 13.7998 13.2051 13.793 13.4922 13.5059C13.7793 13.2256 13.7725 12.7266 13.4854 12.4395L12.0361 10.9902ZM2.52051 12.4395C2.22656 12.7266 2.22656 13.2188 2.50684 13.5059C2.79395 13.793 3.28613 13.7998 3.57324 13.5127L5.02246 12.0703C5.31641 11.7832 5.31641 11.291 5.03613 11.0039C4.74902 10.7168 4.25684 10.71 3.96973 10.9971L2.52051 12.4395ZM8.75488 12.9658C8.75488 12.5557 8.41309 12.207 8.00293 12.207C7.59277 12.207 7.25098 12.5557 7.25098 12.9658V15.0576C7.25098 15.4609 7.59277 15.8096 8.00293 15.8096C8.41309 15.8096 8.75488 15.4609 8.75488 15.0576V12.9658Z"></path></svg></span>Qiita用ブラッシュアップ</th><td><span class="status-value"><div class="status-dot"></div>未着手</span></td></tr><tr class="property-row property-row-status"><th><span class="icon property-icon"><svg aria-hidden="true" role="graphics-symbol" viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(71, 70, 68, 0.6);flex-shrink:0" class="typesStatus"><path d="M8.75488 1.02344C8.75488 0.613281 8.41309 0.264648 8.00293 0.264648C7.59277 0.264648 7.25098 0.613281 7.25098 1.02344V3.11523C7.25098 3.51855 7.59277 3.86719 8.00293 3.86719C8.41309 3.86719 8.75488 3.51855 8.75488 3.11523V1.02344ZM3.91504 5.0293C4.20215 5.31641 4.69434 5.32324 4.97461 5.03613C5.26855 4.74902 5.26855 4.25684 4.98145 3.96973L3.53906 2.52051C3.25195 2.2334 2.7666 2.21973 2.47949 2.50684C2.19238 2.79395 2.18555 3.28613 2.47266 3.57324L3.91504 5.0293ZM10.9629 4.01758C10.6826 4.30469 10.6826 4.79688 10.9697 5.08398C11.2568 5.37109 11.749 5.36426 12.0361 5.07715L13.4854 3.62793C13.7725 3.34082 13.7725 2.84863 13.4785 2.55469C13.1982 2.27441 12.7061 2.27441 12.4189 2.56152L10.9629 4.01758ZM15.0234 8.78906C15.4336 8.78906 15.7822 8.44727 15.7822 8.03711C15.7822 7.62695 15.4336 7.28516 15.0234 7.28516H12.9385C12.5283 7.28516 12.1797 7.62695 12.1797 8.03711C12.1797 8.44727 12.5283 8.78906 12.9385 8.78906H15.0234ZM0.975586 7.28516C0.56543 7.28516 0.223633 7.62695 0.223633 8.03711C0.223633 8.44727 0.56543 8.78906 0.975586 8.78906H3.07422C3.48438 8.78906 3.83301 8.44727 3.83301 8.03711C3.83301 7.62695 3.48438 7.28516 3.07422 7.28516H0.975586ZM12.0361 10.9902C11.749 10.71 11.2568 10.71 10.9629 10.9971C10.6826 11.2842 10.6826 11.7764 10.9697 12.0635L12.4258 13.5127C12.7129 13.7998 13.2051 13.793 13.4922 13.5059C13.7793 13.2256 13.7725 12.7266 13.4854 12.4395L12.0361 10.9902ZM2.52051 12.4395C2.22656 12.7266 2.22656 13.2188 2.50684 13.5059C2.79395 13.793 3.28613 13.7998 3.57324 13.5127L5.02246 12.0703C5.31641 11.7832 5.31641 11.291 5.03613 11.0039C4.74902 10.7168 4.25684 10.71 3.96973 10.9971L2.52051 12.4395ZM8.75488 12.9658C8.75488 12.5557 8.41309 12.207 8.00293 12.207C7.59277 12.207 7.25098 12.5557 7.25098 12.9658V15.0576C7.25098 15.4609 7.59277 15.8096 8.00293 15.8096C8.41309 15.8096 8.75488 15.4609 8.75488 15.0576V12.9658Z"></path></svg></span>ステータス</th><td><span class="status-value select-value-color-green"><div class="status-dot status-dot-color-green"></div>完了</span></td></tr><tr class="property-row property-row-created_time"><th><span class="icon property-icon"><svg aria-hidden="true" role="graphics-symbol" viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(71, 70, 68, 0.6);flex-shrink:0" class="typesCreatedAt"><path d="M8 15.126C11.8623 15.126 15.0615 11.9336 15.0615 8.06445C15.0615 4.20215 11.8623 1.00293 7.99316 1.00293C4.13086 1.00293 0.938477 4.20215 0.938477 8.06445C0.938477 11.9336 4.1377 15.126 8 15.126ZM8 13.7383C4.85547 13.7383 2.33301 11.209 2.33301 8.06445C2.33301 4.91992 4.84863 2.39746 7.99316 2.39746C11.1377 2.39746 13.6738 4.91992 13.6738 8.06445C13.6738 11.209 11.1445 13.7383 8 13.7383ZM4.54102 8.91211H7.99316C8.30078 8.91211 8.54004 8.67285 8.54004 8.37207V3.8877C8.54004 3.58691 8.30078 3.34766 7.99316 3.34766C7.69238 3.34766 7.45312 3.58691 7.45312 3.8877V7.83203H4.54102C4.2334 7.83203 4.00098 8.06445 4.00098 8.37207C4.00098 8.67285 4.2334 8.91211 4.54102 8.91211Z"></path></svg></span>作成日時</th><td><time>@2025年5月17日 18:54</time></td></tr><tr class="property-row property-row-last_edited_time"><th><span class="icon property-icon"><svg aria-hidden="true" role="graphics-symbol" viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(71, 70, 68, 0.6);flex-shrink:0" class="typesCreatedAt"><path d="M8 15.126C11.8623 15.126 15.0615 11.9336 15.0615 8.06445C15.0615 4.20215 11.8623 1.00293 7.99316 1.00293C4.13086 1.00293 0.938477 4.20215 0.938477 8.06445C0.938477 11.9336 4.1377 15.126 8 15.126ZM8 13.7383C4.85547 13.7383 2.33301 11.209 2.33301 8.06445C2.33301 4.91992 4.84863 2.39746 7.99316 2.39746C11.1377 2.39746 13.6738 4.91992 13.6738 8.06445C13.6738 11.209 11.1445 13.7383 8 13.7383ZM4.54102 8.91211H7.99316C8.30078 8.91211 8.54004 8.67285 8.54004 8.37207V3.8877C8.54004 3.58691 8.30078 3.34766 7.99316 3.34766C7.69238 3.34766 7.45312 3.58691 7.45312 3.8877V7.83203H4.54102C4.2334 7.83203 4.00098 8.06445 4.00098 8.37207C4.00098 8.67285 4.2334 8.91211 4.54102 8.91211Z"></path></svg></span>最終更新日時</th><td><time>@2025年6月2日 20:51</time></td></tr></tbody></table></header><div class="page-body"><h1 id="1f614d9d-93a3-8031-8cb5-c2426dd42df2" class="">E-R図</h1><hr id="1f614d9d-93a3-80bb-b44f-c0b7227501a0"/><figure id="1f614d9d-93a3-8050-8bff-d1dc06265a23" class="image"><a href="image.png"><img style="width:543.5341186523438px" src="image.png"/></a></figure><p id="1f614d9d-93a3-807e-9ec9-e52ae50264cc" class="">
+</p><h1 id="1f614d9d-93a3-80b2-a4e2-e8fe27ceb936" class="">テーブル一覧</h1><hr id="1f614d9d-93a3-80f1-b9fd-d39bcd141ccb"/><table id="1f714d9d-93a3-8049-9dfa-e6736108f8d8" class="simple-table"><thead class="simple-table-header"><tr id="1f714d9d-93a3-8092-8498-d660e08eaaa0"><th id="OR}\" class="simple-table-header-color simple-table-header" style="width:44px">No.</th><th id="}MB_" class="simple-table-header-color simple-table-header" style="width:145.046875px">テーブル名（論理）</th><th id="D&lt;Fp" class="simple-table-header-color simple-table-header" style="width:149.53125px">テーブル名（物理）</th><th id="GWJR" class="simple-table-header-color simple-table-header" style="width:539.421875px">概要</th><th id="h^CS" class="simple-table-header-color simple-table-header" style="width:187px">リレーションテーブルNo.</th></tr></thead><tbody><tr id="1f714d9d-93a3-8075-b0c0-df6e8ae8c891"><td id="OR}\" class="" style="width:44px">1</td><td id="}MB_" class="" style="width:145.046875px">ユーザー</td><td id="D&lt;Fp" class="" style="width:149.53125px">users</td><td id="GWJR" class="" style="width:539.421875px">ユーザーの情報を格納するテーブル</td><td id="h^CS" class="" style="width:187px">2(収支), <br/>4(固定費), <br/>5(ジャンル), <br/>6(貯金目標)<br/></td></tr><tr id="1f714d9d-93a3-808f-85f4-d30a54f9e134"><td id="OR}\" class="" style="width:44px">2</td><td id="}MB_" class="" style="width:145.046875px">収支</td><td id="D&lt;Fp" class="" style="width:149.53125px">transactions</td><td id="GWJR" class="" style="width:539.421875px">収支記録を格納するテーブル</td><td id="h^CS" class="" style="width:187px">1(ユーザー), <br/>3(写真), <br/>5(ジャンル)<br/></td></tr><tr id="1f714d9d-93a3-804c-8dc2-d5596c025a13"><td id="OR}\" class="" style="width:44px">3</td><td id="}MB_" class="" style="width:145.046875px">写真</td><td id="D&lt;Fp" class="" style="width:149.53125px">item_photos</td><td id="GWJR" class="" style="width:539.421875px">支出の記録の際にアップロード可能な写真のパスを保持するテーブル</td><td id="h^CS" class="" style="width:187px">2(収支)</td></tr><tr id="1f714d9d-93a3-8061-afef-f5396ae57445"><td id="OR}\" class="" style="width:44px">4</td><td id="}MB_" class="" style="width:145.046875px">固定費</td><td id="D&lt;Fp" class="" style="width:149.53125px">fixed_costs</td><td id="GWJR" class="" style="width:539.421875px">固定費を格納するテーブル</td><td id="h^CS" class="" style="width:187px">1(ユーザー), <br/>5(ジャンル)<br/></td></tr><tr id="1f714d9d-93a3-80ac-ae2c-f625e0b1d402"><td id="OR}\" class="" style="width:44px">5</td><td id="}MB_" class="" style="width:145.046875px">ジャンル</td><td id="D&lt;Fp" class="" style="width:149.53125px">genres</td><td id="GWJR" class="" style="width:539.421875px">ジャンルを格納するテーブル。ジャンルは全ユーザー共通の「デフォルトジャンル」とユーザー毎に追加が可能な「カスタムジャンル」の二種類を想定している。<br/>「デフォルトジャンル」は<br/><code>user_id = null</code>かつ<code>is_default =true</code>、「カスタムジャンル」は<code>user_id ≠ null</code>かつ<code>is_default = false</code> として管理し、収支及び固定費の分類に利用する。</td><td id="h^CS" class="" style="width:187px">1(ユーザー), <br/>2(収支), <br/>4(固定費)<br/></td></tr><tr id="1f714d9d-93a3-809b-97c5-f3ffb7189816"><td id="OR}\" class="" style="width:44px">6</td><td id="}MB_" class="" style="width:145.046875px">貯金目標</td><td id="D&lt;Fp" class="" style="width:149.53125px">saving_goals</td><td id="GWJR" class="" style="width:539.421875px">貯金目標を格納するテーブル</td><td id="h^CS" class="" style="width:187px">1(ユーザー), <br/>7(貯金進捗)<br/></td></tr><tr id="1f714d9d-93a3-8014-8a1e-e436159243f4"><td id="OR}\" class="" style="width:44px">7</td><td id="}MB_" class="" style="width:145.046875px">貯金進捗</td><td id="D&lt;Fp" class="" style="width:149.53125px">saving_progresses</td><td id="GWJR" class="" style="width:539.421875px">貯金進捗を格納するテーブル</td><td id="h^CS" class="" style="width:187px">6(貯金目標)</td></tr></tbody></table><h1 id="1f614d9d-93a3-80ed-bbe5-e0f5063555a6" class="">テーブル詳細</h1><hr id="1f614d9d-93a3-8056-afa0-f8df6ed7b7d2"/><h2 id="1f714d9d-93a3-8051-8b9d-cfc860659b23" class="">凡例</h2><table id="1f714d9d-93a3-80ae-9f62-d0cb7fcb1a5f" class="simple-table"><thead class="simple-table-header"><tr id="1f714d9d-93a3-8027-a631-cb094fe000be"><th id="uvc^" class="simple-table-header-color simple-table-header" style="width:47px">記号</th><th id="jdDb" class="simple-table-header-color simple-table-header" style="width:393px">意味</th></tr></thead><tbody><tr id="1f714d9d-93a3-8010-81e0-cd1fe9ba32f6"><td id="uvc^" class="" style="width:47px">P</td><td id="jdDb" class="" style="width:393px">Primary Key（主キー）</td></tr><tr id="1f714d9d-93a3-8084-9828-e932434ae6af"><td id="uvc^" class="" style="width:47px">F</td><td id="jdDb" class="" style="width:393px">Foreign Key（外部キー）</td></tr><tr id="1f714d9d-93a3-80a9-8a26-f047352a3b11"><td id="uvc^" class="" style="width:47px">N</td><td id="jdDb" class="" style="width:393px">Null許可（〇＝許可）</td></tr></tbody></table><h2 id="1f614d9d-93a3-80f8-91a1-ce694788c21f" class="">No.1 users</h2><table id="1f714d9d-93a3-8090-adcc-dcac495250f0" class="simple-table"><thead class="simple-table-header"><tr id="1f714d9d-93a3-8058-9217-e706653dafff"><th id="uLZV" class="simple-table-header-color simple-table-header" style="width:44px">No.</th><th id="REI_" class="simple-table-header-color simple-table-header" style="width:132px">カラム名（論理）</th><th id="jmKk" class="simple-table-header-color simple-table-header" style="width:133px">カラム名（物理）</th><th id="jA:p" class="simple-table-header-color simple-table-header">型</th><th id="iZF:" class="simple-table-header-color simple-table-header" style="width:66px">文字数</th><th id="{{\U" class="simple-table-header-color simple-table-header" style="width:35px">P</th><th id="vn|h" class="simple-table-header-color simple-table-header" style="width:35px">F</th><th id="~{=_" class="simple-table-header-color simple-table-header" style="width:35px">N</th><th id="~hzv" class="simple-table-header-color simple-table-header" style="width:245px">リレーション</th><th id="XxWl" class="simple-table-header-color simple-table-header" style="width:179px">フォーマット</th><th id="pTeU" class="simple-table-header-color simple-table-header" style="width:318px">備考</th></tr></thead><tbody><tr id="1f714d9d-93a3-80f6-8106-f9e681bbc98a"><td id="uLZV" class="" style="width:44px">1</td><td id="REI_" class="" style="width:132px">id</td><td id="jmKk" class="" style="width:133px">id</td><td id="jA:p" class="">BIGINT UNSIGNED</td><td id="iZF:" class="" style="width:66px"></td><td id="{{\U" class="" style="width:35px">〇</td><td id="vn|h" class="" style="width:35px">-</td><td id="~{=_" class="" style="width:35px">✕</td><td id="~hzv" class="" style="width:245px"><code>transactions()</code><br/>$this→hasMany(Transaction::class)<br/><br/><code>fixed_costs()</code><br/>$this→hasMany(FixedCost::class)<br/><br/><code>genres()</code><br/>$this→hasMany(Genre::class)<br/><br/><code>saving_goals()</code><br/>$this→hasMany(SavingGoal::class)<br/></td><td id="XxWl" class="" style="width:179px">-</td><td id="pTeU" class="" style="width:318px"></td></tr><tr id="1f714d9d-93a3-8029-a0b6-f6f92a1cad66"><td id="uLZV" class="" style="width:44px">2</td><td id="REI_" class="" style="width:132px">名前</td><td id="jmKk" class="" style="width:133px">name</td><td id="jA:p" class="">STRING</td><td id="iZF:" class="" style="width:66px">50</td><td id="{{\U" class="" style="width:35px">-</td><td id="vn|h" class="" style="width:35px">-</td><td id="~{=_" class="" style="width:35px">✕</td><td id="~hzv" class="" style="width:245px">-</td><td id="XxWl" class="" style="width:179px">-</td><td id="pTeU" class="" style="width:318px"></td></tr><tr id="1f714d9d-93a3-805e-9269-c0aca1976999"><td id="uLZV" class="" style="width:44px">3</td><td id="REI_" class="" style="width:132px">メール</td><td id="jmKk" class="" style="width:133px">email</td><td id="jA:p" class="">STRING</td><td id="iZF:" class="" style="width:66px">255</td><td id="{{\U" class="" style="width:35px">-</td><td id="vn|h" class="" style="width:35px">-</td><td id="~{=_" class="" style="width:35px">✕</td><td id="~hzv" class="" style="width:245px">-</td><td id="XxWl" class="" style="width:179px">-</td><td id="pTeU" class="" style="width:318px"></td></tr><tr id="1f714d9d-93a3-805e-868b-c921ce295e44"><td id="uLZV" class="" style="width:44px">4</td><td id="REI_" class="" style="width:132px">パスワード</td><td id="jmKk" class="" style="width:133px">password</td><td id="jA:p" class="">STRING</td><td id="iZF:" class="" style="width:66px">255</td><td id="{{\U" class="" style="width:35px">-</td><td id="vn|h" class="" style="width:35px">-</td><td id="~{=_" class="" style="width:35px">✕</td><td id="~hzv" class="" style="width:245px">-</td><td id="XxWl" class="" style="width:179px">-</td><td id="pTeU" class="" style="width:318px">Laravelの<code>Hash::make()</code>にてハッシュ化して保存</td></tr><tr id="1f714d9d-93a3-80f4-a84e-e9e83002b6c6"><td id="uLZV" class="" style="width:44px">5</td><td id="REI_" class="" style="width:132px">作成日</td><td id="jmKk" class="" style="width:133px">created_at</td><td id="jA:p" class="">DATETIME</td><td id="iZF:" class="" style="width:66px"></td><td id="{{\U" class="" style="width:35px">-</td><td id="vn|h" class="" style="width:35px">-</td><td id="~{=_" class="" style="width:35px">〇</td><td id="~hzv" class="" style="width:245px">-</td><td id="XxWl" class="" style="width:179px">YYYY-MM-DD HH:MM:SS</td><td id="pTeU" class="" style="width:318px"></td></tr><tr id="1f714d9d-93a3-8069-9fc3-fc3bb68c8f23"><td id="uLZV" class="" style="width:44px">6</td><td id="REI_" class="" style="width:132px">更新日</td><td id="jmKk" class="" style="width:133px">updated_at</td><td id="jA:p" class="">DATETIME</td><td id="iZF:" class="" style="width:66px"></td><td id="{{\U" class="" style="width:35px">-</td><td id="vn|h" class="" style="width:35px">-</td><td id="~{=_" class="" style="width:35px">〇</td><td id="~hzv" class="" style="width:245px">-</td><td id="XxWl" class="" style="width:179px">YYYY-MM-DD HH:MM:SS</td><td id="pTeU" class="" style="width:318px"></td></tr></tbody></table><p id="1f714d9d-93a3-801d-ad79-dc0f94a60a0a" class="">
+</p><h2 id="1f714d9d-93a3-8011-b73f-d8f5bf9c8a45" class="">No.2 transactions</h2><table id="1f714d9d-93a3-8075-8b78-f1db7d290938" class="simple-table"><thead class="simple-table-header"><tr id="1f714d9d-93a3-8063-af22-d25150fbdd2d"><th id="uLZV" class="simple-table-header-color simple-table-header" style="width:44px">No.</th><th id="REI_" class="simple-table-header-color simple-table-header" style="width:132px">カラム名（論理）</th><th id="jmKk" class="simple-table-header-color simple-table-header" style="width:133px">カラム名（物理）</th><th id="jA:p" class="simple-table-header-color simple-table-header">型</th><th id="iZF:" class="simple-table-header-color simple-table-header" style="width:69px">文字数</th><th id="{{\U" class="simple-table-header-color simple-table-header" style="width:35px">P</th><th id="vn|h" class="simple-table-header-color simple-table-header" style="width:35px">F</th><th id="~{=_" class="simple-table-header-color simple-table-header" style="width:35px">N</th><th id="~hzv" class="simple-table-header-color simple-table-header" style="width:209px">リレーション</th><th id="XxWl" class="simple-table-header-color simple-table-header" style="width:179px">フォーマット</th><th id="pTeU" class="simple-table-header-color simple-table-header" style="width:318px">備考</th></tr></thead><tbody><tr id="1f714d9d-93a3-8090-ac00-c0c0b273c3d5"><td id="uLZV" class="" style="width:44px">1</td><td id="REI_" class="" style="width:132px">id</td><td id="jmKk" class="" style="width:133px">id</td><td id="jA:p" class="">BIGINT UNSIGNED</td><td id="iZF:" class="" style="width:69px"></td><td id="{{\U" class="" style="width:35px">〇</td><td id="vn|h" class="" style="width:35px">-</td><td id="~{=_" class="" style="width:35px">✕</td><td id="~hzv" class="" style="width:209px"><code>photo()</code><br/>$this→hasOne(Photo::class)<br/></td><td id="XxWl" class="" style="width:179px">-</td><td id="pTeU" class="" style="width:318px"></td></tr><tr id="1f714d9d-93a3-806b-8525-c40575207cce"><td id="uLZV" class="" style="width:44px">2</td><td id="REI_" class="" style="width:132px">ユーザーid</td><td id="jmKk" class="" style="width:133px">user_id</td><td id="jA:p" class="">BIGINT UNSIGNED</td><td id="iZF:" class="" style="width:69px"></td><td id="{{\U" class="" style="width:35px">-</td><td id="vn|h" class="" style="width:35px">〇</td><td id="~{=_" class="" style="width:35px">✕</td><td id="~hzv" class="" style="width:209px"><code>user()</code><br/>$this→belongsTo(User::class)<br/></td><td id="XxWl" class="" style="width:179px"></td><td id="pTeU" class="" style="width:318px"></td></tr><tr id="1f714d9d-93a3-80df-ac39-db36ab549746"><td id="uLZV" class="" style="width:44px">3</td><td id="REI_" class="" style="width:132px">ジャンルid</td><td id="jmKk" class="" style="width:133px">genre_id</td><td id="jA:p" class="">BIGINT UNSIGNED</td><td id="iZF:" class="" style="width:69px"></td><td id="{{\U" class="" style="width:35px">〇</td><td id="vn|h" class="" style="width:35px">〇</td><td id="~{=_" class="" style="width:35px">✕</td><td id="~hzv" class="" style="width:209px"><code>genre()<br/><br/></code>$this→belongsTo(Genre::class)</td><td id="XxWl" class="" style="width:179px"></td><td id="pTeU" class="" style="width:318px"></td></tr><tr id="1f714d9d-93a3-8074-8399-f12e8b0d1c8a"><td id="uLZV" class="" style="width:44px">4</td><td id="REI_" class="" style="width:132px">タイプ</td><td id="jmKk" class="" style="width:133px">type</td><td id="jA:p" class="">ENUM(”income”, “expense”)</td><td id="iZF:" class="" style="width:69px"></td><td id="{{\U" class="" style="width:35px">-</td><td id="vn|h" class="" style="width:35px">-</td><td id="~{=_" class="" style="width:35px">✕</td><td id="~hzv" class="" style="width:209px">-</td><td id="XxWl" class="" style="width:179px"></td><td id="pTeU" class="" style="width:318px">このカラムで収入であるのか支出であるのかを管理する</td></tr><tr id="1f714d9d-93a3-8019-b162-df08f74adc48"><td id="uLZV" class="" style="width:44px">5</td><td id="REI_" class="" style="width:132px">金額</td><td id="jmKk" class="" style="width:133px">amount</td><td id="jA:p" class="">INT</td><td id="iZF:" class="" style="width:69px"></td><td id="{{\U" class="" style="width:35px">-</td><td id="vn|h" class="" style="width:35px">-</td><td id="~{=_" class="" style="width:35px">✕</td><td id="~hzv" class="" style="width:209px">-</td><td id="XxWl" class="" style="width:179px"></td><td id="pTeU" class="" style="width:318px"></td></tr><tr id="1f714d9d-93a3-809a-8937-f2f0ca00a7c4"><td id="uLZV" class="" style="width:44px">6</td><td id="REI_" class="" style="width:132px">日付</td><td id="jmKk" class="" style="width:133px">date</td><td id="jA:p" class="">DATE</td><td id="iZF:" class="" style="width:69px"></td><td id="{{\U" class="" style="width:35px">-</td><td id="vn|h" class="" style="width:35px">-</td><td id="~{=_" class="" style="width:35px">✕</td><td id="~hzv" class="" style="width:209px">-</td><td id="XxWl" class="" style="width:179px">YYYY-MM-DD</td><td id="pTeU" class="" style="width:318px"></td></tr><tr id="1f714d9d-93a3-8003-b8ed-f79210c1589f"><td id="uLZV" class="" style="width:44px">7</td><td id="REI_" class="" style="width:132px">メモ</td><td id="jmKk" class="" style="width:133px">memo</td><td id="jA:p" class="">STRING</td><td id="iZF:" class="" style="width:69px">255</td><td id="{{\U" class="" style="width:35px">-</td><td id="vn|h" class="" style="width:35px">-</td><td id="~{=_" class="" style="width:35px">〇</td><td id="~hzv" class="" style="width:209px">-</td><td id="XxWl" class="" style="width:179px"></td><td id="pTeU" class="" style="width:318px"></td></tr><tr id="1f714d9d-93a3-802b-8106-ce3baf04e7fc"><td id="uLZV" class="" style="width:44px">8</td><td id="REI_" class="" style="width:132px">作成日</td><td id="jmKk" class="" style="width:133px">created_at</td><td id="jA:p" class="">DATETIME</td><td id="iZF:" class="" style="width:69px"></td><td id="{{\U" class="" style="width:35px">-</td><td id="vn|h" class="" style="width:35px">-</td><td id="~{=_" class="" style="width:35px">〇</td><td id="~hzv" class="" style="width:209px">-</td><td id="XxWl" class="" style="width:179px">YYYY-MM-DD HH:MM:SS</td><td id="pTeU" class="" style="width:318px"></td></tr><tr id="1f714d9d-93a3-809e-bcd5-e73ac866e433"><td id="uLZV" class="" style="width:44px">9</td><td id="REI_" class="" style="width:132px">更新日</td><td id="jmKk" class="" style="width:133px">updated_at</td><td id="jA:p" class="">DATETIME</td><td id="iZF:" class="" style="width:69px"></td><td id="{{\U" class="" style="width:35px">-</td><td id="vn|h" class="" style="width:35px">-</td><td id="~{=_" class="" style="width:35px">〇</td><td id="~hzv" class="" style="width:209px">-</td><td id="XxWl" class="" style="width:179px">YYYY-MM-DD HH:MM:SS</td><td id="pTeU" class="" style="width:318px"></td></tr></tbody></table><h2 id="1f714d9d-93a3-8090-ad6a-d9b45425bc6c" class="">No.3 photos</h2><table id="1f714d9d-93a3-8024-a05c-e646797507d4" class="simple-table"><thead class="simple-table-header"><tr id="1f714d9d-93a3-801c-9977-d0a3f5a5e532"><th id="uLZV" class="simple-table-header-color simple-table-header" style="width:44px">No.</th><th id="REI_" class="simple-table-header-color simple-table-header" style="width:132px">カラム名（論理）</th><th id="jmKk" class="simple-table-header-color simple-table-header" style="width:133px">カラム名（物理）</th><th id="jA:p" class="simple-table-header-color simple-table-header">型</th><th id="iZF:" class="simple-table-header-color simple-table-header" style="width:66px">文字数</th><th id="{{\U" class="simple-table-header-color simple-table-header" style="width:35px">P</th><th id="vn|h" class="simple-table-header-color simple-table-header" style="width:35px">F</th><th id="~{=_" class="simple-table-header-color simple-table-header" style="width:35px">N</th><th id="~hzv" class="simple-table-header-color simple-table-header" style="width:245px">リレーション</th><th id="XxWl" class="simple-table-header-color simple-table-header" style="width:179px">フォーマット</th><th id="pTeU" class="simple-table-header-color simple-table-header" style="width:318px">備考</th></tr></thead><tbody><tr id="1f714d9d-93a3-8020-92f6-ee0be971df17"><td id="uLZV" class="" style="width:44px">1</td><td id="REI_" class="" style="width:132px">id</td><td id="jmKk" class="" style="width:133px">id</td><td id="jA:p" class="">BIGINT UNSIGNED</td><td id="iZF:" class="" style="width:66px"></td><td id="{{\U" class="" style="width:35px">〇</td><td id="vn|h" class="" style="width:35px">-</td><td id="~{=_" class="" style="width:35px">✕</td><td id="~hzv" class="" style="width:245px"></td><td id="XxWl" class="" style="width:179px">-</td><td id="pTeU" class="" style="width:318px"></td></tr><tr id="1f714d9d-93a3-80e9-8afd-ecac91fd9f52"><td id="uLZV" class="" style="width:44px">2</td><td id="REI_" class="" style="width:132px">収支id</td><td id="jmKk" class="" style="width:133px">transaction_id</td><td id="jA:p" class="">BIGINT UNSIGNED</td><td id="iZF:" class="" style="width:66px"></td><td id="{{\U" class="" style="width:35px">-</td><td id="vn|h" class="" style="width:35px">〇</td><td id="~{=_" class="" style="width:35px">✕</td><td id="~hzv" class="" style="width:245px"><code>transaction()</code><br/>$this→belongsTo(Transaction::class)<br/></td><td id="XxWl" class="" style="width:179px">-</td><td id="pTeU" class="" style="width:318px"></td></tr><tr id="1f714d9d-93a3-8074-a69c-c02b4fa85a21"><td id="uLZV" class="" style="width:44px">3</td><td id="REI_" class="" style="width:132px">パス</td><td id="jmKk" class="" style="width:133px">image_path</td><td id="jA:p" class="">STRING</td><td id="iZF:" class="" style="width:66px">255</td><td id="{{\U" class="" style="width:35px">-</td><td id="vn|h" class="" style="width:35px">-</td><td id="~{=_" class="" style="width:35px">✕</td><td id="~hzv" class="" style="width:245px">-</td><td id="XxWl" class="" style="width:179px">-</td><td id="pTeU" class="" style="width:318px">storage内の画像パスを格納<br/><br/><code>/storage/photos/xxx.jpg</code></td></tr><tr id="1f714d9d-93a3-805b-8b67-c858adf5b0f0"><td id="uLZV" class="" style="width:44px">4</td><td id="REI_" class="" style="width:132px">作成日</td><td id="jmKk" class="" style="width:133px">created_at</td><td id="jA:p" class="">DATETIME</td><td id="iZF:" class="" style="width:66px"></td><td id="{{\U" class="" style="width:35px">-</td><td id="vn|h" class="" style="width:35px">-</td><td id="~{=_" class="" style="width:35px">〇</td><td id="~hzv" class="" style="width:245px">-</td><td id="XxWl" class="" style="width:179px">YYYY-MM-DD HH:MM:SS</td><td id="pTeU" class="" style="width:318px"></td></tr><tr id="1f714d9d-93a3-8058-8b05-ec2b16c97ad9"><td id="uLZV" class="" style="width:44px">5</td><td id="REI_" class="" style="width:132px">更新日</td><td id="jmKk" class="" style="width:133px">updated_at</td><td id="jA:p" class="">DATETIME</td><td id="iZF:" class="" style="width:66px"></td><td id="{{\U" class="" style="width:35px">-</td><td id="vn|h" class="" style="width:35px">-</td><td id="~{=_" class="" style="width:35px">〇</td><td id="~hzv" class="" style="width:245px">-</td><td id="XxWl" class="" style="width:179px">YYYY-MM-DD HH:MM:SS</td><td id="pTeU" class="" style="width:318px"></td></tr></tbody></table><h2 id="1f714d9d-93a3-8026-852b-c40573a35e6e" class="">No.4 fixed_costs</h2><table id="1f714d9d-93a3-809c-8448-c3e58a52c5d2" class="simple-table"><thead class="simple-table-header"><tr id="1f714d9d-93a3-809d-bc19-d5c235dd6bb9"><th id="uLZV" class="simple-table-header-color simple-table-header" style="width:44px">No.</th><th id="REI_" class="simple-table-header-color simple-table-header" style="width:132px">カラム名（論理）</th><th id="jmKk" class="simple-table-header-color simple-table-header" style="width:174px">カラム名（物理）</th><th id="jA:p" class="simple-table-header-color simple-table-header">型</th><th id="iZF:" class="simple-table-header-color simple-table-header" style="width:69px">文字数</th><th id="{{\U" class="simple-table-header-color simple-table-header" style="width:35px">P</th><th id="vn|h" class="simple-table-header-color simple-table-header" style="width:35px">F</th><th id="~{=_" class="simple-table-header-color simple-table-header" style="width:35px">N</th><th id="~hzv" class="simple-table-header-color simple-table-header" style="width:209px">リレーション</th><th id="XxWl" class="simple-table-header-color simple-table-header" style="width:179px">フォーマット</th><th id="pTeU" class="simple-table-header-color simple-table-header" style="width:318px">備考</th></tr></thead><tbody><tr id="1f714d9d-93a3-80ce-869f-e56b397378e3"><td id="uLZV" class="" style="width:44px">1</td><td id="REI_" class="" style="width:132px">id</td><td id="jmKk" class="" style="width:174px">id</td><td id="jA:p" class="">BIGINT UNSIGNED</td><td id="iZF:" class="" style="width:69px"></td><td id="{{\U" class="" style="width:35px">〇</td><td id="vn|h" class="" style="width:35px">-</td><td id="~{=_" class="" style="width:35px">✕</td><td id="~hzv" class="" style="width:209px"></td><td id="XxWl" class="" style="width:179px">-</td><td id="pTeU" class="" style="width:318px"></td></tr><tr id="1f714d9d-93a3-8041-941d-e61dbd74348f"><td id="uLZV" class="" style="width:44px">2</td><td id="REI_" class="" style="width:132px">ユーザーid</td><td id="jmKk" class="" style="width:174px">user_id</td><td id="jA:p" class="">BIGINT UNSIGNED</td><td id="iZF:" class="" style="width:69px"></td><td id="{{\U" class="" style="width:35px">-</td><td id="vn|h" class="" style="width:35px">〇</td><td id="~{=_" class="" style="width:35px">✕</td><td id="~hzv" class="" style="width:209px"><code>user()</code><br/>$this→belongsTo(User::class)<br/></td><td id="XxWl" class="" style="width:179px">-</td><td id="pTeU" class="" style="width:318px"></td></tr><tr id="1f714d9d-93a3-8095-99b0-dc32c8e4b403"><td id="uLZV" class="" style="width:44px">3</td><td id="REI_" class="" style="width:132px">ジャンルid</td><td id="jmKk" class="" style="width:174px">genre_id</td><td id="jA:p" class="">BIGINT UNSIGNED</td><td id="iZF:" class="" style="width:69px"></td><td id="{{\U" class="" style="width:35px">-</td><td id="vn|h" class="" style="width:35px">〇</td><td id="~{=_" class="" style="width:35px">✕</td><td id="~hzv" class="" style="width:209px"><code>genre()<br/><br/></code>$this→belongsTo(Genre::class)</td><td id="XxWl" class="" style="width:179px">-</td><td id="pTeU" class="" style="width:318px"></td></tr><tr id="1f714d9d-93a3-8019-9263-d9082b032e3e"><td id="uLZV" class="" style="width:44px">4</td><td id="REI_" class="" style="width:132px">固定費名</td><td id="jmKk" class="" style="width:174px">name</td><td id="jA:p" class="">STRING</td><td id="iZF:" class="" style="width:69px">20</td><td id="{{\U" class="" style="width:35px">-</td><td id="vn|h" class="" style="width:35px">-</td><td id="~{=_" class="" style="width:35px">✕</td><td id="~hzv" class="" style="width:209px">-</td><td id="XxWl" class="" style="width:179px">-</td><td id="pTeU" class="" style="width:318px">このカラムで収入であるのか支出であるのかを管理する</td></tr><tr id="1f714d9d-93a3-802f-b48b-cdb40a7508dc"><td id="uLZV" class="" style="width:44px">5</td><td id="REI_" class="" style="width:132px">金額</td><td id="jmKk" class="" style="width:174px">amount</td><td id="jA:p" class="">INT</td><td id="iZF:" class="" style="width:69px"></td><td id="{{\U" class="" style="width:35px">-</td><td id="vn|h" class="" style="width:35px">-</td><td id="~{=_" class="" style="width:35px">✕</td><td id="~hzv" class="" style="width:209px">-</td><td id="XxWl" class="" style="width:179px">-</td><td id="pTeU" class="" style="width:318px"></td></tr><tr id="1f714d9d-93a3-804b-8f68-db344083ec28"><td id="uLZV" class="" style="width:44px">6</td><td id="REI_" class="" style="width:132px">支出日</td><td id="jmKk" class="" style="width:174px">day_of_month</td><td id="jA:p" class="">INT</td><td id="iZF:" class="" style="width:69px"></td><td id="{{\U" class="" style="width:35px">-</td><td id="vn|h" class="" style="width:35px">-</td><td id="~{=_" class="" style="width:35px">✕</td><td id="~hzv" class="" style="width:209px">-</td><td id="XxWl" class="" style="width:179px">-</td><td id="pTeU" class="" style="width:318px">何日に支出するのか<br/>Laravelのバッチ処理で使用する<br/></td></tr><tr id="1f714d9d-93a3-8069-94e4-d787ac3da3b9"><td id="uLZV" class="" style="width:44px">7</td><td id="REI_" class="" style="width:132px">支出頻度</td><td id="jmKk" class="" style="width:174px">interval_months</td><td id="jA:p" class="">INT</td><td id="iZF:" class="" style="width:69px"></td><td id="{{\U" class="" style="width:35px">-</td><td id="vn|h" class="" style="width:35px">-</td><td id="~{=_" class="" style="width:35px">✕</td><td id="~hzv" class="" style="width:209px"></td><td id="XxWl" class="" style="width:179px">-</td><td id="pTeU" class="" style="width:318px">何か月に一回の頻度で支出するのか<br/>例)　毎月: 1　隔月: 2<br/>Laravelのバッチ処理で使用する<br/></td></tr><tr id="1f714d9d-93a3-8058-820a-f40083f21c04"><td id="uLZV" class="" style="width:44px">8</td><td id="REI_" class="" style="width:132px">開始日</td><td id="jmKk" class="" style="width:174px">start_date</td><td id="jA:p" class="">DATE</td><td id="iZF:" class="" style="width:69px"></td><td id="{{\U" class="" style="width:35px">-</td><td id="vn|h" class="" style="width:35px">-</td><td id="~{=_" class="" style="width:35px">✕</td><td id="~hzv" class="" style="width:209px"></td><td id="XxWl" class="" style="width:179px">YYYY-MM-DD</td><td id="pTeU" class="" style="width:318px">固定費の記録の開始日はいつなのか<br/>Laravelのバッチ処理で使用する<br/></td></tr><tr id="1f714d9d-93a3-805e-9c45-d8c9be2c6e94"><td id="uLZV" class="" style="width:44px">9</td><td id="REI_" class="" style="width:132px">次回支出日</td><td id="jmKk" class="" style="width:174px">next_occurence_date</td><td id="jA:p" class="">DATE</td><td id="iZF:" class="" style="width:69px"></td><td id="{{\U" class="" style="width:35px">-</td><td id="vn|h" class="" style="width:35px">-</td><td id="~{=_" class="" style="width:35px">✕</td><td id="~hzv" class="" style="width:209px"></td><td id="XxWl" class="" style="width:179px">YYYY-MM-DD</td><td id="pTeU" class="" style="width:318px">次回の固定費が記録される日はいつなのか<br/>Laravelのバッチ処理で使用する<br/></td></tr><tr id="1f714d9d-93a3-8093-ae07-e4fbc6b0045c"><td id="uLZV" class="" style="width:44px">10</td><td id="REI_" class="" style="width:132px">有効</td><td id="jmKk" class="" style="width:174px">is_active</td><td id="jA:p" class="">BOOL</td><td id="iZF:" class="" style="width:69px"></td><td id="{{\U" class="" style="width:35px">-</td><td id="vn|h" class="" style="width:35px">-</td><td id="~{=_" class="" style="width:35px">✕</td><td id="~hzv" class="" style="width:209px"></td><td id="XxWl" class="" style="width:179px">-</td><td id="pTeU" class="" style="width:318px">固定費の記録を有効にするか否か<br/>例）有効: true　無効: false<br/></td></tr><tr id="1f714d9d-93a3-80ae-82c2-ddd4811b3608"><td id="uLZV" class="" style="width:44px">11</td><td id="REI_" class="" style="width:132px">メモ</td><td id="jmKk" class="" style="width:174px">memo</td><td id="jA:p" class="">STRING</td><td id="iZF:" class="" style="width:69px">255</td><td id="{{\U" class="" style="width:35px">-</td><td id="vn|h" class="" style="width:35px">-</td><td id="~{=_" class="" style="width:35px">〇</td><td id="~hzv" class="" style="width:209px">-</td><td id="XxWl" class="" style="width:179px">-</td><td id="pTeU" class="" style="width:318px"></td></tr><tr id="1f714d9d-93a3-8017-9ed1-f563c42a53b5"><td id="uLZV" class="" style="width:44px">12</td><td id="REI_" class="" style="width:132px">作成日</td><td id="jmKk" class="" style="width:174px">created_at</td><td id="jA:p" class="">DATETIME</td><td id="iZF:" class="" style="width:69px"></td><td id="{{\U" class="" style="width:35px">-</td><td id="vn|h" class="" style="width:35px">-</td><td id="~{=_" class="" style="width:35px">〇</td><td id="~hzv" class="" style="width:209px">-</td><td id="XxWl" class="" style="width:179px">YYYY-MM-DD HH:MM:SS</td><td id="pTeU" class="" style="width:318px"></td></tr><tr id="1f714d9d-93a3-80cb-9c67-f48bc9508a88"><td id="uLZV" class="" style="width:44px">13</td><td id="REI_" class="" style="width:132px">更新日</td><td id="jmKk" class="" style="width:174px">updated_at</td><td id="jA:p" class="">DATETIME</td><td id="iZF:" class="" style="width:69px"></td><td id="{{\U" class="" style="width:35px">-</td><td id="vn|h" class="" style="width:35px">-</td><td id="~{=_" class="" style="width:35px">〇</td><td id="~hzv" class="" style="width:209px">-</td><td id="XxWl" class="" style="width:179px">YYYY-MM-DD HH:MM:SS</td><td id="pTeU" class="" style="width:318px"></td></tr></tbody></table><h2 id="1f714d9d-93a3-808b-89bf-ea60648f7070" class="">No.5 genres</h2><p id="1f714d9d-93a3-8095-b32c-c3ee514acedc" class="">用語注釈</p><table id="1f714d9d-93a3-80e9-8ada-c892e20f3f5e" class="simple-table"><thead class="simple-table-header"><tr id="1f714d9d-93a3-802c-9fe9-d89d47597c3f"><th id="Kyug" class="simple-table-header-color simple-table-header" style="width:173px">用語</th><th id="rWHd" class="simple-table-header-color simple-table-header" style="width:545px">意味</th></tr></thead><tbody><tr id="1f714d9d-93a3-80e9-9903-db1bd5b5bcb6"><td id="Kyug" class="" style="width:173px">デフォルトジャンル</td><td id="rWHd" class="" style="width:545px">全ユーザー共通のジャンル</td></tr><tr id="1f714d9d-93a3-80aa-9974-dbaf12cc6744"><td id="Kyug" class="" style="width:173px">カスタムジャンル</td><td id="rWHd" class="" style="width:545px">各ユーザーで作成可能なジャンル</td></tr></tbody></table><table id="1f714d9d-93a3-80ee-bc03-dad7e8cef0eb" class="simple-table"><thead class="simple-table-header"><tr id="1f714d9d-93a3-80ec-9e91-e39eaf43a128"><th id="uLZV" class="simple-table-header-color simple-table-header" style="width:44px">No.</th><th id="REI_" class="simple-table-header-color simple-table-header" style="width:132px">カラム名（論理）</th><th id="jmKk" class="simple-table-header-color simple-table-header" style="width:133px">カラム名（物理）</th><th id="jA:p" class="simple-table-header-color simple-table-header">型</th><th id="iZF:" class="simple-table-header-color simple-table-header" style="width:66px">文字数</th><th id="{{\U" class="simple-table-header-color simple-table-header" style="width:35px">P</th><th id="vn|h" class="simple-table-header-color simple-table-header" style="width:35px">F</th><th id="~{=_" class="simple-table-header-color simple-table-header" style="width:35px">N</th><th id="~hzv" class="simple-table-header-color simple-table-header" style="width:245px">リレーション</th><th id="XxWl" class="simple-table-header-color simple-table-header" style="width:179px">フォーマット</th><th id="pTeU" class="simple-table-header-color simple-table-header" style="width:340px">備考</th></tr></thead><tbody><tr id="1f714d9d-93a3-80bc-a553-c498fddb5274"><td id="uLZV" class="" style="width:44px">1</td><td id="REI_" class="" style="width:132px">id</td><td id="jmKk" class="" style="width:133px">id</td><td id="jA:p" class="">BIGINT UNSIGNED</td><td id="iZF:" class="" style="width:66px"></td><td id="{{\U" class="" style="width:35px">〇</td><td id="vn|h" class="" style="width:35px">-</td><td id="~{=_" class="" style="width:35px">✕</td><td id="~hzv" class="" style="width:245px"><code>transactions()</code><br/>$this→hasMany(Transaction::class)<br/><br/><code>fixed_costs()</code><br/>$this→hasMany(FixedCost::class)<br/></td><td id="XxWl" class="" style="width:179px">-</td><td id="pTeU" class="" style="width:340px"></td></tr><tr id="1f714d9d-93a3-8021-b463-eb4952f83377"><td id="uLZV" class="" style="width:44px">2</td><td id="REI_" class="" style="width:132px">ジャンル名</td><td id="jmKk" class="" style="width:133px">name</td><td id="jA:p" class="">STRING</td><td id="iZF:" class="" style="width:66px">20</td><td id="{{\U" class="" style="width:35px">-</td><td id="vn|h" class="" style="width:35px">-</td><td id="~{=_" class="" style="width:35px">✕</td><td id="~hzv" class="" style="width:245px">-</td><td id="XxWl" class="" style="width:179px">-</td><td id="pTeU" class="" style="width:340px"></td></tr><tr id="1f714d9d-93a3-80ad-9751-c15d50327b0b"><td id="uLZV" class="" style="width:44px">3</td><td id="REI_" class="" style="width:132px">ユーザーid</td><td id="jmKk" class="" style="width:133px">user_id</td><td id="jA:p" class="">BIGINT UNSIGNED</td><td id="iZF:" class="" style="width:66px"></td><td id="{{\U" class="" style="width:35px">-</td><td id="vn|h" class="" style="width:35px">〇</td><td id="~{=_" class="" style="width:35px">〇</td><td id="~hzv" class="" style="width:245px"><code>user()</code><br/>$this→belongsTo(User::class)<br/></td><td id="XxWl" class="" style="width:179px">-</td><td id="pTeU" class="" style="width:340px">user_id = nullの場合は「デフォルトジャンル」<br/>user_id ≠ nullの場合は「カスタムジャンル」<br/></td></tr><tr id="1f714d9d-93a3-80fa-bf37-f4cf7ce911c7"><td id="uLZV" class="" style="width:44px">4</td><td id="REI_" class="" style="width:132px">デフォルト</td><td id="jmKk" class="" style="width:133px">is_default</td><td id="jA:p" class="">BOOL</td><td id="iZF:" class="" style="width:66px"></td><td id="{{\U" class="" style="width:35px">-</td><td id="vn|h" class="" style="width:35px">-</td><td id="~{=_" class="" style="width:35px">✕</td><td id="~hzv" class="" style="width:245px">-</td><td id="XxWl" class="" style="width:179px">-</td><td id="pTeU" class="" style="width:340px">デフォルトはfalse<br/>is_default = trueの場合は「デフォルトジャンル」<br/>is_default ≠ falseの場合は「カスタムジャンル」<br/></td></tr><tr id="1f714d9d-93a3-804f-a4f2-cfb612979ae6"><td id="uLZV" class="" style="width:44px">5</td><td id="REI_" class="" style="width:132px">作成日</td><td id="jmKk" class="" style="width:133px">created_at</td><td id="jA:p" class="">DATETIME</td><td id="iZF:" class="" style="width:66px"></td><td id="{{\U" class="" style="width:35px">-</td><td id="vn|h" class="" style="width:35px">-</td><td id="~{=_" class="" style="width:35px">〇</td><td id="~hzv" class="" style="width:245px">-</td><td id="XxWl" class="" style="width:179px">YYYY-MM-DD HH:MM:SS</td><td id="pTeU" class="" style="width:340px"></td></tr><tr id="1f714d9d-93a3-808f-b082-cbadb73c05d8"><td id="uLZV" class="" style="width:44px">6</td><td id="REI_" class="" style="width:132px">更新日</td><td id="jmKk" class="" style="width:133px">updated_at</td><td id="jA:p" class="">DATETIME</td><td id="iZF:" class="" style="width:66px"></td><td id="{{\U" class="" style="width:35px">-</td><td id="vn|h" class="" style="width:35px">-</td><td id="~{=_" class="" style="width:35px">〇</td><td id="~hzv" class="" style="width:245px">-</td><td id="XxWl" class="" style="width:179px">YYYY-MM-DD HH:MM:SS</td><td id="pTeU" class="" style="width:340px"></td></tr></tbody></table><h2 id="1f714d9d-93a3-8018-851a-c245879be578" class="">No.6 saving_goals</h2><table id="1f714d9d-93a3-80b9-a1cd-c4532fee625d" class="simple-table"><thead class="simple-table-header"><tr id="1f714d9d-93a3-8086-8ea0-fddb7f33c458"><th id="uLZV" class="simple-table-header-color simple-table-header" style="width:44px">No.</th><th id="REI_" class="simple-table-header-color simple-table-header" style="width:145px">カラム名（論理）</th><th id="jmKk" class="simple-table-header-color simple-table-header" style="width:175px">カラム名（物理）</th><th id="jA:p" class="simple-table-header-color simple-table-header">型</th><th id="iZF:" class="simple-table-header-color simple-table-header" style="width:69px">文字数</th><th id="{{\U" class="simple-table-header-color simple-table-header" style="width:35px">P</th><th id="vn|h" class="simple-table-header-color simple-table-header" style="width:35px">F</th><th id="~{=_" class="simple-table-header-color simple-table-header" style="width:35px">N</th><th id="~hzv" class="simple-table-header-color simple-table-header" style="width:263px">リレーション</th><th id="XxWl" class="simple-table-header-color simple-table-header" style="width:179px">フォーマット</th><th id="pTeU" class="simple-table-header-color simple-table-header" style="width:318px">備考</th></tr></thead><tbody><tr id="1f714d9d-93a3-80d0-82c2-c3ee8e52cb1b"><td id="uLZV" class="" style="width:44px">1</td><td id="REI_" class="" style="width:145px">id</td><td id="jmKk" class="" style="width:175px">id</td><td id="jA:p" class="">BIGINT UNSIGNED</td><td id="iZF:" class="" style="width:69px"></td><td id="{{\U" class="" style="width:35px">〇</td><td id="vn|h" class="" style="width:35px">-</td><td id="~{=_" class="" style="width:35px">✕</td><td id="~hzv" class="" style="width:263px"><code>saving_progresses()</code><br/>$this→hasMany(SavingProgress::class)<br/></td><td id="XxWl" class="" style="width:179px">-</td><td id="pTeU" class="" style="width:318px"></td></tr><tr id="1f714d9d-93a3-80b7-8675-d6f6785c6873"><td id="uLZV" class="" style="width:44px">2</td><td id="REI_" class="" style="width:145px">ユーザーid</td><td id="jmKk" class="" style="width:175px">user_id</td><td id="jA:p" class="">BIGINT UNSIGNED</td><td id="iZF:" class="" style="width:69px"></td><td id="{{\U" class="" style="width:35px">-</td><td id="vn|h" class="" style="width:35px">〇</td><td id="~{=_" class="" style="width:35px">✕</td><td id="~hzv" class="" style="width:263px"><code>user()</code><br/>$this→belongsTo(User::class)<br/></td><td id="XxWl" class="" style="width:179px">-</td><td id="pTeU" class="" style="width:318px"></td></tr><tr id="1f714d9d-93a3-8022-8a6f-cb25a0ab01d9"><td id="uLZV" class="" style="width:44px">3</td><td id="REI_" class="" style="width:145px">貯金目標名</td><td id="jmKk" class="" style="width:175px">name</td><td id="jA:p" class="">STRING</td><td id="iZF:" class="" style="width:69px">20</td><td id="{{\U" class="" style="width:35px">-</td><td id="vn|h" class="" style="width:35px">-</td><td id="~{=_" class="" style="width:35px">✕</td><td id="~hzv" class="" style="width:263px">-</td><td id="XxWl" class="" style="width:179px">-</td><td id="pTeU" class="" style="width:318px"></td></tr><tr id="1f714d9d-93a3-804f-b987-ce28c7c21653"><td id="uLZV" class="" style="width:44px">4</td><td id="REI_" class="" style="width:145px">目標金額</td><td id="jmKk" class="" style="width:175px">target_amount</td><td id="jA:p" class="">INT</td><td id="iZF:" class="" style="width:69px"></td><td id="{{\U" class="" style="width:35px">-</td><td id="vn|h" class="" style="width:35px">-</td><td id="~{=_" class="" style="width:35px">✕</td><td id="~hzv" class="" style="width:263px">-</td><td id="XxWl" class="" style="width:179px">-</td><td id="pTeU" class="" style="width:318px"></td></tr><tr id="1f714d9d-93a3-80c4-9c57-dfe22a11c0a6"><td id="uLZV" class="" style="width:44px">5</td><td id="REI_" class="" style="width:145px">締切</td><td id="jmKk" class="" style="width:175px">deadline</td><td id="jA:p" class="">DATE</td><td id="iZF:" class="" style="width:69px"></td><td id="{{\U" class="" style="width:35px">-</td><td id="vn|h" class="" style="width:35px">-</td><td id="~{=_" class="" style="width:35px">✕</td><td id="~hzv" class="" style="width:263px">-</td><td id="XxWl" class="" style="width:179px">YYYY-MM-DD</td><td id="pTeU" class="" style="width:318px"></td></tr><tr id="1f714d9d-93a3-802f-8253-dab093b77820"><td id="uLZV" class="" style="width:44px">6</td><td id="REI_" class="" style="width:145px">月次引き落とし金額</td><td id="jmKk" class="" style="width:175px">auto_monthly_amount</td><td id="jA:p" class="">INT</td><td id="iZF:" class="" style="width:69px"></td><td id="{{\U" class="" style="width:35px">-</td><td id="vn|h" class="" style="width:35px">-</td><td id="~{=_" class="" style="width:35px">✕</td><td id="~hzv" class="" style="width:263px">-</td><td id="XxWl" class="" style="width:179px">-</td><td id="pTeU" class="" style="width:318px"></td></tr><tr id="1f714d9d-93a3-8066-b838-fcb0468882f1"><td id="uLZV" class="" style="width:44px">7</td><td id="REI_" class="" style="width:145px">開始月</td><td id="jmKk" class="" style="width:175px">start_month</td><td id="jA:p" class="">DATE</td><td id="iZF:" class="" style="width:69px"></td><td id="{{\U" class="" style="width:35px">-</td><td id="vn|h" class="" style="width:35px">-</td><td id="~{=_" class="" style="width:35px">✕</td><td id="~hzv" class="" style="width:263px">-</td><td id="XxWl" class="" style="width:179px">YYYY-MM-01</td><td id="pTeU" class="" style="width:318px">自動貯金の開始対象月（例：2025-06-01）</td></tr><tr id="1f714d9d-93a3-8037-be6d-ecfc263ee56b"><td id="uLZV" class="" style="width:44px">8</td><td id="REI_" class="" style="width:145px">有効</td><td id="jmKk" class="" style="width:175px">is_active</td><td id="jA:p" class="">BOOL</td><td id="iZF:" class="" style="width:69px"></td><td id="{{\U" class="" style="width:35px">-</td><td id="vn|h" class="" style="width:35px">-</td><td id="~{=_" class="" style="width:35px">✕</td><td id="~hzv" class="" style="width:263px">-</td><td id="XxWl" class="" style="width:179px">-</td><td id="pTeU" class="" style="width:318px"></td></tr><tr id="1f714d9d-93a3-8043-8fbc-e74e89828244"><td id="uLZV" class="" style="width:44px">9</td><td id="REI_" class="" style="width:145px">作成日</td><td id="jmKk" class="" style="width:175px">created_at</td><td id="jA:p" class="">DATETIME</td><td id="iZF:" class="" style="width:69px"></td><td id="{{\U" class="" style="width:35px">-</td><td id="vn|h" class="" style="width:35px">-</td><td id="~{=_" class="" style="width:35px">〇</td><td id="~hzv" class="" style="width:263px">-</td><td id="XxWl" class="" style="width:179px">YYYY-MM-DD HH:MM:SS</td><td id="pTeU" class="" style="width:318px"></td></tr><tr id="1f714d9d-93a3-804f-852f-fca2f08141fc"><td id="uLZV" class="" style="width:44px">10</td><td id="REI_" class="" style="width:145px">更新日</td><td id="jmKk" class="" style="width:175px">updated_at</td><td id="jA:p" class="">DATETIME</td><td id="iZF:" class="" style="width:69px"></td><td id="{{\U" class="" style="width:35px">-</td><td id="vn|h" class="" style="width:35px">-</td><td id="~{=_" class="" style="width:35px">〇</td><td id="~hzv" class="" style="width:263px">-</td><td id="XxWl" class="" style="width:179px">YYYY-MM-DD HH:MM:SS</td><td id="pTeU" class="" style="width:318px"></td></tr></tbody></table><h2 id="1f714d9d-93a3-80b7-a868-df99b5287571" class="">No.7 saving_progresses</h2><table id="1f714d9d-93a3-802d-bf0d-d2cd38a9c965" class="simple-table"><thead class="simple-table-header"><tr id="1f714d9d-93a3-80d6-b76b-f1d38300bc73"><th id="uLZV" class="simple-table-header-color simple-table-header" style="width:44px">No.</th><th id="REI_" class="simple-table-header-color simple-table-header" style="width:145px">カラム名（論理）</th><th id="jmKk" class="simple-table-header-color simple-table-header" style="width:175px">カラム名（物理）</th><th id="jA:p" class="simple-table-header-color simple-table-header">型</th><th id="iZF:" class="simple-table-header-color simple-table-header" style="width:69px">文字数</th><th id="{{\U" class="simple-table-header-color simple-table-header" style="width:35px">P</th><th id="vn|h" class="simple-table-header-color simple-table-header" style="width:35px">F</th><th id="~{=_" class="simple-table-header-color simple-table-header" style="width:35px">N</th><th id="~hzv" class="simple-table-header-color simple-table-header" style="width:263px">リレーション</th><th id="XxWl" class="simple-table-header-color simple-table-header" style="width:179px">フォーマット</th><th id="pTeU" class="simple-table-header-color simple-table-header" style="width:318px">備考</th></tr></thead><tbody><tr id="1f714d9d-93a3-8052-a1a1-c6518da4915a"><td id="uLZV" class="" style="width:44px">1</td><td id="REI_" class="" style="width:145px">id</td><td id="jmKk" class="" style="width:175px">id</td><td id="jA:p" class="">BIGINT UNSIGNED</td><td id="iZF:" class="" style="width:69px"></td><td id="{{\U" class="" style="width:35px">〇</td><td id="vn|h" class="" style="width:35px">-</td><td id="~{=_" class="" style="width:35px">✕</td><td id="~hzv" class="" style="width:263px"></td><td id="XxWl" class="" style="width:179px">-</td><td id="pTeU" class="" style="width:318px"></td></tr><tr id="1f714d9d-93a3-807d-aa04-d7293664cfbb"><td id="uLZV" class="" style="width:44px">2</td><td id="REI_" class="" style="width:145px">貯金目標id</td><td id="jmKk" class="" style="width:175px">saving_goal_id</td><td id="jA:p" class="">BIGINT UNSIGNED</td><td id="iZF:" class="" style="width:69px"></td><td id="{{\U" class="" style="width:35px">-</td><td id="vn|h" class="" style="width:35px">〇</td><td id="~{=_" class="" style="width:35px">✕</td><td id="~hzv" class="" style="width:263px"><code>saving_goal()</code><br/>$this→belongsTo(SavingGoalr::class)<br/></td><td id="XxWl" class="" style="width:179px">-</td><td id="pTeU" class="" style="width:318px"></td></tr><tr id="1f714d9d-93a3-80d0-bd04-f418b2e9c625"><td id="uLZV" class="" style="width:44px">3</td><td id="REI_" class="" style="width:145px">金額</td><td id="jmKk" class="" style="width:175px">amount</td><td id="jA:p" class="">INT</td><td id="iZF:" class="" style="width:69px"></td><td id="{{\U" class="" style="width:35px">-</td><td id="vn|h" class="" style="width:35px">-</td><td id="~{=_" class="" style="width:35px">✕</td><td id="~hzv" class="" style="width:263px">-</td><td id="XxWl" class="" style="width:179px">-</td><td id="pTeU" class="" style="width:318px"></td></tr><tr id="1f714d9d-93a3-80c7-b029-cf206098786b"><td id="uLZV" class="" style="width:44px">4</td><td id="REI_" class="" style="width:145px">日付</td><td id="jmKk" class="" style="width:175px">date</td><td id="jA:p" class="">DATE</td><td id="iZF:" class="" style="width:69px"></td><td id="{{\U" class="" style="width:35px">-</td><td id="vn|h" class="" style="width:35px">-</td><td id="~{=_" class="" style="width:35px">✕</td><td id="~hzv" class="" style="width:263px">-</td><td id="XxWl" class="" style="width:179px">YYYY-MM-DD</td><td id="pTeU" class="" style="width:318px"></td></tr><tr id="1f714d9d-93a3-801e-9228-c72be82baf3e"><td id="uLZV" class="" style="width:44px">5</td><td id="REI_" class="" style="width:145px">メモ</td><td id="jmKk" class="" style="width:175px">memo</td><td id="jA:p" class="">STRING</td><td id="iZF:" class="" style="width:69px">255</td><td id="{{\U" class="" style="width:35px">-</td><td id="vn|h" class="" style="width:35px">-</td><td id="~{=_" class="" style="width:35px">〇</td><td id="~hzv" class="" style="width:263px">-</td><td id="XxWl" class="" style="width:179px">-</td><td id="pTeU" class="" style="width:318px"></td></tr><tr id="1f714d9d-93a3-8089-9750-d43490571c1a"><td id="uLZV" class="" style="width:44px">6</td><td id="REI_" class="" style="width:145px">作成日</td><td id="jmKk" class="" style="width:175px">created_at</td><td id="jA:p" class="">DATETIME</td><td id="iZF:" class="" style="width:69px"></td><td id="{{\U" class="" style="width:35px">-</td><td id="vn|h" class="" style="width:35px">-</td><td id="~{=_" class="" style="width:35px">〇</td><td id="~hzv" class="" style="width:263px">-</td><td id="XxWl" class="" style="width:179px">YYYY-MM-DD HH:MM:SS</td><td id="pTeU" class="" style="width:318px"></td></tr><tr id="1f714d9d-93a3-803e-86f7-e58ad2996106"><td id="uLZV" class="" style="width:44px">7</td><td id="REI_" class="" style="width:145px">更新日</td><td id="jmKk" class="" style="width:175px">updated_at</td><td id="jA:p" class="">DATETIME</td><td id="iZF:" class="" style="width:69px"></td><td id="{{\U" class="" style="width:35px">-</td><td id="vn|h" class="" style="width:35px">-</td><td id="~{=_" class="" style="width:35px">〇</td><td id="~hzv" class="" style="width:263px">-</td><td id="XxWl" class="" style="width:179px">YYYY-MM-DD HH:MM:SS</td><td id="pTeU" class="" style="width:318px"></td></tr></tbody></table><p id="1f714d9d-93a3-8041-b0d3-c58ea5b9782d" class="">
+</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
