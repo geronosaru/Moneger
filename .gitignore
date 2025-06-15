@@ -7,6 +7,13 @@
 
 # React
 /frontend/node_modules/
+/frontend/components.json
 /frontend/dist/
 /frontend/.vite/
 /frontend/.env
+
+# ルート
+.env.dev
+.env.prod
+.DS_Store
+Thumbs.db
