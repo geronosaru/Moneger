@@ -1,19 +1,23 @@
 import type React from "react";
-import { useForm } from "react-hook-form";
-import { genreFormSchema, type GenreFormType } from "../schema/genreFormSchema";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useAppDispatch } from "../../../app/hooks";
 import { editGenre } from "../api/genreApi";
+import { genreFormSchema, type GenreFormType } from "../schema/genreFormSchema";
+import { useAppDispatch } from "../../../app/hooks";
 import { useEffect } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 
 type GenreFormProps = {
   genreId: number;
   defaultName: string;
   setEditingGenreId: React.Dispatch<React.SetStateAction<number | null>>;
-}
+};
 
-const GenreForm: React.FC<GenreFormProps> = ({genreId, defaultName, setEditingGenreId}) => {
+const GenreForm: React.FC<GenreFormProps> = ({
+  genreId, 
+  defaultName, 
+  setEditingGenreId
+}) => {
   const {
     register,
     handleSubmit,
@@ -22,23 +26,22 @@ const GenreForm: React.FC<GenreFormProps> = ({genreId, defaultName, setEditingGe
     setValue
   } = useForm<GenreFormType>({
     resolver: zodResolver(genreFormSchema)
-  })
-
-  useEffect(() => {
-    setValue("name", defaultName)
-  },[])
-
+  });
   const dispatch = useAppDispatch();
-
+  
   const onSubmit = (data: GenreFormType) => {
     const arg = {
       data: data,
       id:genreId
-    }
-    dispatch(editGenre(arg))
-    reset()
-    setEditingGenreId(null)
-  }
+    };
+    dispatch(editGenre(arg));
+    reset();
+    setEditingGenreId(null);
+  };
+
+  useEffect(() => {
+    setValue("name", defaultName)
+  },[]);
 
   return(
     <>
@@ -56,16 +59,14 @@ const GenreForm: React.FC<GenreFormProps> = ({genreId, defaultName, setEditingGe
         </div>
 
         <div className="flex-1 h-hull w-full flex justify-end items-center">
-          <button
-            className="h-4/5 bg-purple-400 rounded-md shadow-sm"
-          >
+          <button className="h-4/5 bg-purple-400 rounded-md shadow-sm">
             変更
           </button>
         </div>
       </form>
     </>
   )
-}
+};
 
 
-export default GenreForm
+export default GenreForm;

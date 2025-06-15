@@ -1,7 +1,7 @@
 import type React from "react";
 import { loginForm, type LoginForm } from "../schema/loginSchema";
 import Template from "../../../app/components/Template";
-import { EyeIcon, EyeSlash } from "../../../components/ui/Icons";
+import { EyeIcon, EyeSlashIcon } from "../../../components/ui/Icons";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
@@ -19,9 +19,13 @@ const LoginPage: React.FC = () => {
   } = useForm<LoginForm>({
     resolver: zodResolver(loginForm)
   });
+
   const dispatch = useAppDispatch();
+
   const navigate = useNavigate();
+
   const [showPassword, setShowPassword] = useState(false);
+
   const handleLogin = async(data: LoginForm) => {
     try{
       const result = await dispatch(loginUser(data));
@@ -55,7 +59,7 @@ const LoginPage: React.FC = () => {
                 className="w-full border-2 p-1 rounded-sm border-slate-500"
                 {...register('email')}
               />
-              {errors.email && <p>{errors.email.message}</p>}
+              {errors.email && <p className="text-red-400">{errors.email.message}</p>}
             </div>
             <div className="h-2/5 w-full flex flex-col space-y-0.5 justify-center items-center">
               <div className="w-full flex justify-start items-center">
@@ -72,10 +76,10 @@ const LoginPage: React.FC = () => {
                   onClick={() => setShowPassword((prev) => !prev)}
                   className="absolute right-0 top-1/2 transform -translate-y-1/2 text-slate-500"
                 >
-                  {showPassword ? <EyeIcon /> : <EyeSlash />}
+                  {showPassword ? <EyeIcon /> : <EyeSlashIcon />}
                 </button>
               </div>
-              {errors.password && <p>{errors.password.message}</p>}
+              {errors.password && <p className="text-red-400">{errors.password.message}</p>}
             </div>
           </div>
           <div className="h-1/3 w-full flex justify-center items-end">

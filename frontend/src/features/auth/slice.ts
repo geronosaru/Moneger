@@ -23,26 +23,26 @@ const authSlice = createSlice({
     // ログイン
     builder
     .addCase(loginUser.pending, (state) => {
-      state.status = 'pending'
+      state.status = 'pending';
     })
     .addCase(loginUser.fulfilled, (state, action) => {
       state.user = action.payload;
-      state.status = 'succeeded'
+      state.status = 'succeeded';
     })
     .addCase(loginUser.rejected, (state, action) => {
-      state.error = action.error.message
-      state.status = 'failed'
+      state.error = action.error.message;
+      state.status = 'failed';
     })
     // ログアウト
     .addCase(logoutUser.pending, (state) => {
-      state.status = "pending"
+      state.status = "pending";
     })
     .addCase(logoutUser.fulfilled, (state) => {
       state.user = null;
-      state.status = "succeeded"
+      state.status = "succeeded";
     })
     .addCase(logoutUser.rejected, (state) => {
-      state.status = 'failed'
+      state.status = 'failed';
     })
   }
 });

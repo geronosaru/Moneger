@@ -3,7 +3,7 @@ type Genre = {
   name: string;
   user_id: number;
   is_default: boolean;
-}
+};
 
 
-export type { Genre }
+export type { Genre };
