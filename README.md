@@ -7,9 +7,11 @@
 　お金に関する様々な管理をしてくれるアプリを作成したい。そのような思いから生まれたまるっとMonegerは、「Money」と「Manager」を掛け合わして出来たアプリ名です。
 　ただ支出記録をするだけではなく、いつまでにこれくらいお金を貯めたい、そうであれば毎月どのくらい貯金をすべきであるのか、そして実際に自由に使うことが出来るお金はどのくらいあるのかが一目でわかる、そんな貯金×貯金目標管理が出来るアプリとなっています。
 
+
 ## 本アプリの作成背景
 　現在、私は家計簿アプリと貯金アプリの二つを使用しています。家計簿アプリで普段の収支を記録しつつ、収入が入ったときに、貯金アプリに記録を付けています。
 　現在このように運用していて不便に感じることがあります。それは、実際に私が自由に使うことが出来る金額を知るのに、手間がかかるということです。家計簿アプリで「収入ー支出」を計算した上で、その後貯金アプリで「家計簿アプリで算出された金額ー毎月の貯金額」を計算しなおさなければ、今月私が自由に使うことが出来る金額を知ることが出来ないのです。このような手間を面倒に感じ、家計簿アプリと貯金アプリを一つに纏めたアプリを自作しようと考えました。
+
 
 ## まるっとMonegerのドキュメント
 以下URLから閲覧可能です。
@@ -21,6 +23,7 @@
 | database-definition-document.html    | DB定義書                                   | [🔗開く](https://geronosaru.github.io/Moneger/database-definition-document.html) |
 | user-story-map.html                  | ユーザーストーリーマップ                   | [🔗開く](https://geronosaru.github.io/Moneger/user-story-map.html) |
 | infrastructure-configuration-design-document.html | インフラ構成設計書         | [🔗開く](https://geronosaru.github.io/Moneger/infrastructure-configuration-design-document.html) |
+
 
 ## 使用言語・技術
 - フロントエンド：TypeScript（React）
@@ -37,6 +40,7 @@
     | 日付処理 | dayjs |
     | UIコンポーネント | shadcn/ui, radix-ui, react-dialog等 |
 - バックエンド：PHP（Laravel 10）
+
 
 ## 使用しているライブラリ・アセット
 - [Flowbite Icons](https://flowbite.com/icons/)  
