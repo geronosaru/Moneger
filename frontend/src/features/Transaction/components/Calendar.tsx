@@ -6,10 +6,19 @@ import 'react-day-picker/dist/style.css';
 
 type CalendarProps = {
   selectedDate: Date | undefined;
-  setSelectedDate: React.Dispatch<React.SetStateAction<Date | undefined>>
+  setSelectedDate: React.Dispatch<React.SetStateAction<Date | undefined>>;
+  setMonthlyIncome: React.Dispatch<React.SetStateAction<number | null>>;
+  setMonthlyExpense: React.Dispatch<React.SetStateAction<number | null>>;
+  setMonthlyTotalAmount: React.Dispatch<React.SetStateAction<number | null>>;
 };
 
-const Calendar: React.FC<CalendarProps> = ({selectedDate, setSelectedDate}) => {
+const Calendar: React.FC<CalendarProps> = ({
+  selectedDate,
+  setSelectedDate,
+  setMonthlyIncome,
+  setMonthlyExpense,
+  setMonthlyTotalAmount
+}) => {
   return(
     <>
       <DayPicker

@@ -6,6 +6,7 @@ use App\Http\Requests\StoreTransactionRequest;
 use App\Http\Requests\UpdateTransactionRequest;
 use App\Http\Resources\TransactionResource;
 use App\Models\Transaction;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
 class TransactionController extends Controller
@@ -18,11 +19,21 @@ class TransactionController extends Controller
         try{
             // $user_id = auth()->id(); 実装後変更
             $user_id = 1;
-            $transactions = Transaction::find($user_id)->with('genre')->get();
+            $transactions = Transaction::find($user_id)
+                ->with('genre')
+                ->get();
+            $total_income = Transaction::find($user_id)
+                ->where('type', 'income')
+                ->sum('amount');
+            $total_expense = Transaction::find($user_id)
+                ->where('type', 'expense')
+                ->sum('amount');
+            $total_assets = $total_income -$total_expense;
 
             return response()->json([
                 'message' => 'Success to fetch transactions.',
-                'transactions' => TransactionResource::collection($transactions)
+                'transactions' => TransactionResource::collection($transactions),
+                'total_assets' => $total_assets
             ]);
 
         }catch(\Exception $e){
@@ -34,11 +45,41 @@ class TransactionController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show monthly transaction summary
      */
-    public function create()
+    public function monthly_summary(Request $request)
     {
-        //
+        try{
+            $month = $request->query('month');
+
+            $user_id = 1;
+
+            $total_income = Transaction::where('user_id', $user_id)
+                ->whereMonth('date', $month)
+                ->where('type', 'income')
+                ->sum('amount');
+
+            $total_expense = Transaction::where('user_id', $user_id)
+                ->whereMonth('date', $month)
+                ->where('type', 'expense')
+                ->sum('amount');
+
+            $total_amount = $total_income - $total_expense;
+
+            return response()->json([
+                'message' => 'Success to fetch transaction summary',
+                'summary' => [
+                    'total_income' => $total_income,
+                    'total_expense' => $total_expense,
+                    'total' => $total_amount
+                ]
+            ]);
+        }catch(\Exception $e){
+            Log::error("Failed to fetch transaction summary" . $e->getMessage());
+            return response()->json([
+                'message' => 'Failed to fetch transaction summary'
+            ],500);
+        }
     }
 
     /**
@@ -67,22 +108,6 @@ class TransactionController extends Controller
                 'message' => 'Failed to store a new transaction...'
             ],500);
         }
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Transaction $transaction)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Transaction $transaction)
-    {
-        //
     }
 
     /**

@@ -10,6 +10,11 @@ import { useEffect, useState } from "react";
 
 const Dashboard: React.FC = () => {
   const [selectedDate, setSelectedDate] = useState<Date>();
+  const [monthlyIncome, setMonthlyIncome] = useState<number | null>(null);
+  const [monthlyExpense, setMonthlyExpense] = useState<number | null>(null);
+  const [monthlyTotalAmount, setMonthlyTotalAmount] = useState<number | null>(null);
+  const [totalAmount, setTotalAmount] = useState<number | null>(null);
+  const [availableAmount, setAvailableAmounta] = useState<number | null>(null);
   const dispatch = useAppDispatch();
   const transactions = useAppSelector((state) => state.transaction.transactions);
 
@@ -38,7 +43,13 @@ const Dashboard: React.FC = () => {
           </div>
           <div className="h-4/6 w-full flex space-x-5 px-7">
             <div className="w-1/2 h-full flex justify-center items-center bg-white rounded">
-              <Calendar selectedDate={selectedDate} setSelectedDate={setSelectedDate} />
+              <Calendar 
+                selectedDate={selectedDate}
+                setSelectedDate={setSelectedDate}
+                setMonthlyIncome={setMonthlyIncome}
+                setMonthlyExpense={setMonthlyExpense}
+                setMonthlyTotalAmount={setMonthlyTotalAmount}
+              />
             </div>
             <div className="w-1/2 h-full flex jsutify-center items-center bg-white rounded">
               <TransactionDetailList transactions={transactions} selectedDate={selectedDate} />

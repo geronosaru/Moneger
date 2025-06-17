@@ -34,6 +34,7 @@ Route::apiResource('/genres', GenreController::class);
  * トランザクションCRUD
  */
 Route::apiResource('/transactions', TransactionController::class);
+Route::get('/transactions/monthly-summary',[TransactionController::class])->name('transactions.monthly-summary');
 
 /**
  * 支出登録時の画像保存API 

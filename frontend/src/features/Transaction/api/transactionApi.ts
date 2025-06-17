@@ -11,6 +11,17 @@ const fetchTransactions = createAsyncThunk('transaction/fetchTransactions', asyn
   return response.data.transactions;
 });
 
+/**選択した月の収支サマリーを取得する */
+const fetchMonthlySummary = createAsyncThunk('transaction/fetchMonthlySummary', async(month: number) => {
+  const response = await axios.get(BASE_URL, {
+    params:{
+      'month': month
+    }
+  });
+  return response.data.summary
+});
+
+
 /**収支記録 */
 const storeTransaction = createAsyncThunk('transaction/storeTransaction', async(data: TransactionForm) => {
   const response = await axios.post(BASE_URL, data);
@@ -46,6 +57,7 @@ const deleteTransaction = createAsyncThunk('transaction/updateTransaction', asyn
 
 export { 
   fetchTransactions,
+  fetchMonthlySummary,
   storeTransaction,
   storeExpensePhoto,
   updateTransaction,
